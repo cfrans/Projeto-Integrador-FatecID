@@ -9,12 +9,13 @@ Este projeto faz parte do desenvolvimento interdisciplinar do curso de Análise 
 
 ## Tecnologias Utilizadas
 - **Linguagem:** PHP (Laravel) 
-- **Banco de Dados:** MySQL
+- **Banco de Dados:** MySQL (via Docker)
+- **Servidor Web:** Nginx (via Docker)
 - **Frontend:** HTML, PHP, CSS, JavaScript
 - **Controle de Versão:** Git & GitHub
 
 ## Como Executar o Projeto
-1. Acesse a versão demonstrativa do sistema no link abaixo:
+1. Acesse a versão demonstrativa do sistema no link:
 https://enderecoaserdefinido.cfrans.uk
 Utilize o login e senha 'demo'
 
