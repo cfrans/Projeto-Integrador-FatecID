@@ -13,6 +13,7 @@ Este projeto faz parte do desenvolvimento interdisciplinar do curso de Análise 
 - **Servidor Web:** Nginx (via Docker)
 - **Frontend:** HTML, PHP, CSS, JavaScript
 - **Controle de Versão:** Git & GitHub
+- **Hospedagem:** Ubuntu Server (via Microsoft Azure)
 
 ## Como Executar o Projeto
 1. Acesse a versão demonstrativa do sistema no link:
