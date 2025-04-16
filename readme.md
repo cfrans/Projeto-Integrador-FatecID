@@ -29,3 +29,11 @@ Utilize o login e senha 'demo'
 
 ## Licença
 - A Definir
+
+## ENV
+DB_CONNECTION=pgsql
+DB_HOST=https://pfutwxfjwbnuzurohvfa.supabase.co
+DB_PORT=5432
+DB_DATABASE=your-database-name
+DB_USERNAME=your-database-username
+DB_PASSWORD=your-database-password
