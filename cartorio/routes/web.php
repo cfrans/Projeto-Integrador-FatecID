@@ -19,6 +19,6 @@ Route::middleware('auth')->group(function () {
 
 Route::get('/protocolos', function () {
     return view('protocolos.index');
-})->name('protocolos.index');
+})->middleware(['auth'])->name('protocolos.index');
 
 require __DIR__.'/auth.php';

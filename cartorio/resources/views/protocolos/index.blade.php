@@ -1,9 +1,10 @@
 {{-- resources/views/protocolos/index.blade.php --}}
-@extends('layouts.app')
+<x-app-layout>
+{{-- @section('header', 'Cadastro de Protocolo')
 
 @section('title', 'Protocolos')
 
-@section('content')
+@section('content') --}}
     {{-- Estilo temporario para ajudar a ver as divisoes --}}
     <style>
         .campo-formulario {
@@ -185,4 +186,5 @@
         </script>
 
     </form>
-@endsection
+{{-- @endsection --}}
+</x-app-layout>
