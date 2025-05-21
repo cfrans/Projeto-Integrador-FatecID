@@ -12,8 +12,38 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                    {{-- <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
+                    </x-nav-link> --}}
+
+                <div class="relative group pt-1 inline-flex items-center text-sm font-medium leading-5 text-gray-700 hover:text-gray-500 transition duration-150 ease-in-out cursor-pointer">
+                    <div class="inline-flex items-center">
+                        Protocolos
+                        <svg class="ml-1 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                        </svg>
+                    </div>
+
+                    <div class="absolute top-full left-0 hidden group-hover:block bg-white z-50 mt-[-5px] w-48 rounded-md shadow-lg">
+                        <a href="{{ route('protocolos.index') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                            Novo Protocolo
+                        </a>
+                        <a href="{{ route('protocolos.view') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                            Visualizar Protocolo
+                        </a>
+                    </div>
+                </div>
+
+                    <x-nav-link :href="route('indices.index')" :active="request()->routeIs('indices.index')">
+                        {{ __('Índices') }}
+                    </x-nav-link>
+
+                    <x-nav-link :href="route('autenticacao.index')" :active="request()->routeIs('autenticacao.index')">
+                        {{ __('Autenticação') }}
+                    </x-nav-link>
+                
+                    <x-nav-link :href="route('andamento.index')" :active="request()->routeIs('andamento.index')">
+                        {{ __('Andamento') }}
                     </x-nav-link>
                 </div>
             </div>
