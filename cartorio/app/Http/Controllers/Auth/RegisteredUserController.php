@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Str;
 
 class RegisteredUserController extends Controller
 {
@@ -32,6 +34,8 @@ class RegisteredUserController extends Controller
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+            'telefone' => 'nullable|string|max:20',
+            'endereco' => 'nullable|string|max:255',
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
@@ -41,7 +45,28 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        event(new Registered($user));
+        // event(new Registered($user));
+
+        $supabaseUrl = env('SUPABASE_URL');
+        $supabaseKey = env('SUPABASE_API_KEY');
+        $supabaseId = Str::uuid()->toString();
+
+        $response = Http::withHeaders([
+            'apikey' => $supabaseKey,
+            'Authorization' => 'Bearer ' . $supabaseKey,
+            'Content-Type' => 'application/json',
+        ])->post("$supabaseUrl/rest/v1/user_profiles", [
+            'id' => $supabaseId,            // usa o mesmo UUID do Laravel (ou gere um)
+            'email' => $request->email,
+            'nome' => $request->name,
+            'telefone' => $request->telefone,
+            'endereco' => $request->endereco,
+        ]);
+
+        if ($response->failed()) {
+            dd($response->body());
+            return back()->withErrors('Erro ao criar perfil no Supabase.');
+        }
 
         Auth::login($user);
 
