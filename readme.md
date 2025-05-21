@@ -15,6 +15,15 @@ Este projeto faz parte do desenvolvimento interdisciplinar do curso de Análise 
 - **Controle de Versão:** Git & GitHub
 - **Hospedagem:** Ubuntu Server (via Microsoft Azure)
 
+## Páginas disponíveis (índice temporário, será excluído quando implementado no menu)
+- /profile
+- /dashboard
+- /protocolos
+- /protocolos/view
+- /indices
+- /autenticacao
+- /andamento
+
 ## Como Executar o Projeto
 1. Acesse a versão demonstrativa do sistema no link:
 https://enderecoaserdefinido.cfrans.uk
