@@ -199,7 +199,7 @@
 
             <!-- Terceira coluna (5/7) -->
             <div class="campo-formulario" style="flex: 3;">
-                <label for="apresentante_email">Email</label><br>
+                <label for="apresentante_email">E-mail</label><br>
                 <input type="email" id="apresentante_email" name="apresentante_email" required>
             </div>
         </div>
