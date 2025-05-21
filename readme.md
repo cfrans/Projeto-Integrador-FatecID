@@ -10,7 +10,6 @@ Este projeto faz parte do desenvolvimento interdisciplinar do curso de Análise 
 ## Tecnologias Utilizadas
 - **Linguagem:** PHP (Laravel) 
 - **Banco de Dados:** MySQL (via Docker)
-- **Servidor Web:** Nginx (via Docker)
 - **Frontend:** HTML, PHP, CSS, JavaScript
 - **Controle de Versão:** Git & GitHub
 - **Hospedagem:** Ubuntu Server (via Microsoft Azure)

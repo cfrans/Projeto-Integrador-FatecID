@@ -17,7 +17,6 @@ Route::middleware(['auth'])->group(function () {
         return view('dashboard');
     })->name('dashboard');
 
-    // Perfil do usuário
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
@@ -36,7 +35,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/andamento', fn () => view('andamento.index'))->name('andamento.index');
 });
 
-// Rotas de autenticação (login, registro, logout)
 require __DIR__.'/auth.php';
 
 // TODO: Criar as rotas para as paginas de admin-only (ediçao de usuarios e afins)
