@@ -31,7 +31,7 @@
                         Grupo
                     </x-input-label>
 
-                    <x-input-select id="protocolo_grupo" name="protocolo_grupo" class="w-[200px] h-8 text-sm" required>
+                    <x-input-select id="protocolo_grupo" name="protocolo_grupo" class="w-[200px] h-7.5 text-sm" required>
                             <option value="protocolo_grupo_td">Títulos e Documentos</option>
                             <option value="protocolo_grupo_pj">Pessoa Jurídica</option>
                     </x-input-select>
@@ -169,73 +169,107 @@
                         Dados do Apresentante
                     </x-input-label>
 
-        <div class="flex justify-center gap-4 w-[92%] mx-auto bg-white rounded-b-md">
+        <div class="flex justify-center gap-4 w-[92%] mx-auto bg-white rounded-t-md">
             <!-- Primeira coluna (1/7) -->
-            <div class="campo-formulario" style="flex: 1;">
-                <label for="apresentante_documento">Documento</label><br>
-                <x-input-select id="apresentante_documento" name="apresentante_documento" required>
+            <div class="campo-formulario flex ml-6 items-center w-[9%] mx-auto">
+                <div class="text-left">
+                <x-input-label for="apresentante_documento">
+                    Documento
+                </x-input-label>
+                <x-input-select id="apresentante_documento" name="apresentante_documento " class="w-[150px] h-8 text-sm" required>
                     <option value="apresentante_documento_rg">RG</option>
                     <option value="apresentante_documento_cpf">CPF</option>
                     <option value="apresentante_documento_cnh">CNH</option>
                 </x-input-select>
             </div>
+        </div>
+            
 
             <!-- Segunda coluna (1/7) -->
-            <div class="campo-formulario" style="flex: 1;">
-                <label for="apresentante_numero_documento">Número do Documento</label><br>
-                <x-text-input type="text" id="apresentante_numero_documento" name="apresentante_numero_documento" required>
+            <div class="campo-formulario flex ml-6 items-center w-[14.3%] mx-auto">
+                <div class="text-left">
+                <x-input-label for="apresentante_numero_documento">
+                    Número do Documento
+                </x-input-label>
+                <x-text-input type="text" id="apresentante_numero_documento" name="apresentante_numero_documento" class="w-[200px] h-8 text-sm" required>
             </x-text-input>
+            </div>
             </div>
 
             <!-- Terceira coluna (3/7) -->
             <div class="campo-formulario" style="flex: 3;">
-                <label for="apresentante_nome">Nome</label><br>
-                <x-text-input type="text" id="apresentante_nome" name="apresentante_nome" required>
+                <x-input-label for="apresentante_nome">
+                    Nome
+                </x-input-label>
+                <x-text-input type="text" id="apresentante_nome" name="apresentante_nome" class="w-[800px] h-8 text-sm" required>
             </x-text-input>
             </div>
         </div>
 
         <div class="flex justify-center gap-4 w-[92%] mx-auto bg-white rounded-b-md">
             <!-- Primeira coluna (1/7) -->
-            <div class="campo-formulario" style="flex: 1;">
-                <label for="apresentante_tipo_contato">Tipo de Contato</label><br>
-                <x-text-input type="text" id="apresentante_tipo_contato" name="apresentante_tipo_contato" required>
+            <div class="campo-formulario flex ml-6 items-center w-[9%] mx-auto">
+                <div class="text-left">
+                <x-input-label for="apresentante_tipo_contato">
+                    Tipo de Contato
+                </x-input-label>
+                <x-text-input type="text" id="apresentante_tipo_contato" name="apresentante_tipo_contato" class="w-[150px] h-8 text-sm" required>
                 </x-text-input>
+            </div>
             </div>
             <!-- TODO: Não vai ser editável, aparecer somente celular -->
 
             <!-- Segunda coluna (1/7) -->
-            <div class="campo-formulario" style="flex: 1;">
-                <label for="apresentante_numero_contato">Número de Contato</label><br>
-                <x-text-input type="text" id="apresentante_numero_contato" name="apresentante_numero_contato" required>
+            <div class="campo-formulario flex ml-6 items-center w-[12.5%] mx-auto">
+                <div class="text-left">
+                <x-input-label for="apresentante_numero_contato">
+                    Número de Contato
+                </x-input-label>
+                <x-text-input type="text" id="apresentante_numero_contato" name="apresentante_numero_contato" class="w-[200px] h-8 text-sm" required>
                 </x-text-input>
+            </div>
             </div>
 
             <!-- Terceira coluna (5/7) -->
-            <div class="campo-formulario" style="flex: 3;">
-                <label for="apresentante_email">E-mail</label><br>
-                <input type="email" id="apresentante_email" name="apresentante_email" required>
+            <div class="campo-formulario flex ml-6 items-center w-[100%] mx-auto">
+                <div class="text-left">
+                <x-input-label for="apresentante_email">
+                    E-mail
+                </x-input-label>
+                <x-text-input type="email" id="apresentante_email" name="apresentante_email" class="w-[800px] h-8 text-sm" required>
+            </x-text-input>
+            </div>
             </div>
         </div>
 
-        <h2>Dados das Partes</h2>
+        <x-input-label for="protocolo_grupo" class="ml-16 mt-8">
+                        Dados da Parte
+                    </x-input-label>
 
         <div class="flex justify-center gap-4 w-[92%] mx-auto bg-white rounded-b-md">
 
             <div id="container-campos">
                 <div style="display: flex; gap: 10px;" class="linha-campo">
                     <!-- Primeira coluna (1/7) -->
-                    <div class="campo-formulario" style="flex: 1;">
-                        <label for="parte_tipo">Tipo</label><br>
-                        <select name="parte_tipo[]" required>
+                    <div class="campo-formulario flex ml-6 items-center w-[80%] mx-auto">
+                     <div class="text-left">
+                        <x-input-label for="parte_tipo">
+                        Tipo
+                        </x-input-label>
+                        <x-input-select name="parte_tipo[]" required>
                             <option value="fisica">Física</option>
                             <option value="juridica">Jurídica</option>
-                        </select>
+                        </x-input-select>
+                     </div>
                     </div>
+
                     <!-- Segunda coluna (3/7) -->
                     <div class="campo-formulario" style="flex: 3;">
-                        <label for="parte_nome">Nome / Razão Social</label><br>
-                        <input type="text" name="parte_nome[]" required>
+                        <x-input-label for="parte_nome">
+                            Nome / Razão Social
+                        </x-input-label>
+                        <x-text-input type="text" name="parte_nome[]" required>
+                        </x-text-input>
                     </div>
                 </div>
             </div>
