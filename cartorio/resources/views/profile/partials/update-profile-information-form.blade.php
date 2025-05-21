@@ -47,6 +47,40 @@
             @endif
         </div>
 
+        <!-- Telefone -->
+        <div>
+            <x-input-label for="telefone" :value="__('Telefone')" />
+            <x-text-input
+                id="telefone"
+                name="telefone"
+                type="tel"
+                class="mt-1 block w-full"
+                :value="old('telefone', $user->telefone ?? '')"
+                required
+                autofocus
+                autocomplete="tel"
+                pattern="^\+?\d{10,15}$"
+                title="Informe um telefone válido, com 10 a 15 dígitos, opcionalmente iniciando com +"
+            />
+            <x-input-error class="mt-2" :messages="$errors->get('telefone')" />
+        </div>
+
+        <!-- Endereço -->
+        <div>
+            <x-input-label for="endereco" :value="__('Endereço')" />
+            <x-text-input
+                id="endereco"
+                name="endereco"
+                type="text"
+                class="mt-1 block w-full"
+                :value="old('endereco', $user->endereco ?? '')"
+                required
+                autocomplete="street-address"
+            />
+            <x-input-error class="mt-2" :messages="$errors->get('endereco')" />
+        </div>
+
+
         <div class="flex items-center gap-4">
             <x-primary-button>{{ __('Salvar') }}</x-primary-button>
 
