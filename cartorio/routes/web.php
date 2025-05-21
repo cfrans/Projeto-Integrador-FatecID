@@ -23,7 +23,7 @@ Route::middleware(['auth'])->group(function () {
 
     // Protocolos
     Route::get('/protocolos', fn () => view('protocolos.index'))->name('protocolos.index');
-    Route::get('/protocolos/{id}', fn ($id) => view('protocolos.view', ['id' => $id]))->name('protocolos.view');
+    Route::get('/protocolos/view', fn () => view('protocolos.view'))->name('protocolos.view');
 
     // Índices
     Route::get('/indices', fn () => view('indices.index'))->name('indices.index');
