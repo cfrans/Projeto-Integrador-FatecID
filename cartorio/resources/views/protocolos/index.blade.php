@@ -8,7 +8,7 @@
     {{-- Estilo temporario para ajudar a ver as divisoes --}}
     <style>
         .campo-formulario {
-            border: 1px solid #ccc;
+            border: 0px;
             padding: 8px;
         }
     </style>
@@ -16,143 +16,211 @@
     {{-- TODO: Criar o endpoint para o formulario --}}
     <form action="/endpoint" method="post">
 
-        <h2>Dados do Protocolo</h2>
+        <x-input-label for="protocolo_grupo" class="ml-16 mt-14">
+                        Dados do Protocolo
+                    </x-input-label>
 
         {{-- DIV MENOR PARA O CONTEUDO DOS CAMPOS --}}
-        <div style="display: flex; width: 80%; margin: auto;">
+        <div class="flex justify-center gap-4 w-[92%] mx-auto bg-white rounded-t-md">
+
 
             <!-- Primeira coluna (2/7) -->
-            <div class="campo-formulario" style="flex: 2;">
-                <label for="protocolo_grupo">Grupo</label><br>
-                <select id="protocolo_grupo" name="protocolo_grupo" required>
-                    <option value="protocolo_grupo_td">Títulos e Documentos</option>
-                    <option value="protocolo_grupo_pj">Pessoa Jurídica</option>
-                </select>
+            <div class="campo-formulario flex ml-6 items-center w-[13%] mx-auto">
+                <div class="text-left">
+                    <x-input-label for="protocolo_grupo">
+                        Grupo
+                    </x-input-label>
+
+                    <x-input-select id="protocolo_grupo" name="protocolo_grupo" class="w-[200px] h-8 text-sm" required>
+                            <option value="protocolo_grupo_td">Títulos e Documentos</option>
+                            <option value="protocolo_grupo_pj">Pessoa Jurídica</option>
+                    </x-input-select>
+                </div>
             </div>
 
+
             <!-- Segunda coluna (2/7) -->
-            <div class="campo-formulario" style="flex: 2;">
-                <label for="protocolo_natureza">Natureza</label><br>
-                <select id="protocolo_natureza" name="protocolo_natureza" required>
-                    <option value="protocolo_natureza_01">Natureza 01</option>
-                    <option value="protocolo_natureza_02">Natureza 02</option>
-                    {{-- TODO: Confirmar os tipos de natureza --}}
-                </select>
+             <div class="campo-formulario flex ml-6 items-center w-[27%] mx-auto">
+                <div class="text-left">
+                    <x-input-label for="protocolo_natureza">
+                        Natureza
+                    </x-input-label>
+                    <x-input-select id="protocolo_natureza" name="protocolo_natureza " class="w-[400px] h-8 text-sm" required>
+                        <option value="protocolo_natureza_01">Natureza 01</option>
+                        <option value="protocolo_natureza_02">Natureza 02</option>
+                        {{-- TODO: Confirmar os tipos de natureza --}}
+                    </x-input-select>
+                </div>
             </div>
 
             <!-- Terceira coluna (2/7) -->
-            <div class="campo-formulario" style="flex: 2;">
-                <label for="protocolo_especie">Espécie</label><br>
-                <select id="protocolo_especie" name="protocolo_especie" required>
+             <div class="campo-formulario flex ml-6 items-center w-[12.8%] mx-auto">
+                <div class="text-left">
+                <x-input-label for="protocolo_especie">
+                    Espécie
+                </x-input-label>
+                <x-input-select id="protocolo_especie" name="protocolo_especie" class="w-[200px] h-8 text-sm" required>
                     <option value="protocolo_especie_registro">Registro</option>
                     <option value="protocolo_especie_averbacao">Averbação</option>
-                </select>
+                </x-input-select>
+                </div>
             </div>
 
             <!-- Quarta coluna (1/7) -->
-            <div class="campo-formulario" style="flex: 1;">
-                <label for="protocolo_data">Data</label><br>
-                <input type="date" id="protocolo_data" name="protocolo_data" required>
-                {{-- TODO: Confirmar o formato da data e se vai ser editável --}}
-            </div>
-
-        </div>
-
-        <div style="display: flex; width: 80%; margin: auto;">
-            <!-- Primeira coluna (1/7) -->
-            <div class="campo-formulario" style="flex: 1;">
-                <label for="protocolo_numero_documento">Nº Documento / Título</label><br>
-                <input type="text" id="protocolo_numero_documento" name="protocolo_numero_documento" required>
-            </div>
-
-            <!-- Segunda coluna (1/7) -->
-            <div class="campo-formulario" style="flex: 1;">
-                <label for="protocolo_data_documento">Data do documento</label><br>
-                <input type="date" id="protocolo_data_documento" name="protocolo_data_documento" required>
-            </div>
-
-            <!-- Terceira coluna (1/7) -->
-            <div class="campo-formulario" style="flex: 1;">
-                <label for="protocolo_numero_protocolo">Protocolo</label><br>
-                <input type="text" id="protocolo_numero_protocolo" name="protocolo_numero_protocolo" required>
-                {{-- TODO: Confirmar se esse é o numero do protocolo mesmo que vai ser gerado sozinho --}}
-            </div>
-
-            <!-- Quarta coluna (1/7) -->
-            <div class="campo-formulario" style="flex: 1;">
-                <label for="protocolo_previsao">Previsão</label><br>
-                <input type="date" id="protocolo_previsao" name="protocolo_previsao" required>
-                {{-- TODO: Confirmar se tambem é editável ou só calcular o prazo a partir da data inicial --}}
+            <div class="campo-formulario flex ml-6 items-center w-[12.8%] mx-auto">
+                <div class="text-left">
+                    <x-input-label for="protocolo_numero_protocolo">
+                        Protocolo
+                    </x-input-label>
+                    <x-text-input  id="protocolo_numero_protocolo" name="protocolo_numero_protocolo" class="w-[200px] h-8 text-sm" required>
+                    {{-- TODO: Confirmar se esse é o numero do protocolo mesmo que vai ser gerado sozinho --}}
+                    </x-text-input>
+                </div>
             </div>
 
             <!-- Quinta coluna (1/7) -->
-            <div class="campo-formulario" style="flex: 1;">
-                <label for="protocolo_cancelamento">Cancelamento</label><br>
-                <input type="text" id="protocolo_cancelamento" name="protocolo_cancelamento" required>
+           <div class="campo-formulario flex ml-6 items-center w-[80%] mx-auto">
+                <div class="text-left">
+                    <x-input-label for="protocolo_data">
+                        Data
+                    </x-input-label>
+                    <x-input-date type="date" id="protocolo_data" name="protocolo_data" class="w-[150px] h-8 text-sm" required />
+                    {{-- TODO: Confirmar o formato da data e se vai ser editável --}}
+                </div>
+            </div>
+        
+        </div> 
+        
+        <!--parte de cima-->
+
+        <div class="flex justify-center gap-4 w-[92%] mx-auto bg-white rounded-b-md">
+            <!-- Primeira coluna (1/7) -->
+            <div class="campo-formulario flex ml-6 items-center w-[6%] mx-auto">
+                    <div class="text-left">
+                    <x-input-label for="protocolo_numero_documento">
+                        Nº Documento / Título
+                    </x-input-label>
+                    <x-text-input id="protocolo_numero_documento" name="protocolo_numero_documento" class="w-[200px] h-8 text-sm" required />
+                </div>
+            </div>
+
+            <!-- Segunda coluna (1/7) -->
+            <div class="campo-formulario flex justify-center gap-4  w-[6%] mx-auto">
+                <div class="text-left">
+                    <x-input-label for="protocolo_data_documento">
+                        Data do documento
+                    </x-input-label>
+                    <x-input-date type="date" id="protocolo_data_documento" name="protocolo_data_documento" class="w-[150px] h-8 text-sm" required>
+                    </x-input-date>
+                </div>
+            </div>
+
+
+            <!-- Terceira coluna (1/7) -->
+            <div class="campo-formulario flex justify-center gap-4 items-center w-[0%] mx-auto">
+                <div class="text-left">
+                    <x-input-label for="protocolo_previsao">
+                        Previsão
+                    </x-input-label>
+                    <x-input-date type="date" id="protocolo_previsao" name="protocolo_previsao" class="w-[150px] h-8 text-sm" required>
+                    {{-- TODO: Confirmar se tambem é editável ou só calcular o prazo a partir da data inicial --}}
+                    </x-input-date>
+                </div>
+            </div>
+
+            <!-- Quarta coluna (1/7) -->
+           <div class="campo-formulario flex justify-center gap-4 items-center w-[0%] mx-auto">
+                <div class="text-left">
+                    <x-input-label for="protocolo_cancelamento">
+                        Cancelamento
+                    </x-input-label>
+                    <x-input-date type="date" id="protocolo_cancelamento" name="protocolo_cancelamento" class="w-[150px] h-8 text-sm" required />
+                </div>
+            </div>
+            <!-- TODO: CAMPO NAO EDITAVEL -->
+
+            <!-- Quinta coluna (1/7) -->
+            <div class="campo-formulario flex justify-center items-center w-[4%] mx-auto">
+                <div class="text-left">
+                    <x-input-label for="protocolo_data_registro">
+                        Data de registro
+                    </x-input-label>
+                    <x-input-date type="date" id="protocolo_data_registro" name="protocolo_data_registro" class="w-[150px] h-8 text-sm" required>
+                    </x-input-date>
+                </div>
             </div>
 
             <!-- Sexta coluna (1/7) -->
-            <div class="campo-formulario" style="flex: 1;">
-                <label for="protocolo_data_registro">Data de registro</label><br>
-                <input type="date" id="protocolo_data_registro" name="protocolo_data_registro" required>
+            <div class="campo-formulario flex justify-center items-center w-[8%] mx-auto">
+                <div class="text-left">
+                    <x-input-label for="protocolo_data_de_retirada">
+                        Data de Retirada
+                    </x-input-label>
+                    <x-input-date type="date" id="protocolo_data_de_retirada" name="protocolo_data_de_retirada" class="w-[150px] h-8 text-sm" required>
+                    </x-input-date>
+                </div>
             </div>
+        </div> 
+        
+        <!--acaba aqui-->
+    
 
-            <!-- Sétima coluna (1/7) -->
-            <div class="campo-formulario" style="flex: 1;">
-                <label for="protocolo_data_de_retirada">Data de Retirada</label><br>
-                <input type="date" id="protocolo_data_de_retirada" name="protocolo_data_de_retirada" required>
-            </div>
-        </div>
+        <x-input-label for="protocolo_grupo" class="ml-16 mt-8">
+                        Dados do Apresentante
+                    </x-input-label>
 
-        <h2>Dados do Apresentante</h2>
-
-        <div style="display: flex; width: 80%; margin: auto;">
+        <div class="flex justify-center gap-4 w-[92%] mx-auto bg-white rounded-b-md">
             <!-- Primeira coluna (1/7) -->
             <div class="campo-formulario" style="flex: 1;">
                 <label for="apresentante_documento">Documento</label><br>
-                <select id="apresentante_documento" name="apresentante_documento" required>
+                <x-input-select id="apresentante_documento" name="apresentante_documento" required>
                     <option value="apresentante_documento_rg">RG</option>
                     <option value="apresentante_documento_cpf">CPF</option>
                     <option value="apresentante_documento_cnh">CNH</option>
-                </select>
+                </x-input-select>
             </div>
 
             <!-- Segunda coluna (1/7) -->
             <div class="campo-formulario" style="flex: 1;">
                 <label for="apresentante_numero_documento">Número do Documento</label><br>
-                <input type="text" id="apresentante_numero_documento" name="apresentante_numero_documento" required>
+                <x-text-input type="text" id="apresentante_numero_documento" name="apresentante_numero_documento" required>
+            </x-text-input>
             </div>
 
             <!-- Terceira coluna (3/7) -->
             <div class="campo-formulario" style="flex: 3;">
                 <label for="apresentante_nome">Nome</label><br>
-                <input type="text" id="apresentante_nome" name="apresentante_nome" required>
+                <x-text-input type="text" id="apresentante_nome" name="apresentante_nome" required>
+            </x-text-input>
             </div>
         </div>
 
-        <div style="display: flex; width: 80%; margin: auto;">
+        <div class="flex justify-center gap-4 w-[92%] mx-auto bg-white rounded-b-md">
             <!-- Primeira coluna (1/7) -->
             <div class="campo-formulario" style="flex: 1;">
                 <label for="apresentante_tipo_contato">Tipo de Contato</label><br>
-                <input type="text" id="apresentante_tipo_contato" name="apresentante_tipo_contato" required>
+                <x-text-input type="text" id="apresentante_tipo_contato" name="apresentante_tipo_contato" required>
+                </x-text-input>
             </div>
+            <!-- TODO: Não vai ser editável, aparecer somente celular -->
 
             <!-- Segunda coluna (1/7) -->
             <div class="campo-formulario" style="flex: 1;">
                 <label for="apresentante_numero_contato">Número de Contato</label><br>
-                <input type="text" id="apresentante_numero_contato" name="apresentante_numero_contato" required>
+                <x-text-input type="text" id="apresentante_numero_contato" name="apresentante_numero_contato" required>
+                </x-text-input>
             </div>
 
             <!-- Terceira coluna (5/7) -->
             <div class="campo-formulario" style="flex: 3;">
-                <label for="apresentante_email">Email</label><br>
+                <label for="apresentante_email">E-mail</label><br>
                 <input type="email" id="apresentante_email" name="apresentante_email" required>
             </div>
         </div>
 
         <h2>Dados das Partes</h2>
 
-        <div style="width: 80%; margin: auto;">
+        <div class="flex justify-center gap-4 w-[92%] mx-auto bg-white rounded-b-md">
 
             <div id="container-campos">
                 <div style="display: flex; gap: 10px;" class="linha-campo">
