@@ -27,28 +27,7 @@ class AuthenticatedSessionController extends Controller
 
     public function store(LoginRequest $request)
     {
-        $email = $request->input('email');
-
-        $supabaseUrl = env('SUPABASE_URL');
-        $supabaseKey = env('SUPABASE_API_KEY');
-
-        $response = Http::withHeaders([
-            'apikey' => $supabaseKey,
-            'Authorization' => 'Bearer ' . $supabaseKey,
-        ])->get("$supabaseUrl/rest/v1/user_profiles", [
-            'email' => 'eq.' . $email,
-            'select' => '*'
-        ]);
-
-        $profiles = $response->json();
-
-        if (empty($profiles)) {
-            // Nenhum perfil encontrado no Supabase
-            return back()->withErrors(['email' => 'Usuário não encontrado no Supabase']);
-        }
-
-        $userProfile = $profiles[0];
-
+    
         // Aqui, para seguir com o login Laravel tradicional
         // (você pode verificar se o usuário existe no DB Laravel e autenticar)
 

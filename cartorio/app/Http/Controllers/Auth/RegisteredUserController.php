@@ -43,30 +43,9 @@ class RegisteredUserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-        ]);
-
-        // event(new Registered($user));
-
-        $supabaseUrl = env('SUPABASE_URL');
-        $supabaseKey = env('SUPABASE_API_KEY');
-        $supabaseId = Str::uuid()->toString();
-
-        $response = Http::withHeaders([
-            'apikey' => $supabaseKey,
-            'Authorization' => 'Bearer ' . $supabaseKey,
-            'Content-Type' => 'application/json',
-        ])->post("$supabaseUrl/rest/v1/user_profiles", [
-            'id' => $supabaseId,            // usa o mesmo UUID do Laravel (ou gere um)
-            'email' => $request->email,
-            'nome' => $request->name,
             'telefone' => $request->telefone,
             'endereco' => $request->endereco,
         ]);
-
-        if ($response->failed()) {
-            dd($response->body());
-            return back()->withErrors('Erro ao criar perfil no Supabase.');
-        }
 
         Auth::login($user);
 
