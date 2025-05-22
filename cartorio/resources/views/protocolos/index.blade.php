@@ -16,7 +16,7 @@
     {{-- TODO: Criar o endpoint para o formulario --}}
     <form action="/endpoint" method="post">
 
-        <x-input-label for="protocolo_grupo" class="ml-16 mt-14">
+        <x-input-label for="protocolo_grupo" class="ml-16 mt-12">
                         Dados do Protocolo
                     </x-input-label>
 
@@ -94,8 +94,9 @@
         <!--parte de cima-->
 
         <div class="flex justify-center gap-4 w-[92%] mx-auto bg-white rounded-b-md">
+
             <!-- Primeira coluna (1/7) -->
-            <div class="campo-formulario flex ml-6 items-center w-[6%] mx-auto">
+            <div class="campo-formulario flex ml-6 items-center w-[10%] mx-auto">
                     <div class="text-left">
                     <x-input-label for="protocolo_numero_documento">
                         Nº Documento / Título
@@ -105,7 +106,7 @@
             </div>
 
             <!-- Segunda coluna (1/7) -->
-            <div class="campo-formulario flex justify-center gap-4  w-[6%] mx-auto">
+            <div class="campo-formulario flex justify-center gap-4  w-[10%] mx-auto">
                 <div class="text-left">
                     <x-input-label for="protocolo_data_documento">
                         Data do documento
@@ -117,7 +118,7 @@
 
 
             <!-- Terceira coluna (1/7) -->
-            <div class="campo-formulario flex justify-center gap-4 items-center w-[0%] mx-auto">
+            <div class="campo-formulario flex justify-center gap-4 items-center w-[10%] mx-auto">
                 <div class="text-left">
                     <x-input-label for="protocolo_previsao">
                         Previsão
@@ -129,7 +130,7 @@
             </div>
 
             <!-- Quarta coluna (1/7) -->
-           <div class="campo-formulario flex justify-center gap-4 items-center w-[0%] mx-auto">
+           <div class="campo-formulario flex justify-center gap-4 items-center w-[10%] mx-auto">
                 <div class="text-left">
                     <x-input-label for="protocolo_cancelamento">
                         Cancelamento
@@ -140,7 +141,7 @@
             <!-- TODO: CAMPO NAO EDITAVEL -->
 
             <!-- Quinta coluna (1/7) -->
-            <div class="campo-formulario flex justify-center items-center w-[4%] mx-auto">
+            <div class="campo-formulario flex justify-center items-center w-[10%] mx-auto">
                 <div class="text-left">
                     <x-input-label for="protocolo_data_registro">
                         Data de registro
@@ -151,7 +152,7 @@
             </div>
 
             <!-- Sexta coluna (1/7) -->
-            <div class="campo-formulario flex justify-center items-center w-[8%] mx-auto">
+            <div class="campo-formulario flex justify-center items-center w-[10%] mx-auto">
                 <div class="text-left">
                     <x-input-label for="protocolo_data_de_retirada">
                         Data de Retirada
@@ -169,7 +170,7 @@
                         Dados do Apresentante
                     </x-input-label>
 
-        <div class="flex justify-center gap-4 w-[92%] mx-auto bg-white rounded-t-md">
+        <div class="flex justify-center gap-4 w-[92%] h-20 mx-auto bg-white rounded-t-md">
             <!-- Primeira coluna (1/7) -->
             <div class="campo-formulario flex ml-6 items-center w-[9%] mx-auto">
                 <div class="text-left">
@@ -248,15 +249,14 @@
 
         <div class="flex justify-center gap-4 w-[92%] mx-auto bg-white rounded-b-md">
 
-            <div id="container-campos">
-                <div style="display: flex; gap: 10px;" class="linha-campo">
+            
                     <!-- Primeira coluna (1/7) -->
-                    <div class="campo-formulario flex ml-6 items-center w-[80%] mx-auto">
+                    <div class="campo-formulario flex ml-6 items-center w-[10%] mx-auto">
                      <div class="text-left">
                         <x-input-label for="parte_tipo">
                         Tipo
                         </x-input-label>
-                        <x-input-select name="parte_tipo[]" required>
+                        <x-input-select name="parte_tipo[]" class="w-[365px] h-8 text-sm" required>
                             <option value="fisica">Física</option>
                             <option value="juridica">Jurídica</option>
                         </x-input-select>
@@ -264,12 +264,14 @@
                     </div>
 
                     <!-- Segunda coluna (3/7) -->
-                    <div class="campo-formulario" style="flex: 3;">
+                    <div class="campo-formulario flex ml-6 items-center w-[56%] mx-auto">
+                     <div class="text-left">
                         <x-input-label for="parte_nome">
                             Nome / Razão Social
                         </x-input-label>
-                        <x-text-input type="text" name="parte_nome[]" required>
+                        <x-text-input type="text" name="parte_nome[]" class="w-[600px] h-8 text-sm" required>
                         </x-text-input>
+                    </div>
                     </div>
                 </div>
             </div>
