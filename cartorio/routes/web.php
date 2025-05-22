@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ProtocoloController;
+use App\Http\Controllers\ApresentanteController;
+use App\Http\Controllers\DocumentoController;
 
 // Página inicial 
 // TODO: Revisar se é necessário
@@ -20,6 +23,15 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::get('/protocolos/create', [ProtocoloController::class, 'create']);
+    Route::post('/protocolos', [ProtocoloController::class, 'store']);
+
+    Route::get('/apresentantes/create', [ApresentanteController::class, 'create']);
+    Route::post('/apresentantes', [ApresentanteController::class, 'store']);
+
+    Route::get('/documentos/create', [DocumentoController::class, 'create']);
+    Route::post('/documentos', [DocumentoController::class, 'store']);
 
     // Protocolos
     Route::get('/protocolos', fn () => view('protocolos.index'))->name('protocolos.index');
