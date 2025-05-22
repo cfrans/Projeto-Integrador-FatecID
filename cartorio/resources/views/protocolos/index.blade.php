@@ -170,9 +170,9 @@
                         Dados do Apresentante
                     </x-input-label>
 
-        <div class="flex justify-center gap-4 w-[92%] h-20 mx-auto bg-white rounded-t-md">
+        <div class="flex justify-center gap-4 w-[92%] h-18 mx-auto bg-white rounded-t-md">
             <!-- Primeira coluna (1/7) -->
-            <div class="campo-formulario flex ml-6 items-center w-[9%] mx-auto">
+            <div class="campo-formulario flex ml-6 items-center w-[4%] mx-auto">
                 <div class="text-left">
                 <x-input-label for="apresentante_documento">
                     Documento
@@ -187,7 +187,7 @@
             
 
             <!-- Segunda coluna (1/7) -->
-            <div class="campo-formulario flex ml-6 items-center w-[14.3%] mx-auto">
+            <div class="campo-formulario flex ml-6 items-center w-[8%] mx-auto">
                 <div class="text-left">
                 <x-input-label for="apresentante_numero_documento">
                     Número do Documento
@@ -198,16 +198,18 @@
             </div>
 
             <!-- Terceira coluna (3/7) -->
-            <div class="campo-formulario" style="flex: 3;">
+            <div class="campo-formulario flex ml-6 items-center w-[66%] mx-auto">
+                <div class="text-left">
                 <x-input-label for="apresentante_nome">
                     Nome
                 </x-input-label>
                 <x-text-input type="text" id="apresentante_nome" name="apresentante_nome" class="w-[800px] h-8 text-sm" required>
             </x-text-input>
             </div>
+    </div>
         </div>
 
-        <div class="flex justify-center gap-4 w-[92%] mx-auto bg-white rounded-b-md">
+        <div class="flex justify-center gap-4 w-[92%] h-20 mx-auto bg-white rounded-b-md">
             <!-- Primeira coluna (1/7) -->
             <div class="campo-formulario flex ml-6 items-center w-[9%] mx-auto">
                 <div class="text-left">
@@ -247,7 +249,7 @@
                         Dados da Parte
                     </x-input-label>
 
-        <div class="flex justify-center gap-4 w-[92%] mx-auto bg-white rounded-b-md">
+        <div class="flex justify-center gap-4 w-[92%] h-20 mx-auto bg-white rounded-md">
 
             
                     <!-- Primeira coluna (1/7) -->
