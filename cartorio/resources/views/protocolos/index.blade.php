@@ -20,12 +20,13 @@
                         Dados do Protocolo
                     </x-input-label>
 
+
         {{-- DIV MENOR PARA O CONTEUDO DOS CAMPOS --}}
-        <div class="flex justify-center gap-4 w-[92%] mx-auto bg-white rounded-t-md">
+        <div class="flex justify-start w-[92%] h-20 mx-auto bg-white rounded-b-md">
 
 
             <!-- Primeira coluna (2/7) -->
-            <div class="campo-formulario flex ml-6 items-center w-[13%] mx-auto">
+            <div class="campo-formulario flex items-center ml-6"> 
                 <div class="text-left">
                     <x-input-label for="protocolo_grupo">
                         Grupo
@@ -40,7 +41,7 @@
 
 
             <!-- Segunda coluna (2/7) -->
-             <div class="campo-formulario flex ml-6 items-center w-[27%] mx-auto">
+             <div class="campo-formulario flex items-center"> 
                 <div class="text-left">
                     <x-input-label for="protocolo_natureza">
                         Natureza
@@ -54,7 +55,7 @@
             </div>
 
             <!-- Terceira coluna (2/7) -->
-             <div class="campo-formulario flex ml-6 items-center w-[12.8%] mx-auto">
+             <div class="campo-formulario flex items-center">
                 <div class="text-left">
                 <x-input-label for="protocolo_especie">
                     Espécie
@@ -67,7 +68,7 @@
             </div>
 
             <!-- Quarta coluna (1/7) -->
-            <div class="campo-formulario flex ml-6 items-center w-[12.8%] mx-auto">
+            <div class="campo-formulario flex items-center">
                 <div class="text-left">
                     <x-input-label for="protocolo_numero_protocolo">
                         Protocolo
@@ -79,7 +80,7 @@
             </div>
 
             <!-- Quinta coluna (1/7) -->
-           <div class="campo-formulario flex ml-6 items-center w-[80%] mx-auto">
+           <div class="campo-formulario flex items-center">
                 <div class="text-left">
                     <x-input-label for="protocolo_data">
                         Data
@@ -93,11 +94,11 @@
         
         <!--parte de cima-->
 
-        <div class="flex justify-center gap-4 w-[92%] mx-auto bg-white rounded-b-md">
+        <div class="flex justify-start w-[92%] h-20 mx-auto bg-white rounded-b-md">
 
             <!-- Primeira coluna (1/7) -->
-            <div class="campo-formulario flex ml-6 items-center w-[10%] mx-auto">
-                    <div class="text-left">
+           <div class="campo-formulario flex items-center ml-6">
+                <div class="text-left">
                     <x-input-label for="protocolo_numero_documento">
                         Nº Documento / Título
                     </x-input-label>
@@ -106,7 +107,7 @@
             </div>
 
             <!-- Segunda coluna (1/7) -->
-            <div class="campo-formulario flex justify-center gap-4  w-[10%] mx-auto">
+             <div class="campo-formulario flex items-center">
                 <div class="text-left">
                     <x-input-label for="protocolo_data_documento">
                         Data do documento
@@ -118,7 +119,7 @@
 
 
             <!-- Terceira coluna (1/7) -->
-            <div class="campo-formulario flex justify-center gap-4 items-center w-[10%] mx-auto">
+           <div class="campo-formulario flex items-center">
                 <div class="text-left">
                     <x-input-label for="protocolo_previsao">
                         Previsão
@@ -130,7 +131,7 @@
             </div>
 
             <!-- Quarta coluna (1/7) -->
-           <div class="campo-formulario flex justify-center gap-4 items-center w-[10%] mx-auto">
+          <div class="campo-formulario flex items-center">
                 <div class="text-left">
                     <x-input-label for="protocolo_cancelamento">
                         Cancelamento
@@ -141,7 +142,7 @@
             <!-- TODO: CAMPO NAO EDITAVEL -->
 
             <!-- Quinta coluna (1/7) -->
-            <div class="campo-formulario flex justify-center items-center w-[10%] mx-auto">
+            <div class="campo-formulario flex items-center">
                 <div class="text-left">
                     <x-input-label for="protocolo_data_registro">
                         Data de registro
@@ -152,7 +153,7 @@
             </div>
 
             <!-- Sexta coluna (1/7) -->
-            <div class="campo-formulario flex justify-center items-center w-[10%] mx-auto">
+            <div class="campo-formulario flex items-center">
                 <div class="text-left">
                     <x-input-label for="protocolo_data_de_retirada">
                         Data de Retirada
