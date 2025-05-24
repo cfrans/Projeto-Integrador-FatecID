@@ -82,8 +82,8 @@
                     <x-input-label for="autenticacao_valor">
                         Valor
                     </x-input-label>
-                        <x-text-input type="text" id="valor" name="valor" class="w-[200px] h-8 text-sm" required>
-                        </x-text-input>
+                        <x-input-number type="text" id="valor" name="valor" class="w-[200px] h-8 text-sm" required>
+                        </x-input-number>
                 </div>
             </div>
 
