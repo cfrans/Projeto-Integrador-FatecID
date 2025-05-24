@@ -22,6 +22,8 @@ Este projeto faz parte do desenvolvimento interdisciplinar do curso de Análise 
 - /indices
 - /autenticacao
 - /andamento
+- /sobre
+- /contato
 
 ## Como Executar o Projeto
 1. Acesse a versão demonstrativa do sistema no link:

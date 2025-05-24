@@ -38,13 +38,22 @@
                         {{ __('Índices') }}
                     </x-nav-link>
 
-                    <x-nav-link :href="route('autenticacao.index')" :active="request()->routeIs('autenticacao.index')">
+                    <x-nav-link :href="route('sobre.index')" :active="request()->routeIs('sobre.index')">
+                        {{ __('Sobre') }}
+                    </x-nav-link>
+
+                    <x-nav-link :href="route('contato.index')" :active="request()->routeIs('contato.index')">
+                        {{ __('Contato') }}
+                    </x-nav-link>
+
+                    <!-- <x-nav-link :href="route('autenticacao.index')" :active="request()->routeIs('autenticacao.index')">
                         {{ __('Autenticação') }}
                     </x-nav-link>
-                
+                    Comentados pois provavelmente serão removidos daqui
                     <x-nav-link :href="route('andamento.index')" :active="request()->routeIs('andamento.index')">
                         {{ __('Andamento') }}
-                    </x-nav-link>
+                    </x-nav-link> -->
+
                 </div>
             </div>
 
