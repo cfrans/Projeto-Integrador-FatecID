@@ -1,10 +1,6 @@
-{{-- resources/views/protocolos/index.blade.php --}}
 <x-app-layout>
-{{-- @section('header', 'Cadastro de Protocolo')
+    <x-slot name="title">Novo Protocolo</x-slot>
 
-@section('title', 'Protocolos')
-
-@section('content') --}}
     {{-- Estilo temporario para ajudar a ver as divisoes --}}
     <style>
         .campo-formulario {
@@ -12,6 +8,12 @@
             padding: 8px;
         }
     </style>
+    
+    <x-slot name="header">
+        <h2 class="font-semibold text-base text-white leading-tight">
+            {{ __('Protocolos') }}
+        </h2>
+    </x-slot>
 
     <div class="w-full flex">
   <div class="w-60 h-11 bg-gray-200 rounded-md mt-6 ml-auto mr-14 flex items-center justify-center">
@@ -20,8 +22,6 @@
     </button>
   </div>
 </div>
-
-
 
     {{-- TODO: Criar o endpoint para o formulario --}}
     <form action="/endpoint" method="post">

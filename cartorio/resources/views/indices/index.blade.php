@@ -1,4 +1,5 @@
 <x-app-layout>
+    <x-slot name="title">Índices</x-slot>
     <style>
         .campo-formulario {
             border: 0px;
@@ -15,6 +16,12 @@
             color: #111827; /* Texto quase preto */
         }
     </style>
+
+    <x-slot name="header">
+        <h2 class="font-semibold text-base text-white leading-tight">
+            {{ __('Índices') }}
+        </h2>
+    </x-slot>
 
     <x-input-label for="pesquisa_protocolo" class="ml-16 mt-14">
         Pesquisa de Protocolo
