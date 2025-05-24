@@ -11,7 +11,7 @@
         <div class="mt-4">
             <x-input-label for="usuario" :value="__('Crie um Usuário:')" />
             <x-text-input id="usuario" class="block mt-1 w-full" type="text" name="usuario" :value="old('usuario')" required autocomplete="usuario" />
-            <x-input-error :messages="$errors->get('usuario')" class="mt-2" />
+            <x-input-error :messages="$errors->get('usuario')" class="mt-2" /> <br>
         </div>
 
         <!-- NOME -->

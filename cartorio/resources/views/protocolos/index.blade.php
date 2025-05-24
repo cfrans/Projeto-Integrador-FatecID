@@ -9,6 +9,12 @@
         }
     </style>
 
+    <x-slot name="header">
+        <h2 class="font-semibold text-base text-white leading-tight">
+            {{ __('Protocolos') }}
+        </h2>
+    </x-slot>
+
     {{-- TODO: Criar o endpoint para o formulario --}}
     <form action="/endpoint" method="post">
 
