@@ -1,4 +1,5 @@
 <x-app-layout>
+    <x-slot name="title">Índices</x-slot>
     <style>
         .campo-formulario {
             border: 0px;
