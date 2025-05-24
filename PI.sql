@@ -25,7 +25,8 @@ CONSTRAINT fk_documento_with_apresentante FOREIGN KEY (id_documento) REFERENCES 
 numero_documento VARCHAR(20) NOT NULL,
 nome VARCHAR(64) NOT NULL,
 numero_contato VARCHAR(15) NOT NULL,
-email VARCHAR(100) NOT NULL
+email VARCHAR(100) NOT NULL,
+tipo_contato VARCHAR(20) NOT NULL
 );
 
 CREATE TABLE grupo(

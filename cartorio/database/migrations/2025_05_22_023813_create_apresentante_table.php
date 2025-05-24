@@ -18,6 +18,7 @@ return new class extends Migration
         $table->string('nome', 64);
         $table->string('numero_contato', 15);
         $table->string('email', 100);
+        $table->string('tipo_contato', 100);
         $table->timestamps();
     });
     }
@@ -27,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('apresentantes');
+        Schema::dropIfExists('apresentante');
     }
 };

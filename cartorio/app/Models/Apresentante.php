@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Apresentante extends Model
 {
     protected $fillable = [
-        'id_documento', 'numero_documento', 'nome', 'numero_contato', 'email'
+        'id_documento', 'numero_documento', 'nome', 'numero_contato', 'email','tipo_contato'
     ];
 
     public function documento() {

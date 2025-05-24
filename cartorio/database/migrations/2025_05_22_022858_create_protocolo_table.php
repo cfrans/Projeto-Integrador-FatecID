@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 return new class extends Migration
 {
@@ -18,11 +19,11 @@ return new class extends Migration
             $table->date('data_abertura')->default(DB::raw('CURRENT_DATE'));
             $table->date('data_cancelamento')->nullable();
             $table->integer('numero_protocolo');
-            $table->integer('numero_registro')->nullable();
-            $table->dateTime('data_retirada')->nullable();
+            $table->integer('numero_registro');
+            $table->dateTime('data_retirada');
 
             // Relacionamentos
-            $table->foreignId('id_usuario')->constrained('users');
+            $table->foreignId('id_usuario')->constrained('usuario');
             $table->foreignId('id_apresentante')->constrained('apresentante');
             $table->foreignId('id_grupo')->constrained('grupo');
             $table->foreignId('id_especie')->constrained('especie');
@@ -38,6 +39,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('protocolos');
+        Schema::dropIfExists('protocolo');
     }
 };

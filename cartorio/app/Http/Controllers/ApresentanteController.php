@@ -22,6 +22,7 @@ class ApresentanteController extends Controller
             'nome' => 'required|string|max:64',
             'numero_contato' => 'required|string|max:15',
             'email' => 'required|email|max:100',
+            'tipo_contato' => 'required|string|max:100'
         ]);
 
         Apresentante::create($request->all());
