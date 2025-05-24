@@ -15,13 +15,31 @@
         </h2>
     </x-slot>
 
-    <div class="w-full flex">
-  <div class="w-60 h-11 bg-gray-200 rounded-md mt-6 ml-auto mr-14 flex items-center justify-center">
-    <button class=" w-12 h-12 flex items-center justify-center">
-      <img src="{{ asset('images/salvar.png') }}" alt="Salvar" class="w-6 h-6" />
-    </button>
-  </div>
+   
+<div class="flex items-center gap-4 mt-2 w-full mr-14">
+    <!-- Conjunto de botões -->
+    <div class="w-40 h-9 bg-[#9f9f9f] rounded-md flex items-center justify-around px-2 ml-auto">
+        <button class="w-10 h-10 flex items-center justify-center ">
+            <img src="{{ asset('images/Salvar.png') }}" alt="Salvar" class="w-4 h-4" />
+        </button>
+
+        <button class="w-10 h-10 flex items-center justify-center">
+            <img src="{{ asset('images/Dinheiro.png') }}" alt="Dinheiro" class="w-6 h-6" />
+        </button>
+
+        <button class="w-10 h-10 flex items-center justify-center">
+            <img src="{{ asset('images/Limpar.png') }}" alt="Limpar" class="w-5 h-5" />
+        </button>
+    </div>
+
+    <!-- Botão voltar -->
+    <div class="w-9 h-9 bg-gray-400 rounded-full flex items-center justify-around px-2 ml-90 mr-20">
+        <button class="w-10 h-10 flex items-center justify-center">
+            <img src="{{ asset('images/Voltar.png') }}" alt="Salvar" class="w-4 h-4" />
+        </button>
+    </div>
 </div>
+
 
     {{-- TODO: Criar o endpoint para o formulario --}}
     <form action="/endpoint" method="post">
@@ -258,7 +276,7 @@
             </div>
         </div>
 
-        <x-input-label for="protocolo_grupo" class="ml-16 mt-8">
+        <x-input-label for="protocolo_grupo" class="ml-16 mt-8 -gmb-2">
                         Dados da Parte
                     </x-input-label>
 
@@ -293,7 +311,7 @@
 
             <!-- Botão adicionar -->
             <div class="w-[85%] mx-auto -mt-12 text-right">
-            <button type="button" id="parte_adicionar" class="bg-gray-400 text-white px-3 py-1 rounded hover:bg-blue-600">+</button>
+            <button type="button" id="parte_adicionar" class="bg-[#9f9f9f] text-black px-3 py-1 rounded hover:bg-blue-600">+</button>
             </div>
 
         </div>
