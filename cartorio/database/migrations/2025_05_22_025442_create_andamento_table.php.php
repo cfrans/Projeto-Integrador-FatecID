@@ -13,13 +13,12 @@ return new class extends Migration
     {
     Schema::create('andamento', function (Blueprint $table) {
         $table->id();
+        $table->timestamp('data_hora')->default(now());
         $table->decimal('valor',10,2)->default(0.00);
         $table->string('observacao', length: 255);
         $table->foreignId('id_tipo_andamento')->constrained('tipo_andamento');
-        $table->foreignId('id_usuario')->constrained('users');
+        $table->foreignId('id_usuario')->constrained('usuario');
         $table->foreignId('id_protocolo')->constrained('protocolo');
-        $table->foreignId('id_tipo_parte')->constrained('tipo_parte');
-        $table->timestamps();
     });
     }
 

@@ -16,6 +16,7 @@ return new class extends Migration
         $table->string('identificacao', length: 100);
         $table->timestamps();
         $table->foreignId('id_tipo_parte')->constrained('tipo_parte');
+        $table->foreignId('id_protocolo')->constrained('protocolo');
     });
     }
 

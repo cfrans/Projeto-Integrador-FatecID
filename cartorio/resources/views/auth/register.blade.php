@@ -6,36 +6,51 @@
                     <a class="font-extrabold text-lg font-sans">Cadastrar</a>
         </div>
 
+
+        <!-- Usuario -->
+        <div class="mt-4">
+            <x-input-label for="usuario" :value="__('Crie um Usuário:')" />
+            <x-text-input id="usuario" class="block mt-1 w-full" type="text" name="usuario" :value="old('usuario')" required autocomplete="usuario" />
+            <x-input-error :messages="$errors->get('usuario')" class="mt-2" />
+        </div>
+
         <!-- NOME -->
         <div>
-            <x-input-label for="name" :value="__('Nome')" />
-            <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
-            <x-input-error :messages="$errors->get('name')" class="mt-2" />
+            <x-input-label for="nome" :value="__('Nome:')" />
+            <x-text-input id="nome" class="block mt-1 w-full" type="text" name="nome" :value="old('nome')" required autofocus autocomplete="nome" />
+            <x-input-error :messages="$errors->get('nome')" class="mt-2" />
         </div>
 
         <!-- Email -->
         <div class="mt-4">
-            <x-input-label for="email" :value="__('Email')" />
+            <x-input-label for="email" :value="__('Email:')" />
             <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
+        </div>
+        
+        <!-- Setor -->
+        <div class="mt-4">
+            <x-input-label for="setor" :value="__('Setor em que trabalha:')" />
+            <x-text-input id="setor" class="block mt-1 w-full" type="text" name="setor" :value="old('setor')" required autocomplete="setor" />
+            <x-input-error :messages="$errors->get('setor')" class="mt-2" />
         </div>
 
         <!-- Telefone -->
         <div class="mt-4">
             <x-input-label for="telefone" :value="__('Telefone')" />
-            <x-text-input id="telefone" class="block mt-1 w-full" type="telefone" name="telefone" :value="old('telefone')" required autocomplete="username" />
+            <x-text-input id="telefone" class="block mt-1 w-full" type="text" name="telefone" :value="old('telefone')" required autocomplete="telefone" />
             <x-input-error :messages="$errors->get('telefone')" class="mt-2" />
         </div>
 
         <!-- Endereço -->
         <div class="mt-4">
             <x-input-label for="endereco" :value="__('Endereço')" />
-            <x-text-input id="endereco" class="block mt-1 w-full" type="endereco" name="endereco" :value="old('endereco')" required autocomplete="username" />
+            <x-text-input id="endereco" class="block mt-1 w-full" type="text" name="endereco" :value="old('endereco')" required autocomplete="street-address" />
             <x-input-error :messages="$errors->get('endereco')" class="mt-2" />
-        
         </div>
-        <!-- <input id="telefone" name="telefone" type="text" placeholder="Telefone (opcional)" />
-        <input id="endereco" name="endereco" type="text" placeholder="Endereço (opcional)" /> -->
+
+
+
 
 
         <!-- SETOR (Confirmar com @Vitoria)

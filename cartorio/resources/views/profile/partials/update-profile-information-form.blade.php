@@ -13,13 +13,33 @@
         @csrf
     </form>
 
-    <form method="post" action="{{ route('profile.update') }}" class="mt-6 space-y-6">
+    <form method="post" action="{{ route('profile.update') }}" class="mt-6 space-y-6" enctype="multipart/form-data">
         @csrf
         @method('patch')
 
+        <!-- Foto -->
         <div>
-            <x-input-label for="name" :value="__('Nome')" />
-            <x-text-input id="name" name="name" type="text" class="mt-1 block w-full" :value="old('name', $user->name)" required autofocus autocomplete="name" />
+            <x-input-label for="foto" :value="__('Foto')" />
+            <input
+                id="foto"
+                name="foto"
+                type="file"
+                accept="image/*"
+                class="mt-1 block w-full text-sm text-gray-500
+                    file:mr-4 file:py-2 file:px-4
+                    file:rounded-full file:border-0
+                    file:text-sm file:font-semibold
+                    file:bg-blue-50 file:text-blue-700
+                    hover:file:bg-blue-100
+                    "
+            />
+            <x-input-error class="mt-2" :messages="$errors->get('foto')" />
+        </div>
+
+
+        <div>
+            <x-input-label for="nome" :value="__('Nome')" />
+            <x-text-input id="nome" name="nome" type="text" class="mt-1 block w-full" :value="old('nome', $user->nome)" required autofocus autocomplete="nome" />
             <x-input-error class="mt-2" :messages="$errors->get('name')" />
         </div>
 
@@ -78,6 +98,21 @@
                 autocomplete="street-address"
             />
             <x-input-error class="mt-2" :messages="$errors->get('endereco')" />
+        </div>
+
+        <!-- Setor -->
+        <div>
+            <x-input-label for="setor" :value="__('Setor')" />
+            <x-text-input
+                id="setor"
+                name="setor"
+                type="text"
+                class="mt-1 block w-full"
+                :value="old('setor', $user->setor ?? '')"
+                required
+                autocomplete="organization"
+            />
+            <x-input-error class="mt-2" :messages="$errors->get('setor')" />
         </div>
 
 

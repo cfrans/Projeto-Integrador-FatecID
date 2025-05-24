@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
+use App\Models\Usuario;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -32,19 +32,25 @@ class RegisteredUserController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+            'nome' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.Usuario::class],
             'telefone' => ['required', 'regex:/^\+?\d{10,15}$/'],
             'endereco' => ['required', 'string', 'max:255'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'setor' => ['required', 'string', 'max:255'],
+            'usuario' => ['required', 'string', 'max:255', 'unique:'.Usuario::class],
+            'foto' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048']
         ]);
 
-        $user = User::create([
-            'name' => $request->name,
+        $user = Usuario::create([
+            'nome' => $request->nome,
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'telefone' => $request->telefone,
             'endereco' => $request->endereco,
+            'setor' => $request->setor,
+            'usuario' => $request->usuario,
+            'foto' => $request->foto
         ]);
 
         Auth::login($user);

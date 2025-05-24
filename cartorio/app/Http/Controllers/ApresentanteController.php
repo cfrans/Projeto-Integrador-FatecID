@@ -9,7 +9,7 @@ class ApresentanteController extends Controller
 {
     public function create()
     {
-        return view('apresentantes.create', [
+        return view('apresentantes.create', data: [
             'documentos' => Documento::all(),
         ]);
     }
