@@ -45,6 +45,12 @@ Route::middleware(['auth'])->group(function () {
 
     // Andamento
     Route::get('/andamento', fn () => view('andamento.index'))->name('andamento.index');
+
+    // Sobre
+    Route::get('/sobre', fn () => view('sobre.index'))->name('sobre.index');
+
+    // Contato
+    Route::get('/contato', fn () => view('contato.index'))->name('contato.index');
 });
 
 require __DIR__.'/auth.php';
