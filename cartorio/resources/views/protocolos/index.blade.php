@@ -8,23 +8,31 @@
             padding: 8px;
         }
     </style>
-
+    
     <x-slot name="header">
         <h2 class="font-semibold text-base text-white leading-tight">
             {{ __('Protocolos') }}
         </h2>
     </x-slot>
 
+    <div class="w-full flex">
+  <div class="w-60 h-11 bg-gray-200 rounded-md mt-6 ml-auto mr-14 flex items-center justify-center">
+    <button class=" w-12 h-12 flex items-center justify-center">
+      <img src="{{ asset('images/salvar.png') }}" alt="Salvar" class="w-6 h-6" />
+    </button>
+  </div>
+</div>
+
     {{-- TODO: Criar o endpoint para o formulario --}}
     <form action="/endpoint" method="post">
 
-        <x-input-label for="protocolo_grupo" class="ml-16 mt-12">
+        <x-input-label for="protocolo_grupo" class="ml-16">
                         Dados do Protocolo
                     </x-input-label>
 
 
         {{-- DIV MENOR PARA O CONTEUDO DOS CAMPOS --}}
-        <div class="flex justify-start w-[92%] h-20 mx-auto bg-white rounded-b-md">
+        <div class="flex justify-start w-[92%] h-20 mx-auto bg-white rounded-t-md">
 
 
             <!-- Primeira coluna (2/7) -->
@@ -173,9 +181,9 @@
                         Dados do Apresentante
                     </x-input-label>
 
-        <div class="flex justify-center gap-4 w-[92%] h-18 mx-auto bg-white rounded-t-md">
-            <!-- Primeira coluna (1/7) -->
-            <div class="campo-formulario flex ml-6 items-center w-[4%] mx-auto">
+        <div class="flex justify-start w-[92%] h-20 mx-auto bg-white rounded-t-md">
+                    <!-- Primeira coluna (1/7) -->
+                   <div class="campo-formulario flex items-center ml-6"> 
                 <div class="text-left">
                 <x-input-label for="apresentante_documento">
                     Documento
@@ -190,7 +198,7 @@
             
 
             <!-- Segunda coluna (1/7) -->
-            <div class="campo-formulario flex ml-6 items-center w-[8%] mx-auto">
+            <div class="campo-formulario flex items-center"> 
                 <div class="text-left">
                 <x-input-label for="apresentante_numero_documento">
                     Número do Documento
@@ -201,7 +209,7 @@
             </div>
 
             <!-- Terceira coluna (3/7) -->
-            <div class="campo-formulario flex ml-6 items-center w-[66%] mx-auto">
+            <div class="campo-formulario flex items-center"> 
                 <div class="text-left">
                 <x-input-label for="apresentante_nome">
                     Nome
@@ -212,10 +220,12 @@
     </div>
         </div>
 
-        <div class="flex justify-center gap-4 w-[92%] h-20 mx-auto bg-white rounded-b-md">
-            <!-- Primeira coluna (1/7) -->
-            <div class="campo-formulario flex ml-6 items-center w-[9%] mx-auto">
-                <div class="text-left">
+        <!-- segunda parte da tabela de apresentante -->
+
+        <div class="flex justify-start w-[92%] h-20 mx-auto bg-white rounded-b-md">
+                    <!-- Primeira coluna (1/7) -->
+                   <div class="campo-formulario flex items-center ml-6"> 
+                    <div class="text-left">
                 <x-input-label for="apresentante_tipo_contato">
                     Tipo de Contato
                 </x-input-label>
@@ -226,7 +236,7 @@
             <!-- TODO: Não vai ser editável, aparecer somente celular -->
 
             <!-- Segunda coluna (1/7) -->
-            <div class="campo-formulario flex ml-6 items-center w-[12.5%] mx-auto">
+            <div class="campo-formulario flex items-center"> 
                 <div class="text-left">
                 <x-input-label for="apresentante_numero_contato">
                     Número de Contato
@@ -237,7 +247,7 @@
             </div>
 
             <!-- Terceira coluna (5/7) -->
-            <div class="campo-formulario flex ml-6 items-center w-[100%] mx-auto">
+            <div class="campo-formulario flex items-center"> 
                 <div class="text-left">
                 <x-input-label for="apresentante_email">
                     E-mail
@@ -252,12 +262,12 @@
                         Dados da Parte
                     </x-input-label>
 
-        <div class="flex justify-center gap-4 w-[92%] h-20 mx-auto bg-white rounded-md">
-
+        <div id="container-campos">
+       <div class="flex justify-start w-[92%] h-20 mx-auto bg-white rounded-md">
             
                     <!-- Primeira coluna (1/7) -->
-                    <div class="campo-formulario flex ml-6 items-center w-[10%] mx-auto">
-                     <div class="text-left">
+                   <div class="campo-formulario flex items-center ml-6"> 
+                <div class="text-left">
                         <x-input-label for="parte_tipo">
                         Tipo
                         </x-input-label>
@@ -269,8 +279,8 @@
                     </div>
 
                     <!-- Segunda coluna (3/7) -->
-                    <div class="campo-formulario flex ml-6 items-center w-[56%] mx-auto">
-                     <div class="text-left">
+                   <div class="campo-formulario flex items-center"> 
+                <div class="text-left">
                         <x-input-label for="parte_nome">
                             Nome / Razão Social
                         </x-input-label>
@@ -281,8 +291,10 @@
                 </div>
             </div>
 
-            <!-- Botão de adicionar nova linha -->
-            <button type="button" id="parte_adicionar">+</button>
+            <!-- Botão adicionar -->
+            <div class="w-[85%] mx-auto -mt-12 text-right">
+            <button type="button" id="parte_adicionar" class="bg-gray-400 text-white px-3 py-1 rounded hover:bg-blue-600">+</button>
+            </div>
 
         </div>
 
