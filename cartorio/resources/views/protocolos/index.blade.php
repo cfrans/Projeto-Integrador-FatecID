@@ -1,10 +1,6 @@
-{{-- resources/views/protocolos/index.blade.php --}}
 <x-app-layout>
-{{-- @section('header', 'Cadastro de Protocolo')
+    <x-slot name="title">Novo Protocolo</x-slot>
 
-@section('title', 'Protocolos')
-
-@section('content') --}}
     {{-- Estilo temporario para ajudar a ver as divisoes --}}
     <style>
         .campo-formulario {
