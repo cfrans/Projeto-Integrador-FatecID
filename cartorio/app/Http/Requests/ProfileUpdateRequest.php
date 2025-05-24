@@ -5,6 +5,8 @@ namespace App\Http\Requests;
 use App\Models\Usuario;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Redirect;
 
 class ProfileUpdateRequest extends FormRequest
 {
@@ -32,28 +34,26 @@ class ProfileUpdateRequest extends FormRequest
         ];
     }
 
-    public function update(ProfileUpdateRequest $request)
+    public function update(ProfileUpdateRequest $request): RedirectResponse
         {
             $user = $request->user();
+            $data = $request->validated();
 
-            // Atualiza campos básicos
-            $user->nome = $request->nome;
-            $user->email = $request->email;
-            $user->telefone = $request->telefone;
-            $user->endereco = $request->endereco;
-            $user->setor = $request->setor;
+            // Se tiver uma nova foto, armazena
+            if ($request->hasFile('foto') && $request->file('foto')->isValid()) {
+                $path = $request->file('foto')->store('fotos_perfil', 'public');
+                $data['foto'] = $path;
+            }
 
-            // Trata o upload da foto, se houver
-            if ($request->hasFile('foto')) {
-                // opcional: deletar foto antiga, se desejar
+            $user->fill($data);
 
-                $path = $request->file('foto')->store('fotos', 'public');
-                $user->foto = $path;
+            if ($user->isDirty('email')) {
+                $user->email_verified_at = null;
             }
 
             $user->save();
 
-            return back()->with('status', 'profile-updated');
+            return Redirect::route('profile.edit')->with('status', 'Perfil atualizado com sucesso!');
         }
 
       public function messages()

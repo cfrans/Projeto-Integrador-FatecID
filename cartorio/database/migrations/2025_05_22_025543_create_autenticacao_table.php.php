@@ -19,7 +19,7 @@ return new class extends Migration
         $table->string('agencia', length: 6)->nullable();
         $table->string('conta', length: 15)->nullable();
         $table->string('banco', length: 30)->nullable();
-        $table->foreignId('id_usuario')->constrained('users');
+        $table->foreignId('id_usuario')->constrained('usuario');
         $table->foreignId('id_protocolo')->constrained('protocolo');
         $table->foreignId('id_forma_pagamento')->constrained('forma_pagamento');
         $table->timestamps();
