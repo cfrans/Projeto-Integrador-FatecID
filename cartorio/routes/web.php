@@ -5,6 +5,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProtocoloController;
 use App\Http\Controllers\ApresentanteController;
 use App\Http\Controllers\DocumentoController;
+use Illuminate\Support\Carbon;
 
 // Página inicial 
 // TODO: Revisar se é necessário
@@ -25,7 +26,7 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::get('/protocolos/create', [ProtocoloController::class, 'create']);
-    Route::post('/protocolos', [ProtocoloController::class, 'store']);
+    Route::post('/protocolos', [ProtocoloController::class, 'store'])->middleware('auth');;
 
     Route::get('/apresentantes/create', [ApresentanteController::class, 'create']);
     Route::post('/apresentantes', [ApresentanteController::class, 'store']);

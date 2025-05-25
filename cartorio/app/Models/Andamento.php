@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Andamento extends Model
 {
+
+    protected $table = 'andamento';
     protected $fillable = [
         'data_hora','valor', 'observacao', 'id_tipo_andamento', 'tipo_andamento','id_usuario','id_protocolo'
     ];

@@ -6,13 +6,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class Protocolo extends Model
 {
+
+    protected $table = 'protocolo';
     protected $fillable = [
         'numero_documento',
         'data_documento',
-        'data_abertura',
+        'data_abertura', 
         'data_cancelamento',
         'numero_protocolo',
         'numero_registro',
+        'data_registro',
         'data_retirada',
         'id_usuario',
         'id_apresentante',

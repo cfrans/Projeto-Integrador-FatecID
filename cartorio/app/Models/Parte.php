@@ -6,9 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Parte extends Model
 {
+
+    protected $table = 'parte';
     protected $fillable = [
         'id_tipo_parte',
         'identificacao',
+        'id_protocolo'
     ];
 
     public function tipoParte()
