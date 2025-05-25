@@ -21,6 +21,7 @@ return new class extends Migration
             $table->integer('numero_protocolo');
             $table->integer('numero_registro');
             $table->dateTime('data_retirada');
+            $table->dateTime('data_registro');
 
             // Relacionamentos
             $table->foreignId('id_usuario')->constrained('usuario');

@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class TipoParte extends Model
 {
 
+    protected $table = 'tipo_parte';
+
     protected $fillable = [
         'tipo',
         'id_natureza',
