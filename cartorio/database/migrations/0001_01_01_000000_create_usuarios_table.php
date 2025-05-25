@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('endereco');
             $table->string('setor');
             $table->string('usuario');
-            $table->string(column: 'foto');
+            $table->string(column: 'foto')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
