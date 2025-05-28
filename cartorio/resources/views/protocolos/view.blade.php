@@ -1,3 +1,5 @@
+
+
 <x-app-layout>
     <x-slot name="title">Novo Protocolo</x-slot>
 
@@ -15,35 +17,44 @@
         </h2>
     </x-slot>
 
-
+<div class="max-w-[75%] mx-auto w-full px-4">
         <div class="flex items-center gap-4 -mt-2 w-full mr-14">
     <!-- Conjunto de botões -->
      
-    <div class="w-40 h-9 bg-[#9f9f9f] rounded-md flex items-center justify-around px-2 ml-auto">
-        <button type="submit" class="w-10 h-10 flex items-center justify-center">
-        <img src="{{ asset('images/Salvar.png') }}" alt="Salvar" class="w-4 h-4" />
-    </button>
+    <div class="w-50 h-10 bg-[#9f9f9f] rounded-md flex items-center justify-around px-2 ml-auto">
 
         <button class="w-10 h-10 flex items-center justify-center">
-            <img src="{{ asset('images/Dinheiro.png') }}" alt="Dinheiro" class="w-6 h-6" />
+            <img src="{{ asset('images/Retirar.png') }}" alt="Retirar" class="w-6 h-6" />
+        </button>
+
+        <button class="w-10 h-10 flex items-center justify-center">
+            <img src="{{ asset('images/Editar.png') }}" alt="Editar" class="w-6 h-6" />
+        </button>
+
+        <button class="w-10 h-10 flex items-center justify-center">
+            <img src="{{ asset('images/Voltar.png') }}" alt="Voltar" class="w-6 h-6" />
+        </button>
+
+        <button class="w-10 h-10 flex items-center justify-center">
+            <img src="{{ asset('images/Setadireita.png') }}" alt="Setadireita" class="w-6 h-6" />
         </button>
 
         <button type="button" class="w-10 h-10 flex items-center justify-center" onclick="limparFormulario()">
-            <img src="{{ asset('images/Limpar.png') }}" alt="Limpar" class="w-5 h-5" />
+            <img src="{{ asset('images/Imprimir.png') }}" alt="Imprimir" class="w-6 h-6" />
         </button>
 
     </div>
 
     <!-- Botão voltar -->
-    <div class="w-9 h-9 bg-[#9f9f9f] rounded-full flex items-center justify-around px-2 ml-90 mr-20">
-        <button class="w-10 h-10 flex items-center justify-center">
-            <img src="{{ asset('images/Voltar.png') }}" alt="Salvar" class="w-4 h-4" />
-        </button>
-    </div>
+<div class="w-9 h-9 bg-[#9f9f9f] rounded-full flex items-center justify-around px-2 ml-90 mr-20">
+    <button id="botao-voltar" type="button" class="w-10 h-10 flex items-center justify-center">
+        <img src="{{ asset('images/Voltar.png') }}" alt="Voltar" class="w-4 h-4" />
+    </button>
+</div>
 </div>
 
  <div id="container-campos">
-            <div class="flex justify-start w-[29%] h-18 bg-white rounded-md ml-20">
+            <div class="flex justify-start w-[40%] h-18 bg-white rounded-md ml-16">
 
                 <!-- Primeira coluna (1/7) -->
                 <div class="campo-formulario flex items-center ml-6">
@@ -315,7 +326,7 @@
 
             <div id="container-campos">
                 
-            <div class="flex justify-start w-[25.5%] h-18 bg-white rounded-md mt-6 ml-auto mr-20">
+            <div class="flex justify-start w-[35%] h-18 bg-white rounded-md mt-6 ml-auto mr-16">
 
                 <!-- Primeira coluna (1/7) -->
                 <div class="campo-formulario flex items-center ml-6">
@@ -354,6 +365,13 @@
         </div>
         </div>
 
+        <script>
+    document.getElementById('botao-voltar').addEventListener('click', function () {
+        window.location.href = '{{ route('dashboard') }}';
+    });
+</script>
 
     {{-- @endsection --}}
+    </div>
 </x-app-layout>
+

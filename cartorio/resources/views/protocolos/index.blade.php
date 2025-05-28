@@ -23,7 +23,7 @@ $dataPrevisao = Carbon::now()->addDays(10)->format('d/m/Y');
     </x-slot>
 
 
-
+<div class="max-w-[75%] mx-auto w-full px-4">
     {{-- TODO: Criar o endpoint para o formulario --}}
     <form id="formulario" action="/protocolos" method="post">
         @csrf
@@ -31,7 +31,7 @@ $dataPrevisao = Carbon::now()->addDays(10)->format('d/m/Y');
         <div class="flex items-center gap-4 -mt-2 w-full mr-14">
     <!-- Conjunto de botões -->
      
-    <div class="w-40 h-9 bg-[#9f9f9f] rounded-md flex items-center justify-around px-2 ml-auto">
+    <div class="w-40 h-10 bg-[#9f9f9f] rounded-md flex items-center justify-around px-2 ml-auto">
         <button type="submit" class="w-10 h-10 flex items-center justify-center">
         <img src="{{ asset('images/Salvar.png') }}" alt="Salvar" class="w-4 h-4" />
     </button>
@@ -47,12 +47,14 @@ $dataPrevisao = Carbon::now()->addDays(10)->format('d/m/Y');
 
     </div>
 
+
     <!-- Botão voltar -->
-    <div class="w-9 h-9 bg-[#9f9f9f] rounded-full flex items-center justify-around px-2 ml-90 mr-20">
-        <button class="w-10 h-10 flex items-center justify-center">
-            <img src="{{ asset('images/Voltar.png') }}" alt="Salvar" class="w-4 h-4" />
-        </button>
-    </div>
+<div class="w-9 h-9 bg-[#9f9f9f] rounded-full flex items-center justify-around px-2 ml-90 mr-20">
+    <button id="botao-voltar" type="button" class="w-10 h-10 flex items-center justify-center">
+        <img src="{{ asset('images/Voltar.png') }}" alt="Voltar" class="w-4 h-4" />
+    </button>
+</div>
+
 </div>
 
         <x-input-label for="protocolo_grupo" class="ml-20">
@@ -311,7 +313,7 @@ $dataPrevisao = Carbon::now()->addDays(10)->format('d/m/Y');
                         <x-input-label for="parte_nome">
                             Nome / Razão Social
                         </x-input-label>
-                        <x-text-input type="text" name="identificacao[]" class="w-[800px] h-8 text-sm" required>
+                        <x-text-input type="text" name="identificacao[]" class="w-[750px] h-8 text-sm" required>
                         </x-text-input>
                     </div>
                 </div>
@@ -331,6 +333,13 @@ $dataPrevisao = Carbon::now()->addDays(10)->format('d/m/Y');
     }
 </script>
 
+<script>
+    document.getElementById('botao-voltar').addEventListener('click', function () {
+        window.location.href = '{{ route('dashboard') }}';
+    });
+</script>
+
+
 
         <script>
             document.getElementById("parte_adicionar").addEventListener("click", function() {
@@ -347,4 +356,5 @@ $dataPrevisao = Carbon::now()->addDays(10)->format('d/m/Y');
 
     </form>
     {{-- @endsection --}}
+        </div>
 </x-app-layout>
