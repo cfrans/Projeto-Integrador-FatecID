@@ -20,11 +20,10 @@
     <form action="/endpoint" method="post">
 
         {{-- DIV MENOR PARA O CONTEUDO DOS CAMPOS --}}
-        <div class="flex justify-center items-center w-full min-h-screen bg-gray-100">
+            <div class="flex justify-center items-start min-h-screen py-10 bg-gray-100">
 
-            <div class="flex flex-wrap justify-start w-[92%] bg-white rounded-t-md p-4">
-
-                <div class ="flex flex-wrap justify-start w-full">
+                <div class="flex flex-col gap-1 bg-white shadow-md rounded-md p-6 w-fit">
+                    <div class ="flex flex-wrap justify-start w-full">
                     <!-- Primeira coluna (1/8) -->
                         <div class="campo-formulario flex items-center ml-6"> 
                             <div class="text-left">
@@ -56,9 +55,9 @@
                                 <x-input-naoalteravel id="nome" name="nome" class="w-[200px] h-10 text-sm" value="{{ Auth::user() ? Auth::user()->nome : '' }}" readonly />
                             </div>
                         </div>
-                </div>
+                    </div>
 
-                <div class ="flex flex-wrap justify-start w-full">
+                    <div class ="flex flex-wrap justify-start w-full">
                         <!-- Quarta coluna (4/8) -->
                         <div class="campo-formulario flex items-center ml-6"> 
                             <div class="text-left">
@@ -80,9 +79,9 @@
                                 </x-input-naoalteravel>
                             </div>
                         </div>
-                </div>
+                    </div>
 
-                <div class ="flex flex-wrap justify-start w-full">
+                    <div class ="flex flex-wrap justify-start w-full">
                         <!-- Quinta coluna (5/8) -->
                                 <div class="campo-formulario flex items-center ml-6"> 
                                         <div class="text-left">
@@ -170,7 +169,16 @@
                                 </div>
                             </div>
                     </div>
-             </div>
-        </div> 
+                </div>
+                <div class="flex flex-col gap-1 bg-white shadow-md rounded-md p-6 w-fit">
+                    <div class ="flex flex-wrap justify-start w-full">
+                        <x-input-label for="autenticacao_AVISO">
+                            CAIXA NÃO FOI ABERTO. NECESSARIO REALIZAR A ABERTURA
+                        </x-input-label>
+                        
+                    </div>
+                </div>
+
+            </div> 
     </form>
 </x-app-layout>
