@@ -29,8 +29,8 @@
                     file:mr-4 file:py-2 file:px-4
                     file:rounded-full file:border-0
                     file:text-sm file:font-semibold
-                    file:bg-blue-50 file:text-blue-700
-                    hover:file:bg-blue-100
+                    file:bg-[#ede3de] file:text-[#9D6954]
+                    hover:file:bg-[#dcc6bc]
                     "
             />
             <x-input-error class="mt-2" :messages="$errors->get('foto')" />
