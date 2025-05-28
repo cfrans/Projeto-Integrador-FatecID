@@ -20,7 +20,7 @@
     <form action="/endpoint" method="post">
 
         {{-- DIV MENOR PARA O CONTEUDO DOS CAMPOS --}}
-            <div class="flex justify-center items-start min-h-screen py-10 bg-gray-100">
+            <div class="flex justify-center items-start min-h-screen py-10 gap-5 bg-gray-100">
 
                 <div class="flex flex-col gap-1 bg-white shadow-md rounded-md p-6 w-fit">
                     <div class ="flex flex-wrap justify-start w-full">
@@ -171,10 +171,37 @@
                     </div>
                 </div>
                 <div class="flex flex-col gap-1 bg-white shadow-md rounded-md p-6 w-fit">
-                    <div class ="flex flex-wrap justify-start w-full">
-                        <x-input-label for="autenticacao_AVISO">
-                            CAIXA NÃO FOI ABERTO. NECESSARIO REALIZAR A ABERTURA
-                        </x-input-label>
+                    <div class ="flex flex-wrap justify-start w-full">    
+
+                        <!-- Valor Prévio -->
+                        <div class="campo-formulario flex items-center ml-6"> 
+                            <div class="text-left">
+                                <x-input-label for="autenticacao_valor_previo">
+                                    Valor Prévio:
+                                </x-input-label>
+                                <x-input-number type="text" id="valor" name="valor" class="w-[200px] h-10 text-sm" readonly required />
+                            </div>
+                        </div>  
+
+                        <!-- Valor Pago -->
+                        <div class="campo-formulario flex items-center ml-6"> 
+                                <div class="text-left">
+                                    <x-input-label for="autenticacao_valor_pago">
+                                        Valor Pago:
+                                    </x-input-label>
+                                    <x-text-input id="autenticacao_valor_pago" name="autenticacao_valor_pago" class="w-[200px] h-10 text-sm" required />
+                                </div>
+                            </div>
+
+                        <!-- Troco -->
+                        <div class="campo-formulario flex items-center ml-6"> 
+                                <div class="text-left">
+                                    <x-input-label for="autenticacao_troco">
+                                        Troco:
+                                    </x-input-label>
+                                    <x-text-input id="autenticacao_troco" name="autenticacao_troco" class="w-[200px] h-10 text-sm" readonly required />
+                                </div>
+                            </div>
                         
                     </div>
                 </div>
