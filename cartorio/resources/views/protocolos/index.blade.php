@@ -22,36 +22,40 @@ $dataPrevisao = Carbon::now()->addDays(10)->format('d/m/Y');
         </h2>
     </x-slot>
 
-   
-<div class="flex items-center gap-4 mt-2 w-full mr-14">
+
+
+    {{-- TODO: Criar o endpoint para o formulario --}}
+    <form id="formulario" action="/protocolos" method="post">
+        @csrf
+
+        <div class="flex items-center gap-4 -mt-2 w-full mr-14">
     <!-- Conjunto de botões -->
+     
     <div class="w-40 h-9 bg-[#9f9f9f] rounded-md flex items-center justify-around px-2 ml-auto">
-        <button class="w-10 h-10 flex items-center justify-center ">
-            <img src="{{ asset('images/Salvar.png') }}" alt="Salvar" class="w-4 h-4" />
-        </button>
+        <button type="submit" class="w-10 h-10 flex items-center justify-center">
+        <img src="{{ asset('images/Salvar.png') }}" alt="Salvar" class="w-4 h-4" />
+    </button>
 
-        <button class="w-10 h-10 flex items-center justify-center">
-            <img src="{{ asset('images/Dinheiro.png') }}" alt="Dinheiro" class="w-6 h-6" />
-        </button>
+    <button onclick="window.location.href='{{ route('autenticacao.index') }}'" class="w-10 h-10 flex items-center justify-center">
+         <img src="{{ asset('images/Dinheiro.png') }}" alt="Dinheiro" class="w-6 h-6" />
+    </button>
 
-        <button class="w-10 h-10 flex items-center justify-center">
+
+        <button type="button" class="w-10 h-10 flex items-center justify-center" onclick="limparFormulario()">
             <img src="{{ asset('images/Limpar.png') }}" alt="Limpar" class="w-5 h-5" />
         </button>
+
     </div>
 
     <!-- Botão voltar -->
-    <div class="w-9 h-9 bg-gray-400 rounded-full flex items-center justify-around px-2 ml-90 mr-20">
+    <div class="w-9 h-9 bg-[#9f9f9f] rounded-full flex items-center justify-around px-2 ml-90 mr-20">
         <button class="w-10 h-10 flex items-center justify-center">
             <img src="{{ asset('images/Voltar.png') }}" alt="Salvar" class="w-4 h-4" />
         </button>
     </div>
 </div>
 
-
-    {{-- TODO: Criar o endpoint para o formulario --}}
-    <form action="/protocolos" method="post">
-        @csrf
-        <x-input-label for="protocolo_grupo" class="ml-16">
+        <x-input-label for="protocolo_grupo" class="ml-20">
             Dados do Protocolo
         </x-input-label>
 
@@ -170,15 +174,6 @@ $dataPrevisao = Carbon::now()->addDays(10)->format('d/m/Y');
                 </div>
             </div>
             <!-- TODO: CAMPO NAO EDITAVEL -->
-            <div class="campo-formulario flex items-center">
-                <div class="text-left">
-                    <x-input-label for="numero_registro">
-                        Número de registro
-                    </x-input-label>
-                   <x-text-input  type="text" id="numero_registro" name="numero_registro" class="w-[150px] h-8 text-sm" required>
-                    </x-text-input >
-                </div>
-            </div>
 
             <!-- Quinta coluna (1/7) -->
             <div class="campo-formulario flex items-center">
@@ -204,7 +199,7 @@ $dataPrevisao = Carbon::now()->addDays(10)->format('d/m/Y');
         </div>
         <!--acaba aqui-->
 
-        <x-input-label for="protocolo_grupo" class="ml-16 mt-8">
+        <x-input-label for="protocolo_grupo" class="ml-20 mt-6">
             Dados do Apresentante
         </x-input-label>
 
@@ -219,6 +214,7 @@ $dataPrevisao = Carbon::now()->addDays(10)->format('d/m/Y');
                         <option value="1">RG</option>
                         <option value="2">CPF</option>
                         <option value="3">CNH</option>
+                        <option value="4">CNPJ</option>
                     </x-input-select>
                 </div>
             </div>
@@ -253,14 +249,18 @@ $dataPrevisao = Carbon::now()->addDays(10)->format('d/m/Y');
             <!-- Primeira coluna (1/7) -->
             <div class="campo-formulario flex items-center ml-6">
                 <div class="text-left">
-                    <x-input-label for="apresentante_tipo_contato">
+                     <x-input-label for="apresentante_tipo_contato">
                         Tipo de Contato
                     </x-input-label>
-                    <x-text-input type="text" id="tipo_contato" name="tipo_contato" class="w-[150px] h-8 text-sm" required>
-                    </x-text-input>
+                <!-- Mostra o texto fixo "Celular" -->
+                <div class="w-[150px] h-8 text-sm bg-gray-100 border border-gray-300 rounded px-2 py-1 flex items-center">
+                         Celular
+                </div>
+                <!-- Input escondido para envio do valor no POST -->
+                 <input type="hidden" name="tipo_contato" value="Celular" />
                 </div>
             </div>
-            <!-- TODO: Não vai ser editável, aparecer somente celular -->
+    
 
             <!-- Segunda coluna (1/7) -->
             <div class="campo-formulario flex items-center">
@@ -285,7 +285,7 @@ $dataPrevisao = Carbon::now()->addDays(10)->format('d/m/Y');
             </div>
         </div>
 
-        <x-input-label for="protocolo_grupo" class="ml-16 mt-8 -gmb-2">
+        <x-input-label for="protocolo_grupo" class="ml-20 mt-6">
             Dados da Parte
         </x-input-label>
 
@@ -311,7 +311,7 @@ $dataPrevisao = Carbon::now()->addDays(10)->format('d/m/Y');
                         <x-input-label for="parte_nome">
                             Nome / Razão Social
                         </x-input-label>
-                        <x-text-input type="text" name="identificacao[]" class="w-[600px] h-8 text-sm" required>
+                        <x-text-input type="text" name="identificacao[]" class="w-[800px] h-8 text-sm" required>
                         </x-text-input>
                     </div>
                 </div>
@@ -324,6 +324,13 @@ $dataPrevisao = Carbon::now()->addDays(10)->format('d/m/Y');
         </div>
 
         </div>
+
+<script>
+    function limparFormulario() {
+        document.getElementById('formulario').reset();
+    }
+</script>
+
 
         <script>
             document.getElementById("parte_adicionar").addEventListener("click", function() {
@@ -338,11 +345,6 @@ $dataPrevisao = Carbon::now()->addDays(10)->format('d/m/Y');
             });
         </script>
 
-        <div class="flex justify-end w-[92%] mx-auto mt-6">
-            <x-primary-button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                Salvar Protocolo
-            </x-primary-button>
-        </div>
     </form>
     {{-- @endsection --}}
 </x-app-layout>
