@@ -1,7 +1,7 @@
 @vite(['resources/css/app.css', 'resources/js/app.js'])
 
 <x-app-layout>
-
+<div class="max-w-[75%] mx-auto w-full px-4">
     <x-slot name="header">
         <h2 class="font-semibold text-base text-white leading-tight">
             {{ __('Índices') }}
@@ -111,5 +111,7 @@
 
         </main>
     </div>
+
+</div>
 
 </x-app-layout>
