@@ -170,36 +170,37 @@
                             </div>
                     </div>
                 </div>
+                <!-- DIV com os pagamentos -->
                 <div class="flex flex-col gap-1 bg-white shadow-md rounded-md p-6 w-fit">
-                    <div class ="flex flex-wrap justify-start w-full">    
+                    <div class ="flex flex-col justify-start w-full gap-4">    
 
                         <!-- Valor Prévio -->
-                        <div class="campo-formulario flex items-center ml-6"> 
+                        <div class="campo-formulario flex items-center mx-auto"> 
                             <div class="text-left">
                                 <x-input-label for="autenticacao_valor_previo">
                                     Valor Prévio:
                                 </x-input-label>
-                                <x-input-number type="text" id="autenticacao_valor_previo" name="autenticacao_valor_previo" class="w-[200px] h-10 text-sm" readonly required />
+                                <x-input-number type="text" id="autenticacao_valor_previo" name="autenticacao_valor_previo" class="w-[300px] h-10 text-sm" readonly required />
                             </div>
                         </div>  
 
                         <!-- Valor Pago -->
-                        <div class="campo-formulario flex items-center ml-6"> 
-                                <div class="text-left">
+                        <div class="campo-formulario flex items-center mx-auto"> 
+                                 <div class="text-left">
                                     <x-input-label for="autenticacao_valor_pago">
                                         Valor Pago:
                                     </x-input-label>
-                                    <x-text-input id="autenticacao_valor_pago" name="autenticacao_valor_pago" class="w-[200px] h-10 text-sm" required />
+                                    <x-input-number type="text" id="autenticacao_valor_pago" name="autenticacao_valor_pago" class="w-[300px] h-10 text-sm" required />
                                 </div>
                             </div>
 
                         <!-- Troco -->
-                        <div class="campo-formulario flex items-center ml-6"> 
+                        <div class="campo-formulario flex items-center mx-auto"> 
                                 <div class="text-left">
                                     <x-input-label for="autenticacao_troco">
                                         Troco:
                                     </x-input-label>
-                                    <x-text-input id="autenticacao_troco" name="autenticacao_troco" class="w-[200px] h-10 text-sm" readonly required />
+                                    <x-input-number type="text" id="autenticacao_troco" name="autenticacao_troco" class="w-[300px] h-10 text-sm" readonly required />
                                 </div>
                             </div>
                         
@@ -219,5 +220,5 @@
     campoValor.addEventListener('input', function () {
         campoValorPrevio.value = campoValor.value;
     });
-});
+    });
 </script>
