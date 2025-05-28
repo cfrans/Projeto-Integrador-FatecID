@@ -19,9 +19,9 @@ class RegisteredUserController extends Controller
     /**
      * Display the registration view.
      */
-    public function create(): View
+    public function create(Request $request): View
     {
-        return view('auth.register');
+        return view('auth.register', ['email' => $request->query('email')]);
     }
 
     /**
@@ -33,12 +33,12 @@ class RegisteredUserController extends Controller
     {
         $request->validate([
             'nome' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.Usuario::class],
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . Usuario::class],
             'telefone' => ['required', 'regex:/^\+?\d{10,15}$/'],
             'endereco' => ['required', 'string', 'max:255'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'setor' => ['required', 'string', 'max:255'],
-            'usuario' => ['required', 'string', 'max:255', 'unique:'.Usuario::class],
+            'usuario' => ['required', 'string', 'max:255', 'unique:' . Usuario::class],
             'foto' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048']
         ]);
 

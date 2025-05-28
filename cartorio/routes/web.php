@@ -8,10 +8,10 @@ use App\Http\Controllers\DocumentoController;
 use Illuminate\Support\Carbon;
 
 // Página inicial 
-// TODO: Revisar se é necessário
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('login');
 });
+
 
 // Todas as rotas abaixo exigem autenticação
 Route::middleware(['auth'])->group(function () {
