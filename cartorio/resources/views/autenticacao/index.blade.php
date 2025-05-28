@@ -210,15 +210,32 @@
             </div> 
     </form>
 </x-app-layout>
-
 <script>
-    // Faz o campo "Valor Prévio" ter o mesmo do campo "Valor"
+    
     document.addEventListener('DOMContentLoaded', function () {
-    const campoValor = document.getElementById('valor');
-    const campoValorPrevio = document.getElementById('autenticacao_valor_previo'); 
+        const campoValor = document.getElementById('valor'); 
+        const campoValorPrevio = document.getElementById('autenticacao_valor_previo'); 
+        const campoValorPago = document.getElementById('autenticacao_valor_pago');
+        const campoTroco = document.getElementById('autenticacao_troco');
 
-    campoValor.addEventListener('input', function () {
-        campoValorPrevio.value = campoValor.value;
-    });
+        // Faz o campo "Valor Prévio" ter o mesmo do campo "Valor"
+        if (campoValor) {
+            campoValor.addEventListener('input', function () {
+                campoValorPrevio.value = campoValor.value;
+                calcularTroco();
+            });
+        }
+
+       // Faz o campo "Troco" ter o valor da diferença entre "Valor Pago" e "Valor Prévio"
+        campoValorPago.addEventListener('input', calcularTroco);
+
+        function calcularTroco() {
+            const valorPrevio = parseFloat(campoValorPrevio.value.replace(',', '.')) || 0;
+            const valorPago = parseFloat(campoValorPago.value.replace(',', '.')) || 0;
+            const troco = valorPago-valorPrevio;
+
+            // Garante 2 casas decimais com vírgula
+            campoTroco.value = troco.toFixed(2).replace('.', ',');
+        }
     });
 </script>
