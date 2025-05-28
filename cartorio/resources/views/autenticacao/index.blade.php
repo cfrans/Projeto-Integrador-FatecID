@@ -179,7 +179,7 @@
                                 <x-input-label for="autenticacao_valor_previo">
                                     Valor Prévio:
                                 </x-input-label>
-                                <x-input-number type="text" id="valor" name="valor" class="w-[200px] h-10 text-sm" readonly required />
+                                <x-input-number type="text" id="autenticacao_valor_previo" name="autenticacao_valor_previo" class="w-[200px] h-10 text-sm" readonly required />
                             </div>
                         </div>  
 
@@ -209,3 +209,15 @@
             </div> 
     </form>
 </x-app-layout>
+
+<script>
+    // Faz o campo "Valor Prévio" ter o mesmo do campo "Valor"
+    document.addEventListener('DOMContentLoaded', function () {
+    const campoValor = document.getElementById('valor');
+    const campoValorPrevio = document.getElementById('autenticacao_valor_previo'); 
+
+    campoValor.addEventListener('input', function () {
+        campoValorPrevio.value = campoValor.value;
+    });
+});
+</script>
