@@ -43,10 +43,10 @@ class ProtocoloController extends Controller
                 'email' => 'nullable|email|max:255',
                 'tipo_contato' => 'required|string|max:50',
                 'data_documento' => 'required|date',
-                'numero_protocolo' => 'required|integer',
-                'numero_registro' => 'required|integer',
+                'numero_protocolo' => 'nullable|integer',
+                'numero_registro' => 'nullable|integer',
                 'data_retirada' => 'required|date',
-                'data_registro' => 'required|date',
+                'data_registro' => 'nullable|date',
                 'data_cancelamento' => 'nullable|date',
                 'id_grupo' => 'required|exists:grupo,id',
                 'id_especie' => 'required|exists:especie,id',
@@ -64,15 +64,17 @@ class ProtocoloController extends Controller
                 'id_apresentante' => $apresentante->id,
                 'data_documento' => $validated['data_documento'],
                 'data_abertura' => Carbon::now()->format('Y-m-d'),
-                'data_cancelamento' => $validated['data_cancelamento'],
-                'numero_protocolo' => $validated['numero_protocolo'],
-                'numero_registro' => $validated['numero_registro'],
-                'data_registro' => $validated['data_registro'],
+                'data_cancelamento' => Carbon::now()->addDays(30)->format('Y-m-d'),
+                // 'numero_protocolo' => $validated['numero_protocolo'],
+                // 'numero_registro' => $validated['numero_registro'],
+                // 'data_registro' => $validated['data_registro'],
                 'data_retirada' => $validated['data_retirada'],
                 'id_usuario' => auth()->user()->id,
                 'id_especie' => $validated['id_especie'],
                 'id_natureza' => $validated['id_natureza'],
             ]);
+
+            $protocolo->refresh();
 
             Log::info('Protocolo criado: ', $protocolo->toArray());
 
@@ -87,9 +89,12 @@ class ProtocoloController extends Controller
                 ]);
             }
 
-            return redirect()->back()->with('success', 'Protocolo cadastrado!');
+            return view('protocolos.index', compact('protocolo'))
+           ->with('success', 'Protocolo salvo com sucesso!');
+
+            // return redirect()->back()->with('success', 'Protocolo cadastrado!');
         } catch (\Exception $e) {
-            Log::error('Erro ao criar apresentante: ' . $e->getMessage());
+            Log::error('Erro ao criar protocolo: ' . $e->getMessage());
             return redirect()->back()->with('error', 'Erro ao cadastrar: ' . $e->getMessage());
         }
     }

@@ -3,6 +3,7 @@ use Carbon\Carbon;
 
 $dataHoje = Carbon::now()->format('d/m/Y');
 $dataPrevisao = Carbon::now()->addDays(10)->format('d/m/Y');
+$dataCancelamento = Carbon::now()->addDays(30)->format('d/m/Y');
 @endphp
 
 <x-app-layout>
@@ -112,9 +113,12 @@ $dataPrevisao = Carbon::now()->addDays(10)->format('d/m/Y');
                     <x-input-label for="numero_protocolo">
                         Protocolo
                     </x-input-label>
-                    <x-text-input id="numero_protocolo" name="numero_protocolo" class="w-[200px] h-8 text-sm" required>
+                    <div id="numero_protocolo" class="w-[200px] h-8 text-sm border border-gray-300 rounded px-2 flex items-center bg-gray-100">
+                        {{ $protocolo->numero_protocolo ?? '' }}
+                    </div>
+                    <!-- <x-text-input id="numero_protocolo" name="numero_protocolo" class="w-[200px] h-8 text-sm" required>
                         {{-- TODO: Confirmar se esse é o numero do protocolo mesmo que vai ser gerado sozinho --}}
-                    </x-text-input>
+                    </x-text-input> -->
                 </div>
             </div>
 
@@ -172,13 +176,16 @@ $dataPrevisao = Carbon::now()->addDays(10)->format('d/m/Y');
                     <x-input-label for="data_cancelamento">
                         Cancelamento
                     </x-input-label>
-                    <x-input-date type="date" id="data_cancelamento" name="data_cancelamento" class="w-[150px] h-8 text-sm" required />
+                    <div type="text" id="data_cancelamento" name="data_cancelamento" class="w-[150px] h-8 text-sm bg-gray-100 border rounded px-2 py-1 flex items-center">
+                        {{ $dataCancelamento }}
+                    </div>
+                    <!-- <x-input-date type="date" id="data_cancelamento" name="data_cancelamento" class="w-[150px] h-8 text-sm" required /> -->
                 </div>
             </div>
             <!-- TODO: CAMPO NAO EDITAVEL -->
 
             <!-- Quinta coluna (1/7) -->
-            <div class="campo-formulario flex items-center">
+            <!-- <div class="campo-formulario flex items-center">
                 <div class="text-left">
                     <x-input-label for="data_registro">
                         Data de registro
@@ -186,7 +193,7 @@ $dataPrevisao = Carbon::now()->addDays(10)->format('d/m/Y');
                     <x-input-date type="date" id="data_registro" name="data_registro" class="w-[150px] h-8 text-sm" required>
                     </x-input-date>
                 </div>
-            </div>
+            </div> -->
 
             <!-- Sexta coluna (1/7) -->
             <div class="campo-formulario flex items-center">
