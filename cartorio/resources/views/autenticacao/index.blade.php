@@ -22,7 +22,7 @@
         {{-- DIV MENOR PARA O CONTEUDO DOS CAMPOS --}}
             <div class="flex justify-center items-start min-h-screen py-10 gap-5 bg-gray-100">
 
-                <div class="flex flex-col gap-1 bg-white shadow-md rounded-md p-6 w-fit">
+                <div class="flex flex-col gap-1 bg-white shadow-md rounded-md mt-8 p-6 w-fit">
                     <div class ="flex flex-wrap justify-start w-full">
                     <!-- Primeira coluna (1/8) -->
                         <div class="campo-formulario flex items-center ml-6"> 
@@ -170,7 +170,7 @@
                             </div>
                     </div>
                 </div>
-                <div class="flex flex-col gap-4">
+                <div class="flex flex-col gap-4 mt-8">
                     <!-- DIV com os pagamentos -->
                     <div class="flex flex-col gap-1 bg-white shadow-md rounded-md p-6 w-fit">
                         <div class ="flex flex-col justify-start w-full gap-4">    
