@@ -209,12 +209,14 @@
                     <!-- Botões de ação -->
                     <div class="w-500 h-10 bg-[#9f9f9f] rounded-md flex items-center justify-around px-2">
                                 
-                        <button type="submit" class="w-10 h-10 flex items-center justify-center">
+                        <button type="submit" class="flex items-center justify-center gap-2 px-3 py-2">
                             <img src="{{ asset('images/Salvar.png') }}" alt="Salvar" class="w-4 h-4" />
+                            <span class="text-sm font-bold text-[#474747]">SALVAR</span>
                         </button>
 
-                        <button id="btn-voltar-protocolo" class="w-10 h-10 flex items-center justify-center">
+                        <button id="btn-voltar-protocolo" class="flex items-center justify-center gap-2 px-3 py-2">
                             <img src="{{ asset('images/Dinheiro.png') }}" alt="Dinheiro" class="w-6 h-6" />
+                            <span class="text-sm font-bold text-[#474747]">VIZUALIZAR</span>
                         </button>      
                     </div>
                 </div>
