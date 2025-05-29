@@ -16,8 +16,8 @@
     </header>
 
     <!-- Espaço para não sobrepor o conteúdo -->
-    <main class="pt-32">
-        <div class="max-w-[1100px] mx-auto px-8 py-5 bg-white shadow-md rounded-lg">
+    <main class="pt-40">
+        <div class="max-w-[1100px] mx-auto px-8 py-1 bg-white shadow-md rounded-lg">
             {{ $slot }}
         </div>
     </main>
