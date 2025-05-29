@@ -170,43 +170,54 @@
                             </div>
                     </div>
                 </div>
-                <!-- DIV com os pagamentos -->
-                <div class="flex flex-col gap-1 bg-white shadow-md rounded-md p-6 w-fit">
-                    <div class ="flex flex-col justify-start w-full gap-4">    
+                <div class="flex flex-col gap-4">
+                    <!-- DIV com os pagamentos -->
+                    <div class="flex flex-col gap-1 bg-white shadow-md rounded-md p-6 w-fit">
+                        <div class ="flex flex-col justify-start w-full gap-4">    
 
-                        <!-- Valor Prévio -->
-                        <div class="campo-formulario flex items-center mx-auto"> 
-                            <div class="text-left">
-                                <x-input-label for="autenticacao_valor_previo">
-                                    Valor Prévio:
-                                </x-input-label>
-                                <x-input-number type="text" id="autenticacao_valor_previo" name="autenticacao_valor_previo" class="w-[300px] h-10 text-sm" readonly required />
-                            </div>
-                        </div>  
-
-                        <!-- Valor Pago -->
-                        <div class="campo-formulario flex items-center mx-auto"> 
-                                 <div class="text-left">
-                                    <x-input-label for="autenticacao_valor_pago">
-                                        Valor Pago:
-                                    </x-input-label>
-                                    <x-input-number type="text" id="autenticacao_valor_pago" name="autenticacao_valor_pago" class="w-[300px] h-10 text-sm" required />
-                                </div>
-                            </div>
-
-                        <!-- Troco -->
-                        <div class="campo-formulario flex items-center mx-auto"> 
+                            <!-- Valor Prévio -->
+                            <div class="campo-formulario flex items-center mx-auto"> 
                                 <div class="text-left">
-                                    <x-input-label for="autenticacao_troco">
-                                        Troco:
+                                    <x-input-label for="autenticacao_valor_previo">
+                                        Valor Prévio:
                                     </x-input-label>
-                                    <x-input-number type="text" id="autenticacao_troco" name="autenticacao_troco" class="w-[300px] h-10 text-sm" readonly required />
+                                    <x-input-number type="text" id="autenticacao_valor_previo" name="autenticacao_valor_previo" class="w-[300px] h-10 text-sm" readonly required />
                                 </div>
+                            </div>  
+
+                            <!-- Valor Pago -->
+                            <div class="campo-formulario flex items-center mx-auto"> 
+                                    <div class="text-left">
+                                        <x-input-label for="autenticacao_valor_pago">
+                                            Valor Pago:
+                                        </x-input-label>
+                                        <x-input-number type="text" id="autenticacao_valor_pago" name="autenticacao_valor_pago" class="w-[300px] h-10 text-sm" required />
+                                    </div>
+                                </div>
+
+                            <!-- Troco -->
+                            <div class="campo-formulario flex items-center mx-auto"> 
+                                    <div class="text-left">
+                                        <x-input-label for="autenticacao_troco">
+                                            Troco:
+                                        </x-input-label>
+                                        <x-input-number type="text" id="autenticacao_troco" name="autenticacao_troco" class="w-[300px] h-10 text-sm" readonly required />
+                                    </div>
                             </div>
-                        
+                        </div> 
+                    </div>
+                    <!-- Botões de ação -->
+                    <div class="w-500 h-10 bg-[#9f9f9f] rounded-md flex items-center justify-around px-2">
+                                
+                        <button type="submit" class="w-10 h-10 flex items-center justify-center">
+                            <img src="{{ asset('images/Salvar.png') }}" alt="Salvar" class="w-4 h-4" />
+                        </button>
+
+                        <button id="btn-voltar-protocolo" class="w-10 h-10 flex items-center justify-center">
+                            <img src="{{ asset('images/Dinheiro.png') }}" alt="Dinheiro" class="w-6 h-6" />
+                        </button>      
                     </div>
                 </div>
-
             </div> 
     </form>
 </x-app-layout>
@@ -237,5 +248,9 @@
             // Garante 2 casas decimais com vírgula
             campoTroco.value = troco.toFixed(2).replace('.', ',');
         }
+
+        document.getElementById('btn-voltar-protocolo').addEventListener('click', function () {
+        window.location.href = "{{ route('protocolos.view') }}";
+    });
     });
 </script>
