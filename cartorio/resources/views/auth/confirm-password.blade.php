@@ -1,5 +1,7 @@
 <x-guest-layout>
-    <div class="mb-4 text-sm text-gray-600 dark:text-gray-400">
+<form method="POST" action="{{ route('register') }}">
+        @csrf    
+<div class="mb-4 text-sm text-gray-600 dark:text-gray-400">
         {{ __('Essa é uma área segura do site. Por favor, confirme sua senha antes de continuar.') }}
     </div>
 
