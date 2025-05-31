@@ -55,18 +55,6 @@
                         {{ __('Sobre') }}
                     </x-nav-link>
 
-                    <x-nav-link :href="route('contato.index')" :active="request()->routeIs('contato.index')" class="hover:border-b-2 hover:border-[#C27C5D]">
-                        {{ __('Contato') }}
-                    </x-nav-link>
-
-                    <!-- <x-nav-link :href="route('autenticacao.index')" :active="request()->routeIs('autenticacao.index')">
-                        {{ __('Autenticação') }}
-                    </x-nav-link>
-                    Comentados pois provavelmente serão removidos daqui
-                    <x-nav-link :href="route('andamento.index')" :active="request()->routeIs('andamento.index')">
-                        {{ __('Andamento') }}
-                    </x-nav-link> -->
-
                 </div>
             </div>
 
