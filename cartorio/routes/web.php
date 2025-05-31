@@ -12,7 +12,6 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 
-
 // Todas as rotas abaixo exigem autenticação
 Route::middleware(['auth'])->group(function () {
 
@@ -57,3 +56,14 @@ Route::middleware(['auth'])->group(function () {
 require __DIR__.'/auth.php';
 
 // TODO: Criar as rotas para as paginas de admin-only (ediçao de usuarios e afins)
+
+// teste de conexao do banco, depois remover
+use Illuminate\Support\Facades\DB;
+Route::get('/testar-conexao-db', function () {
+    try {
+        DB::connection()->getPdo(); // Tenta obter a conexão PDO
+        return 'Conexão com o banco de dados OK!';
+    } catch (\Exception $e) {
+        return 'Erro na conexão com o banco de dados: ' . $e->getMessage();
+    }
+});

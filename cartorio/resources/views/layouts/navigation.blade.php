@@ -16,34 +16,33 @@
                         {{ __('Dashboard') }}
                     </x-nav-link> --}}
 
-<div x-data="{ open: false }" @mouseenter="open = true" @mouseleave="open = false" class="relative pt-1 inline-flex items-center text-sm font-medium leading-5 text-gray-700 hover:text-gray-500 transition duration-150 ease-in-out cursor-pointer">
-    <div class="inline-flex items-center">
-        Protocolos
-        <svg class="ml-1 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-        </svg>
-    </div>
+                    <div x-data="{ open: false }" @mouseenter="open = true" @mouseleave="open = false" class="relative pt-1 inline-flex items-center text-sm font-medium leading-5 text-gray-700 hover:text-gray-500 transition duration-150 ease-in-out cursor-pointer">
+                        <div class="inline-flex items-center">
+                            Protocolos
+                            <svg class="ml-1 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                            </svg>
+                        </div>
 
-    <div
-        x-show="open"
-        x-transition:enter="transition ease-out duration-200"
-        x-transition:enter-start="opacity-0 translate-y-1"
-        x-transition:enter-end="opacity-100 translate-y-0"
-        x-transition:leave="transition ease-in duration-150"
-        x-transition:leave-start="opacity-100 translate-y-0"
-        x-transition:leave-end="opacity-0 translate-y-1"
-        class="absolute top-full left-0 mt-[-5px] w-48 bg-white rounded-md shadow-lg z-50"
-        @click.away="open = false"
-        style="display: none;"
-    >
-        <a href="{{ route('protocolos.index') }}" class="block px-4 py-2 text-sm text-gray-700 hover:text-white hover:bg-[#C27C5D]">
-            Novo Protocolo
-        </a>
-        <a href="{{ route('protocolos.view') }}" class="block px-4 py-2 text-sm text-gray-700 hover:text-white hover:bg-[#C27C5D]">
-            Visualizar Protocolo
-        </a>
-    </div>
-</div>
+                        <div
+                            x-show="open"
+                            x-transition:enter="transition ease-out duration-200"
+                            x-transition:enter-start="opacity-0 translate-y-1"
+                            x-transition:enter-end="opacity-100 translate-y-0"
+                            x-transition:leave="transition ease-in duration-150"
+                            x-transition:leave-start="opacity-100 translate-y-0"
+                            x-transition:leave-end="opacity-0 translate-y-1"
+                            class="absolute top-full left-0 mt-[-5px] w-48 bg-white rounded-md shadow-lg z-50"
+                            @click.away="open = false"
+                            style="display: none;">
+                            <a href="{{ route('protocolos.index') }}" class="block px-4 py-2 text-sm text-gray-700 hover:text-white hover:bg-[#C27C5D]">
+                                Novo Protocolo
+                            </a>
+                            <a href="{{ route('protocolos.view') }}" class="block px-4 py-2 text-sm text-gray-700 hover:text-white hover:bg-[#C27C5D]">
+                                Visualizar Protocolo
+                            </a>
+                        </div>
+                    </div>
 
 
                     <x-nav-link :href="route('indices.index')" :active="request()->routeIs('indices.index')" class="hover:border-b-2 hover:border-[#C27C5D]">
@@ -64,10 +63,10 @@
                     <x-slot name="trigger">
                         <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-[#9e9e9e]  bg-[#f5f5f5]  hover:text-gray-500  focus:outline-none transition ease-in-out duration-150">
                             @auth
-    <div>{{ Auth::user()->nome }}</div>
-@else
-    <div>Visitante</div>
-@endauth
+                            <div>{{ Auth::user()->nome }}</div>
+                            @else
+                            <div>Visitante</div>
+                            @endauth
 
 
                             <div class="ms-1">
@@ -88,7 +87,7 @@
                             @csrf
 
                             <x-dropdown-link :href="route('logout')"
-                                    onclick="event.preventDefault();
+                                onclick="event.preventDefault();
                                                 this.closest('form').submit();">
                                 {{ __('Sair') }}
                             </x-dropdown-link>
@@ -134,7 +133,7 @@
                     @csrf
 
                     <x-responsive-nav-link :href="route('logout')"
-                            onclick="event.preventDefault();
+                        onclick="event.preventDefault();
                                         this.closest('form').submit();">
                         {{ __('Log Out') }}
                     </x-responsive-nav-link>
