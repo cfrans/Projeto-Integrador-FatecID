@@ -27,7 +27,7 @@ class Usuario extends Authenticatable
         'endereco',
         'setor',
         'usuario',
-        'foto'
+        // 'foto'
     ];
 
     /**
