@@ -21,26 +21,35 @@
         <div class="flex items-center gap-4 -mt-2 w-full mr-14">
     <!-- Conjunto de botões -->
      
-    <div class="w-50 h-10 bg-[#9f9f9f] rounded-md flex items-center justify-around px-2 ml-auto">
+    <div class="w-70 h-10 bg-[#9f9f9f] rounded-md flex items-center px-2 ml-auto space-x-2">
 
-        <button class="w-10 h-10 flex items-center justify-center">
-            <img src="{{ asset('images/Retirar.png') }}" alt="Retirar" class="w-6 h-6" />
+        <button class="w-8 h-8 flex items-center justify-center">
+            <img src="{{ asset('images/Retirar.png') }}" alt="Retirar" class="w-5 h-5" />
         </button>
 
-        <button class="w-10 h-10 flex items-center justify-center">
-            <img src="{{ asset('images/Editar.png') }}" alt="Editar" class="w-6 h-6" />
+        <button class="w-8 h-8 flex items-center justify-center">
+            <img src="{{ asset('images/Editar.png') }}" alt="Editar" class="w-5 h-5" />
         </button>
 
-        <button class="w-10 h-10 flex items-center justify-center">
-            <img src="{{ asset('images/Voltar.png') }}" alt="Voltar" class="w-6 h-6" />
+        <button class="w-8 h-8 flex items-center justify-center">
+            <img src="{{ asset('images/Voltar.png') }}" alt="Voltar" class="w-5 h-5" />
         </button>
 
-        <button class="w-10 h-10 flex items-center justify-center">
-            <img src="{{ asset('images/Setadireita.png') }}" alt="Setadireita" class="w-6 h-6" />
+        <button class="w-8 h-8 flex items-center justify-center">
+            <img src="{{ asset('images/Setadireita.png') }}" alt="Setadireita" class="w-5 h-5" />
         </button>
 
-        <button type="button" class="w-10 h-10 flex items-center justify-center" onclick="limparFormulario()">
-            <img src="{{ asset('images/Imprimir.png') }}" alt="Imprimir" class="w-6 h-6" />
+         <button onclick="window.location.href='{{ route('autenticacao.index') }}'" class="w-8 h-8 flex items-center justify-center">
+         <img src="{{ asset('images/Dinheiro.png') }}" alt="Dinheiro" class="w-5 h-5" />
+        </button> 
+
+        <button onclick="window.location.href='{{ route('andamento.index') }}'" class="w-8 h-8 flex items-center justify-center">
+         <img src="{{ asset('images/Andamento.png') }}" alt="Andamento" class="w-5 h-5" />
+        </button>
+
+
+        <button type="button" class="w-8 h-8 flex items-center justify-center" onclick="limparFormulario()">
+            <img src="{{ asset('images/Imprimir.png') }}" alt="Imprimir" class="w-5 h-5" />
         </button>
 
     </div>
@@ -54,7 +63,7 @@
 </div>
 
  <div id="container-campos">
-            <div class="flex justify-start w-[40%] h-18 bg-white rounded-md ml-16">
+            <div class="flex justify-start w-[40%] h-18 bg-white rounded-md ml-14">
 
                 <!-- Primeira coluna (1/7) -->
                 <div class="campo-formulario flex items-center ml-6">
@@ -364,6 +373,12 @@
 
         </div>
         </div>
+
+        <script>
+    function redirecionarParaAutenticacao() {
+        window.location.href = "{{ route('autenticacao.index') }}";
+    }
+</script>
 
         <script>
     document.getElementById('botao-voltar').addEventListener('click', function () {
