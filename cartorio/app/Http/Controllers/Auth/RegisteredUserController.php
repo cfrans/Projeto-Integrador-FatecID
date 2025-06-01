@@ -33,7 +33,7 @@ class RegisteredUserController extends Controller
     public function store(Request $request): RedirectResponse
     {
 
-        // dd($request->all());
+        try{
 
         Log::info('Teste de log - Chegou no controller');
 
@@ -63,6 +63,10 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        return redirect(route('dashboard', absolute: false));
+        return redirect(route('dashboard', absolute: false));}
+        catch (\Exception $e) {
+            Log::error('Erro ao registrar usuário: ' . $e->getMessage());
+            return redirect()->back()->withErrors(['error' => 'Erro ao registrar usuário. Por favor, tente novamente.']);
+        }
     }
 }
