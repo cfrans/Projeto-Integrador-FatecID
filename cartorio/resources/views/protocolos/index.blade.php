@@ -32,15 +32,10 @@ $dataCancelamento = Carbon::now()->addDays(30)->format('d/m/Y');
         <div class="flex items-center gap-4 -mt-2 w-full mr-14">
     <!-- Conjunto de botões -->
      
-    <div class="w-40 h-10 bg-[#9f9f9f] rounded-md flex items-center justify-around px-2 ml-auto">
+    <div class="w-30 h-10 bg-[#9f9f9f] rounded-md flex items-center justify-around px-2 ml-auto">
         <button type="submit" class="w-10 h-10 flex items-center justify-center">
         <img src="{{ asset('images/Salvar.png') }}" alt="Salvar" class="w-4 h-4" />
     </button>
-
-    <button onclick="window.location.href='{{ route('autenticacao.index') }}'" class="w-10 h-10 flex items-center justify-center">
-         <img src="{{ asset('images/Dinheiro.png') }}" alt="Dinheiro" class="w-6 h-6" />
-    </button>
-
 
         <button type="button" class="w-10 h-10 flex items-center justify-center" onclick="limparFormulario()">
             <img src="{{ asset('images/Limpar.png') }}" alt="Limpar" class="w-5 h-5" />
@@ -360,6 +355,38 @@ $dataCancelamento = Carbon::now()->addDays(30)->format('d/m/Y');
                 container.appendChild(novaLinha); // Adiciona ao contêiner
             });
         </script>
+
+        <script>
+document.getElementById('formulario').addEventListener('submit', async function(e) {
+    e.preventDefault(); // Impede o envio padrão
+
+    const form = e.target;
+    const formData = new FormData(form);
+
+    try {
+        const response = await fetch('/protocolos', {
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value
+            },
+            body: formData
+        });
+
+        if (response.ok) {
+            // Redireciona após sucesso
+            window.location.href = "{{ route('protocolos.view') }}";
+        } else {
+            const data = await response.json();
+            alert('Erro ao salvar: ' + (data.message || 'Erro desconhecido'));
+        }
+
+    } catch (error) {
+        console.error('Erro:', error);
+        alert('Erro ao enviar o formulário.');
+    }
+});
+</script>
+
 
     </form>
     {{-- @endsection --}}

@@ -211,14 +211,21 @@
                                 
                         <button type="submit" class="flex items-center justify-center gap-2 px-3 py-2">
                             <img src="{{ asset('images/Salvar.png') }}" alt="Salvar" class="w-4 h-4" />
-                            <span class="text-sm font-bold text-[#474747]">SALVAR</span>
+                            <span class="text-sm font-bold text-[#474747]">Salvar</span>
                         </button>
 
-                        <button id="btn-voltar-protocolo" class="flex items-center justify-center gap-2 px-3 py-2">
+                        
+        <button id="btn-voltar-protocolo" type="button" class="flex items-center justify-center gap-2 px-3 py-2">
+                 <img src="{{ asset('images/Voltar.png') }}" alt="Voltar" class="w-4 h-4" />
+        <span class="text-sm font-bold text-[#474747]">Voltar</span>
+        </button>
+    </div>
+
+                        <!-- <button id="btn-voltar-protocolo" class="flex items-center justify-center gap-2 px-3 py-2">
                             <img src="{{ asset('images/Dinheiro.png') }}" alt="Dinheiro" class="w-6 h-6" />
                             <span class="text-sm font-bold text-[#474747]">VIZUALIZAR</span>
                         </button>      
-                    </div>
+                    </div> -->
                 </div>
             </div> 
     </form>
@@ -256,3 +263,4 @@
     });
     });
 </script>
+

@@ -13,6 +13,7 @@ use Illuminate\Validation\Rules;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Log;
 
 class RegisteredUserController extends Controller
 {
@@ -31,6 +32,11 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
+
+        try{
+
+        Log::info('Teste de log - Chegou no controller');
+
         $request->validate([
             'nome' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . Usuario::class],
@@ -39,8 +45,10 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'setor' => ['required', 'string', 'max:255'],
             'usuario' => ['required', 'string', 'max:255', 'unique:' . Usuario::class],
-            'foto' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048']
+            // 'foto' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048']
         ]);
+
+        Log::info('Validacao OK: ' . $request->email);
 
         $user = Usuario::create([
             'nome' => $request->nome,
@@ -50,11 +58,15 @@ class RegisteredUserController extends Controller
             'endereco' => $request->endereco,
             'setor' => $request->setor,
             'usuario' => $request->usuario,
-            'foto' => $request->foto
+            // 'foto' => $request->foto
         ]);
 
         Auth::login($user);
 
-        return redirect(route('dashboard', absolute: false));
+        return redirect(route('dashboard', absolute: false));}
+        catch (\Exception $e) {
+            Log::error('Erro ao registrar usuário: ' . $e->getMessage());
+            return redirect()->back()->withErrors(['error' => 'Erro ao registrar usuário. Por favor, tente novamente.']);
+        }
     }
 }

@@ -98,4 +98,52 @@ class ProtocoloController extends Controller
             return redirect()->back()->with('error', 'Erro ao cadastrar: ' . $e->getMessage());
         }
     }
+    public function buscarPorNumero($numero)
+    {
+        $protocolo = Protocolo::with([
+            'grupo',
+            'especie',
+            'natureza',
+            'apresentante',
+            'partes'
+        ])->where('numero_protocolo', $numero)->first();
+
+        if (!$protocolo) {
+            Log::warning('Protocolo não encontrado para o número: ' . $numero);
+            return response()->json(['erro' => 'Protocolo não encontrado'], 404);
+        }
+
+        // Formatar data_abertura para input type="date" se necessário
+        $data_abertura = $protocolo->data_abertura;
+        if ($data_abertura && strlen($data_abertura) > 10) {
+            $data_abertura = substr($data_abertura, 0, 10);
+        }
+
+        // Garantir que partes seja array
+        $partes = $protocolo->partes ? $protocolo->partes->values()->toArray() : [];
+
+        Log::info('Retornando protocolo para view', [
+            'numero' => $numero,
+            'data_abertura' => $data_abertura,
+            'protocolo' => $protocolo,
+            'partes' => $partes
+        ]);
+
+        return response()->json([
+            'id' => $protocolo->id,
+            'numero_protocolo' => $protocolo->numero_protocolo,
+            'numero_registro' => $protocolo->numero_registro,
+            'numero_documento' => $protocolo->numero_documento,
+            'data_documento' => $protocolo->data_documento,
+            'data_abertura' => $data_abertura,
+            'data_cancelamento' => $protocolo->data_cancelamento,
+            'data_retirada' => $protocolo->data_retirada,
+            'data_registro' => $protocolo->data_registro,
+            'id_grupo' => $protocolo->id_grupo,
+            'id_natureza' => $protocolo->id_natureza,
+            'id_especie' => $protocolo->id_especie,
+            'apresentante' => $protocolo->apresentante,
+            'partes' => $partes
+        ]);
+    }
 }

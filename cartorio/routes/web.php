@@ -6,6 +6,7 @@ use App\Http\Controllers\ProtocoloController;
 use App\Http\Controllers\ApresentanteController;
 use App\Http\Controllers\DocumentoController;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Log;
 
 // Página inicial 
 Route::get('/', function () {
@@ -51,6 +52,8 @@ Route::middleware(['auth'])->group(function () {
 
     // Contato
     Route::get('/contato', fn () => view('contato.index'))->name('contato.index');
+
+    Route::get('/protocolos/buscar/{numero}', [ProtocoloController::class, 'buscarPorNumero'])->name('protocolos.buscar');
 });
 
 require __DIR__.'/auth.php';
@@ -66,4 +69,9 @@ Route::get('/testar-conexao-db', function () {
     } catch (\Exception $e) {
         return 'Erro na conexão com o banco de dados: ' . $e->getMessage();
     }
+});
+
+Route::post('/log-js-error', function (\Illuminate\Http\Request $request) {
+    Log::error('[JS ERROR] ' . json_encode($request->all()));
+    return response()->json(['ok' => true]);
 });

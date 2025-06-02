@@ -43,5 +43,9 @@ class Protocolo extends Model
     public function natureza() {
         return $this->belongsTo(Natureza::class, 'id_natureza');
     }
+
+    public function partes() {
+        return $this->hasMany(Parte::class, 'id_protocolo');
+    }
 }
 
