@@ -1,11 +1,11 @@
 <x-guest-wide-layout>
-
-    <div class="w-full max-w-6xl mx-auto px-8 py-10 bg-white rounded-md ">
+   
+<div class="w-full max-w-6xl mx-auto px-8 py-10 bg-white rounded-md ">
         <form method="POST" action="{{ route('register') }}">
             @csrf
 
             <div class="text-center mb-8">
-                <h2 class="text-lg font-semibold text-gray-800">Cadastrar</h2>
+             <h2 class="text-lg font-semibold text-gray-800">Cadastrar</h2>
 
             </div>
 
@@ -24,12 +24,11 @@
 
                 <!-- Email -->
                 <div>
-                    <x-input-label for="email" :value="__('E-mail:')" />
+                    <x-input-label for="email" :value="__('Email:')" />
                     <x-text-input id="email" name="email" type="email" class="w-full" :value="old('email')" required />
                 </div>
 
                 <!-- Setor -->
-                <!-- TODO: COLOCAR UM DROPDOWN COM OS SETORES -->
                 <div>
                     <x-input-label for="setor" :value="__('Setor em que trabalha:')" />
                     <x-text-input id="setor" name="setor" type="text" class="w-full" :value="old('setor')" required />
@@ -48,42 +47,28 @@
                 </div>
 
                 <!-- Senha -->
-                <div class="relative">
+                <div>
                     <x-input-label for="password" :value="__('Senha')" />
                     <x-text-input id="password" name="password" type="password" class="w-full" required />
-                    <div id="password-strength"></div>
                 </div>
 
-                <!-- Confirmação -->
-                <div class="relative">
+                <!-- Confirmar Senha -->
+                <div>
                     <x-input-label for="password_confirmation" :value="__('Confirme a senha')" />
                     <x-text-input id="password_confirmation" name="password_confirmation" type="password" class="w-full" required />
-                    <div id="password-match"></div>
                 </div>
+            </div>
 
+            <!-- Botões -->
+            <div class="flex justify-between items-center mt-8">
+                <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('login') }}">
+                    {{ __('Já possui cadastro?') }}
+                </a>
 
-                <!-- Botões -->
-                <div class="flex justify-between items-center mt-8">
-                    <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('login') }}">
-                        {{ __('Já possui cadastro?') }}
-                    </a>
-
-                    <x-primary-button>
-                        {{ __('Cadastrar') }}
-                    </x-primary-button>
-                </div>
+                <x-primary-button>
+                    {{ __('Cadastrar') }}
+                </x-primary-button>
+            </div>
         </form>
     </div>
-
-    <style>
-@keyframes fadeOut {
-    0% { opacity: 1; }
-    90% { opacity: 1; }
-    100% { opacity: 0; }
-}
-.animate-fade-out {
-    animation: fadeOut 3s forwards;
-}
-</style>
-
 </x-guest-wide-layout>
