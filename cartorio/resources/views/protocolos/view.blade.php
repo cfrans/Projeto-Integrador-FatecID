@@ -61,7 +61,7 @@
         </div>
 
         <div id="container-campos">
-            <div class="flex justify-start w-[40%] h-18 bg-white rounded-md ml-16">
+            <div class="flex justify-start w-[43%] h-18 bg-white rounded-md ml-14">
 
                 <!-- Primeira coluna (1/7) -->
                 <div class="campo-formulario flex items-center ml-6">
@@ -82,7 +82,6 @@
                         </x-input-label>
                         <div class="flex items-center gap-2">
                             <x-text-input type="text" id="numero_protocolo" name="numero_protocolo" class="w-[150px] h-8 text-sm" required />
-                            <button type="button" id="btn-pesquisar-protocolo" class="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-700">Pesquisar</button>
                         </div>
                     </div>
                 </div>
@@ -96,6 +95,13 @@
                         </x-text-input>
                     </div>
                 </div>
+
+                 <div class="w-8 h-8 bg-[#9f9f9f] rounded-full flex items-center justify-center mt-[29px] ml-2">
+                     <button type="button" id="btn-pesquisar-protocolo" class="w-full h-full flex items-center justify-center rounded-full hover:bg-[#8f8f8f]">
+                    <img src="{{ asset('images/Pesquisar.png') }}" alt="Pesquisar" class="w-4 h-4" />
+                    </button>
+                 </div>
+
             </div>
         </div>
 
@@ -154,7 +160,7 @@
                     <x-input-label for="numero_documento">
                         Nº Documento / Título
                     </x-input-label>
-                    <x-text-input id="numero_documento_protocolo" name="numero_documento" class="w-[200px] h-8 text-sm" required />
+                    <x-text-input id="numero_documento_protocolo" name="numero_documento" class="w-[200px] h-8 text-sm" required readonly/>
                 </div>
             </div>
 
@@ -245,7 +251,7 @@
                     <x-input-label for="apresentante_numero_documento">
                         Número do Documento
                     </x-input-label>
-                    <x-text-input type="text" id="numero_documento_apresentante" name="numero_documento" class="w-[200px] h-8 text-sm" required>
+                    <x-text-input type="text" id="numero_documento_apresentante" name="numero_documento" class="w-[200px] h-8 text-sm" required readonly>
                     </x-text-input>
                 </div>
             </div>
@@ -256,7 +262,7 @@
                     <x-input-label for="apresentante_nome">
                         Nome
                     </x-input-label>
-                    <x-text-input type="text" id="nome_apresentante" name="nome" class="w-[800px] h-8 text-sm" required>
+                    <x-text-input type="text" id="nome_apresentante" name="nome" class="w-[800px] h-8 text-sm" required readonly>
                     </x-text-input>
                 </div>
             </div>
@@ -271,7 +277,7 @@
                     <x-input-label for="apresentante_tipo_contato">
                         Tipo de Contato
                     </x-input-label>
-                    <x-text-input type="text" id="tipo_contato_apresentante" name="tipo_contato" class="w-[150px] h-8 text-sm" required>
+                    <x-text-input type="text" id="tipo_contato_apresentante" name="tipo_contato" class="w-[150px] h-8 text-sm" required readonly>
                     </x-text-input>
                 </div>
             </div>
@@ -283,7 +289,7 @@
                     <x-input-label for="apresentante_numero_contato">
                         Número de Contato
                     </x-input-label>
-                    <x-text-input type="text" id="numero_contato_apresentante" name="numero_contato" class="w-[200px] h-8 text-sm" required>
+                    <x-text-input type="text" id="numero_contato_apresentante" name="numero_contato" class="w-[200px] h-8 text-sm" required readonly>
                     </x-text-input>
                 </div>
             </div>
@@ -294,7 +300,7 @@
                     <x-input-label for="apresentante_email">
                         E-mail
                     </x-input-label>
-                    <x-text-input type="email" id="email_apresentante" name="email" class="w-[800px] h-8 text-sm" required>
+                    <x-text-input type="email" id="email_apresentante" name="email" class="w-[800px] h-8 text-sm" required readonly>
                     </x-text-input>
                 </div>
             </div>
@@ -326,7 +332,7 @@
                         <x-input-label for="parte_nome">
                             Nome / Razão Social
                         </x-input-label>
-                        <x-text-input type="text" name="identificacao[]" class="w-[800px] h-8 text-sm" required>
+                        <x-text-input type="text" name="identificacao[]" class="w-[800px] h-8 text-sm" required readonly>
                         </x-text-input>
                     </div>
                 </div>
