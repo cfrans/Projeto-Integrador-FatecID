@@ -16,7 +16,7 @@ class Protocolo extends Model
         // 'numero_protocolo',
         // 'numero_registro',
         // 'data_registro',
-        'data_retirada',
+        // 'data_retirada',
         'id_usuario',
         'id_apresentante',
         'id_grupo',
