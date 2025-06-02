@@ -9,49 +9,49 @@ $dataCancelamento = Carbon::now()->addDays(30)->format('d/m/Y');
 <x-app-layout>
     <x-slot name="title">Novo Protocolo</x-slot>
 
-    {{-- Estilo temporario para ajudar a ver as divisoes --}}
-    <style>
-        .campo-formulario {
-            border: 0px;
-            padding: 8px;
-        }
-    </style>
- 
-    <x-slot name="header">
-        <h2 class="font-semibold text-base text-white leading-tight">
-            {{ __('Protocolos') }}
-        </h2>
-    </x-slot>
+        {{-- Estilo temporario para ajudar a ver as divisoes --}}
+        <style>
+            .campo-formulario {
+                border: 0px;
+                padding: 8px;
+            }
+        </style>
+    
+        <x-slot name="header">
+            <h2 class="font-semibold text-base text-white leading-tight">
+                {{ __('Protocolos') }}
+            </h2>
+        </x-slot>
 
 
-<div class="max-w-[75%] mx-auto w-full px-4">
-    {{-- TODO: Criar o endpoint para o formulario --}}
-    <form id="formulario" action="/protocolos" method="post">
-        @csrf
+        <div class="max-w-[75%] mx-auto w-full px-4">
+            {{-- TODO: Criar o endpoint para o formulario --}}
+            <form id="formulario" action="/protocolos" method="post">
+                @csrf
 
-        <div class="flex items-center gap-4 -mt-2 w-full mr-14">
-    <!-- Conjunto de botões -->
-     
-    <div class="w-30 h-10 bg-[#9f9f9f] rounded-md flex items-center justify-around px-2 ml-auto">
-        <button type="submit" class="w-10 h-10 flex items-center justify-center">
-        <img src="{{ asset('images/Salvar.png') }}" alt="Salvar" class="w-4 h-4" />
-    </button>
+                <div class="flex items-center gap-4 -mt-2 w-full mr-14">
+            <!-- Conjunto de botões -->
+            
+            <div class="w-30 h-10 bg-[#9f9f9f] rounded-md flex items-center justify-around px-2 ml-auto">
+                <button type="submit" class="w-10 h-10 flex items-center justify-center">
+                <img src="{{ asset('images/Salvar.png') }}" alt="Salvar" class="w-4 h-4" />
+            </button>
 
-        <button type="button" class="w-10 h-10 flex items-center justify-center" onclick="limparFormulario()">
-            <img src="{{ asset('images/Limpar.png') }}" alt="Limpar" class="w-5 h-5" />
-        </button>
+            <button type="button" class="w-10 h-10 flex items-center justify-center" onclick="limparFormulario()">
+                 <img src="{{ asset('images/Limpar.png') }}" alt="Limpar" class="w-5 h-5" />
+            </button>
 
-    </div>
+            </div>
 
 
-    <!-- Botão voltar -->
-<div class="w-9 h-9 bg-[#9f9f9f] rounded-full flex items-center justify-around px-2 ml-90 mr-20">
-    <button id="botao-voltar" type="button" class="w-10 h-10 flex items-center justify-center">
-        <img src="{{ asset('images/Voltar.png') }}" alt="Voltar" class="w-4 h-4" />
-    </button>
-</div>
+            <!-- Botão voltar -->
+        <div class="w-9 h-9 bg-[#9f9f9f] rounded-full flex items-center justify-around px-2 ml-90 mr-20 hover:bg-[#8a8a8a]">
+            <button id="botao-voltar" type="button" class="w-10 h-10 flex items-center justify-center">
+                <img src="{{ asset('images/Voltar.png') }}" alt="Voltar" class="w-4 h-4" />
+            </button>
+        </div>
 
-</div>
+        </div>
 
         <x-input-label for="protocolo_grupo" class="ml-20">
             Dados do Protocolo
@@ -63,31 +63,37 @@ $dataCancelamento = Carbon::now()->addDays(30)->format('d/m/Y');
 
             <!-- Primeira coluna (2/7) -->
             <div class="campo-formulario flex items-center ml-6">
-                <div class="text-left">
-                    <x-input-label for="id_grupo">
-                        Grupo
-                    </x-input-label>
-                    <x-input-select id="id_grupo" name="id_grupo" class="w-[200px] h-7.5 text-sm" required>
-                        <option value="1">Títulos e Documentos</option>
-                        <option value="2">Pessoa Jurídica</option>
-                    </x-input-select>
-                </div>
+            <div class="text-left">
+                <x-input-label for="id_grupo">Grupo</x-input-label>
+                <x-input-select id="id_grupo" name="id_grupo" class="w-[200px] h-7.5 text-sm" required>
+                    <option value="1">Títulos e Documentos</option>
+                    <option value="2">Pessoa Jurídica</option>
+                </x-input-select>
             </div>
+        </div>
 
-
-            <!-- Segunda coluna (2/7) -->
             <div class="campo-formulario flex items-center">
                 <div class="text-left">
-                    <x-input-label for="id_natureza">
-                        Natureza
-                    </x-input-label>
-                    <x-input-select id="id_natureza" name="id_natureza " class="w-[400px] h-8 text-sm" required>
-                        <option value="1">Natureza 01</option>
-                        <option value="2">Natureza 02</option>
-                        {{-- TODO: Confirmar os tipos de natureza --}}
+                    <x-input-label for="id_natureza">Natureza</x-input-label>
+                    <x-input-select id="id_natureza" name="id_natureza" class="w-[400px] h-8 text-sm" required>
+
+                        {{-- Naturezas do Grupo 1 --}}
+                        <option value="1" data-grupo="1">Ata de Condomínio</option>
+                        <option value="2" data-grupo="1">Cedula de Crédito</option>
+                        <option value="3" data-grupo="1">Conservação</option>
+                        <option value="4" data-grupo="1">Notificação</option>
+                        <option value="5" data-grupo="1">Tradução</option>
+
+                        {{-- Naturezas do Grupo 2 --}}
+                        <option value="4" data-grupo="2">Ata de Assembleia</option>
+                        <option value="5" data-grupo="2">Abertura de Filial</option>
+                        <option value="6" data-grupo="2">Contrato Social</option>
+                        <option value="7" data-grupo="2">Distrato</option>
+                        <option value="8" data-grupo="2">Estatuto</option>
                     </x-input-select>
                 </div>
             </div>
+
 
             <!-- Terceira coluna (2/7) -->
             <div class="campo-formulario flex items-center">
@@ -191,7 +197,7 @@ $dataCancelamento = Carbon::now()->addDays(30)->format('d/m/Y');
             </div> -->
 
             <!-- Sexta coluna (1/7) -->
-            <div class="campo-formulario flex items-center">
+            <!-- <div class="campo-formulario flex items-center">
                 <div class="text-left">
                     <x-input-label for="data_retirada">
                         Data de Retirada
@@ -199,7 +205,7 @@ $dataCancelamento = Carbon::now()->addDays(30)->format('d/m/Y');
                     <x-input-date type="date" id="data_retirada" name="data_retirada" class="w-[150px] h-8 text-sm" required>
                     </x-input-date>
                 </div>
-            </div>
+            </div> -->
         </div>
         <!--acaba aqui-->
 
@@ -297,49 +303,76 @@ $dataCancelamento = Carbon::now()->addDays(30)->format('d/m/Y');
             <div class="flex justify-start w-[92%] h-20 mx-auto bg-white rounded-md">
 
                 <!-- Primeira coluna (1/7) -->
-                <div class="campo-formulario flex items-center ml-6">
-                    <div class="text-left">
-                        <x-input-label for="parte_tipo">
-                            Tipo
-                        </x-input-label>
-                        <x-input-select name="id_tipo_parte[]" class="w-[365px] h-8 text-sm" required>
-                            <option value="1">Física</option>
-                            <option value="2">Jurídica</option>
-                        </x-input-select>
-                    </div>
-                </div>
+                {{-- Tipo (filtrado por grupo) --}}
+        <div class="campo-formulario flex items-center ml-6">
+            <div class="text-left">
+                <x-input-label for="tipo_select">Tipo</x-input-label>
+                <x-input-select id="tipo_select" name="id_tipo_parte[]" class="w-[365px] h-8 text-sm" required>
+                    {{-- Tipos do Grupo 1 --}}
+                    <option value="1" data-grupo="1">Condomínio</option>
+                    <option value="2" data-grupo="1">Destinatário</option>
+                    <option value="3" data-grupo="1">Emitente</option>
+                    <option value="4" data-grupo="1">Parte</option>
+                    <option value="5" data-grupo="1">Remetente</option>
+                    <option value="6" data-grupo="1">Síndico</option>
+                
+                    {{-- Tipos do Grupo 2 --}}
+                    <option value="7" data-grupo="2">Associação</option>
+                    <option value="8" data-grupo="2">Diretor Executivo</option>
+                    <option value="9" data-grupo="2">Presidente</option>
+                    <option value="10" data-grupo="2">Secretário</option>
+                    <option value="11" data-grupo="2">Sócio</option>
+                </x-input-select>
+            </div>
+        </div>
 
                 <!-- Segunda coluna (3/7) -->
-                <div class="campo-formulario flex items-center">
-                    <div class="text-left">
-                        <x-input-label for="parte_nome">
-                            Nome / Razão Social
-                        </x-input-label>
-                        <x-text-input type="text" name="identificacao[]" class="w-[750px] h-8 text-sm" required>
-                        </x-text-input>
-                    </div>
+            <div class="campo-formulario flex items-center">
+                 <div class="text-left">
+                      <x-input-label for="parte_nome">
+                          Nome / Razão Social
+                     </x-input-label>
+                      <x-text-input type="text" name="identificacao[]" class="w-[750px] h-8 text-sm" required>
+                     </x-text-input>
                 </div>
+                </div>
+                
             </div>
         </div>
 
         <!-- Botão adicionar -->
         <div class="w-[85%] mx-auto -mt-12 text-right">
-            <button type="button" id="parte_adicionar" class="bg-[#9f9f9f] text-black px-3 py-1 rounded hover:bg-blue-600">+</button>
+            <button type="button" id="parte_adicionar" class="bg-[#9f9f9f] text-black px-3 py-1 rounded hover:bg-[#8a8a8a]">+</button>
         </div>
 
         </div>
 
-<script>
-    function limparFormulario() {
-        document.getElementById('formulario').reset();
-    }
-</script>
+        <script>
+        function limparFormulario() {
+            // Limpa os campos nativos do formulário
+            document.getElementById('formulario').reset();
 
-<script>
-    document.getElementById('botao-voltar').addEventListener('click', function () {
-        window.location.href = '{{ route('dashboard') }}';
-    });
-</script>
+            // Limpa campos dinâmicos no container-campos (deixa só o primeiro)
+            const container = document.getElementById("container-campos");
+            const primeiraLinha = container.firstElementChild;
+
+            // Remove todas as outras linhas
+            while (container.children.length > 1) {
+                container.removeChild(container.lastElementChild);
+            }
+
+            // Limpa os campos da primeira linha
+            primeiraLinha.querySelectorAll("input, select").forEach(function (el) {
+                el.value = '';
+            });
+            }
+        </script>
+
+        <script>
+            document.getElementById('botao-voltar').addEventListener('click', function () {
+                window.location.href = '{{ route('dashboard') }}';
+            });
+        </script>
 
 
 
@@ -356,37 +389,80 @@ $dataCancelamento = Carbon::now()->addDays(30)->format('d/m/Y');
             });
         </script>
 
-        <script>
-document.getElementById('formulario').addEventListener('submit', async function(e) {
-    e.preventDefault(); // Impede o envio padrão
+                <script>
+        document.getElementById('formulario').addEventListener('submit', async function(e) {
+            e.preventDefault(); // Impede o envio padrão
 
-    const form = e.target;
-    const formData = new FormData(form);
+            const form = e.target;
+            const formData = new FormData(form);
 
-    try {
-        const response = await fetch('/protocolos', {
-            method: 'POST',
-            headers: {
-                'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value
-            },
-            body: formData
+            try {
+                const response = await fetch('/protocolos', {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value
+                    },
+                    body: formData
+                });
+
+                if (response.ok) {
+                    // Redireciona após sucesso
+                    window.location.href = "{{ route('protocolos.view') }}";
+                } else {
+                    const data = await response.json();
+                    alert('Erro ao salvar: ' + (data.message || 'Erro desconhecido'));
+                }
+
+            } catch (error) {
+                console.error('Erro:', error);
+                alert('Erro ao enviar o formulário.');
+            }
         });
+        </script>
 
-        if (response.ok) {
-            // Redireciona após sucesso
-            window.location.href = "{{ route('protocolos.view') }}";
-        } else {
-            const data = await response.json();
-            alert('Erro ao salvar: ' + (data.message || 'Erro desconhecido'));
-        }
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const grupoSelect = document.getElementById('id_grupo');
+                const naturezaSelect = document.getElementById('id_natureza');
+                const todasNaturezas = Array.from(naturezaSelect.options);
 
-    } catch (error) {
-        console.error('Erro:', error);
-        alert('Erro ao enviar o formulário.');
-    }
-});
-</script>
+                function filtrarNaturezas(grupo) {
+                    naturezaSelect.innerHTML = '';
+                    const filtradas = todasNaturezas.filter(opt => opt.dataset.grupo === grupo);
+                    filtradas.forEach(opt => naturezaSelect.appendChild(opt));
+                }
 
+                // Inicializa com o grupo selecionado por padrão 
+                filtrarNaturezas(grupoSelect.value);
+
+                // Atualiza quando o grupo mudar
+                grupoSelect.addEventListener('change', function () {
+                    filtrarNaturezas(this.value);
+                });
+            });
+        </script>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const grupoSelect = document.getElementById('id_grupo'); 
+                const tipoSelect = document.getElementById('tipo_select');
+                const todasOpcoes = Array.from(tipoSelect.querySelectorAll('option'));
+
+                function atualizarTipos(grupoId) {
+                    tipoSelect.innerHTML = '';
+                    const filtradas = todasOpcoes.filter(opt => opt.dataset.grupo === grupoId);
+                    filtradas.forEach(opt => tipoSelect.appendChild(opt));
+                }
+
+                // Inicializa com o valor atual
+                atualizarTipos(grupoSelect.value);
+
+                // Atualiza quando o grupo muda
+                grupoSelect.addEventListener('change', function () {
+                    atualizarTipos(this.value);
+                });
+            });
+        </script>
 
     </form>
     {{-- @endsection --}}

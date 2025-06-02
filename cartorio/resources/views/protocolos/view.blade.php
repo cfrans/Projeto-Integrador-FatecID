@@ -53,7 +53,7 @@
             </div>
 
             <!-- Botão voltar -->
-            <div class="w-9 h-9 bg-[#9f9f9f] rounded-full flex items-center justify-around px-2 ml-90 mr-20">
+            <div class="w-9 h-9 bg-[#9f9f9f] rounded-full flex items-center justify-around px-2 ml-90 mr-20 hover:bg-[#8a8a8a]">
                 <button id="botao-voltar" type="button" class="w-10 h-10 flex items-center justify-center">
                     <img src="{{ asset('images/Voltar.png') }}" alt="Voltar" class="w-4 h-4" />
                 </button>
@@ -134,9 +134,19 @@
                         Natureza
                     </x-input-label>
                     <x-input-select id="id_natureza" name="id_natureza " class="w-[400px] h-8 text-sm" required>
-                        <option value="1">Natureza 01</option>
-                        <option value="2">Natureza 02</option>
-                        {{-- TODO: Confirmar os tipos de natureza --}}
+                        {{-- Naturezas do Grupo 1 --}}
+                        <option value="1" data-grupo="1">Ata de Condomínio</option>
+                        <option value="2" data-grupo="1">Cedula de Crédito</option>
+                        <option value="3" data-grupo="1">Conservação</option>
+                        <option value="4" data-grupo="1">Notificação</option>
+                        <option value="5" data-grupo="1">Tradução</option>
+
+                        {{-- Naturezas do Grupo 2 --}}
+                        <option value="4" data-grupo="2">Ata de Assembleia</option>
+                        <option value="5" data-grupo="2">Abertura de Filial</option>
+                        <option value="6" data-grupo="2">Contrato Social</option>
+                        <option value="7" data-grupo="2">Distrato</option>
+                        <option value="8" data-grupo="2">Estatuto</option>
                     </x-input-select>
                 </div>
             </div>
@@ -320,8 +330,20 @@
                             Tipo
                         </x-input-label>
                         <x-input-select name="id_tipo_parte[]" class="w-[365px] h-8 text-sm" required>
-                            <option value="1">Física</option>
-                            <option value="2">Jurídica</option>
+                            {{-- Tipos do Grupo 1 --}}
+                    <option value="1" data-grupo="1">Condomínio</option>
+                    <option value="2" data-grupo="1">Destinatário</option>
+                    <option value="3" data-grupo="1">Emitente</option>
+                    <option value="4" data-grupo="1">Parte</option>
+                    <option value="5" data-grupo="1">Remetente</option>
+                    <option value="6" data-grupo="1">Síndico</option>
+                
+                    {{-- Tipos do Grupo 2 --}}
+                    <option value="7" data-grupo="2">Associação</option>
+                    <option value="8" data-grupo="2">Diretor Executivo</option>
+                    <option value="9" data-grupo="2">Presidente</option>
+                    <option value="10" data-grupo="2">Secretário</option>
+                    <option value="11" data-grupo="2">Sócio</option>
                         </x-input-select>
                     </div>
                 </div>
