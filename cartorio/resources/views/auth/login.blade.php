@@ -47,7 +47,7 @@
             </div>
 
             <a href="{{ route('register') }}?email={{ request()->input('email', old('email')) }}"
-                class="text-sm ml-auto mr-2 px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400">
+                class="text-sm ml-auto mr-4 px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400">
                 {{ __('Registrar') }}
             </a>
 
