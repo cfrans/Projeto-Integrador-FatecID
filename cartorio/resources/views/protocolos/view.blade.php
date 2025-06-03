@@ -61,7 +61,7 @@
         </div>
 
         <div id="container-campos">
-            <div class="flex justify-start w-[43%] h-18 bg-white rounded-md ml-14">
+            <div class="flex justify-start w-[43%] h-20 bg-white rounded-md ml-14">
 
                 <!-- Primeira coluna (1/7) -->
                 <div class="campo-formulario flex items-center ml-6">
@@ -101,7 +101,6 @@
                     <img src="{{ asset('images/Pesquisar.png') }}" alt="Pesquisar" class="w-4 h-4" />
                     </button>
                  </div>
-
             </div>
         </div>
 
@@ -362,7 +361,7 @@
         </div>
 
         <div id="container-campos">
-            <div class="flex justify-start w-[35%] h-18 bg-white rounded-md mt-6 ml-auto mr-16">
+            <div class="flex justify-start w-[35%] h-20 bg-white rounded-md mt-6 ml-auto mr-16">
 
                 <!-- Primeira coluna (1/7) -->
                 <div class="campo-formulario flex items-center ml-6">

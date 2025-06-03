@@ -277,7 +277,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Roda qnd carrega e ao trocar a forma de pagamento
     liberaCamposCheque();
-    formaPagamento.addEventListener('change', toggleCamposCheque);
+    formaPagamento.addEventListener('change', liberaCamposCheque);
 });
 </script>
 
