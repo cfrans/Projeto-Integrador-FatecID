@@ -54,6 +54,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/contato', fn () => view('contato.index'))->name('contato.index');
 
     Route::get('/protocolos/buscar/{numero}', [ProtocoloController::class, 'buscarPorNumero'])->name('protocolos.buscar');
+    Route::post('/protocolos/{numero_protocolo}/atualizar-data-retirada', [ProtocoloController::class, 'atualizarDataRetirada'])->name('protocolos.atualizarDataRetirada');
 });
 
 require __DIR__.'/auth.php';
