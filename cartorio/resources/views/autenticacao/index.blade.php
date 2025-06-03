@@ -7,6 +7,9 @@
             border: 0px;
             padding: 8px;
         }
+        input:disabled, select:disabled, textarea:disabled {
+            background-color: #e4e6eb; 
+        }
     </style>
 
     <!-- Slot de cabeçalho visual da página -->
@@ -25,7 +28,7 @@
                 <div class="flex flex-col gap-1 bg-white shadow-md rounded-md mt-8 p-6 w-fit">
                     <div class ="flex flex-wrap justify-start w-full">
                     <!-- Primeira coluna (1/8) -->
-                        <div class="campo-formulario flex items-center ml-6"> 
+                        <div class="campo-formulario flex items-center ml-3"> 
                             <div class="text-left">
                                 <x-input-label for="autenticacao_data">
                                     Data
@@ -59,7 +62,7 @@
 
                     <div class ="flex flex-wrap justify-start w-full">
                         <!-- Quarta coluna (4/8) -->
-                        <div class="campo-formulario flex items-center ml-6"> 
+                        <div class="campo-formulario flex items-center ml-3"> 
                             <div class="text-left">
                                 <x-input-label for="autenticacao_grupo">
                                     Grupo
@@ -83,7 +86,7 @@
 
                     <div class ="flex flex-wrap justify-start w-full">
                         <!-- Quinta coluna (5/8) -->
-                                <div class="campo-formulario flex items-center ml-6"> 
+                                <div class="campo-formulario flex items-center ml-3"> 
                                         <div class="text-left">
                                             <x-input-label for="autenticacao_apresentante">
                                                 Apresentante
@@ -107,7 +110,7 @@
 
                     <div class ="flex flex-wrap justify-start w-full">
                             <!-- Sétima coluna (7/8) -->
-                            <div class="campo-formulario flex items-center ml-6"> 
+                            <div class="campo-formulario flex items-center ml-3"> 
                                 <div class="text-left">
                                     <x-input-label for="autenticacao_pagamento">
                                         Forma de Pagamento
@@ -127,7 +130,7 @@
                                     <x-input-label for="autenticacao_banco">
                                         Banco
                                     </x-input-label>
-                                    <x-input-select id="id_banco" name="id_banco" class="w-[300px] h-10 text-sm" required>
+                                    <x-input-select id="id_banco" name="id_banco" class="w-[300px] h-10 text-sm" required disabled>
                                         <option value="1">Caixa Econômica</option>
                                         <option value="2">Banco do Brasil</option>
                                         <option value="3">Itaú</option>
@@ -140,34 +143,36 @@
 
                     <div class ="flex flex-wrap justify-start w-full">
                             <!-- Primeira coluna (1/3) -->
-                            <div class="campo-formulario flex items-center ml-6"> 
-                                <div class="text-left">
-                                    <x-input-label for="autenticacao_conta">
-                                        Conta
-                                    </x-input-label>
-                                    <x-text-input id="autenticacao_conta" name="autenticacao_conta" class="w-[200px] h-10 text-sm" required />
+                            <!--<div id="cheque"> -->
+                                <div class="campo-formulario flex items-center ml-3"> 
+                                    <div class="text-left">
+                                        <x-input-label for="autenticacao_conta">
+                                            Conta
+                                        </x-input-label>
+                                        <x-text-input id="autenticacao_conta" name="autenticacao_conta" class="w-[200px] h-10 text-sm" required disabled />
+                                    </div>
                                 </div>
-                            </div>
 
-                            <!-- Segunda coluna (1/2) -->
-                            <div class="campo-formulario flex items-center ml-6"> 
-                                <div class="text-left">
-                                    <x-input-label for="autenticacao_agencia">
-                                        Agência
-                                    </x-input-label>
-                                    <x-text-input id="autenticacao_agencia" name="autenticacao_agencia" class="w-[200px] h-10 text-sm" required />
+                                <!-- Segunda coluna (1/3) -->
+                                <div class="campo-formulario flex items-center ml-6"> 
+                                    <div class="text-left">
+                                        <x-input-label for="autenticacao_agencia">
+                                            Agência
+                                        </x-input-label>
+                                        <x-text-input id="autenticacao_agencia" name="autenticacao_agencia" class="w-[200px] h-10 text-sm" required disabled />
+                                    </div>
                                 </div>
-                            </div>
 
-                            <!-- Terceira coluna (3/2) -->
-                            <div class="campo-formulario flex items-center ml-6"> 
-                                <div class="text-left">
-                                    <x-input-label for="autenticacao_cheque">
-                                        Número do cheque
-                                    </x-input-label>
-                                    <x-text-input id="autenticacao_cheque" name="autenticacao_cheque" class="w-[200px] h-10 text-sm" required />
+                                <!-- Terceira coluna (3/3) -->
+                                <div class="campo-formulario flex items-center ml-6"> 
+                                    <div class="text-left">
+                                        <x-input-label for="autenticacao_cheque">
+                                            Número do cheque
+                                        </x-input-label>
+                                        <x-text-input id="autenticacao_cheque" name="autenticacao_cheque" class="w-[200px] h-10 text-sm" required disabled/>
+                                    </div>
                                 </div>
-                            </div>
+                            <!--</div>--> 
                     </div>
                 </div>
                 <div class="flex flex-col gap-4 mt-8">
@@ -215,52 +220,64 @@
                         </button>
 
                         
-        <button id="btn-voltar-protocolo" type="button" class="flex items-center justify-center gap-2 px-3 py-2">
-                 <img src="{{ asset('images/Voltar.png') }}" alt="Voltar" class="w-4 h-4" />
-        <span class="text-sm font-bold text-[#474747]">Voltar</span>
-        </button>
-    </div>
-
-                        <!-- <button id="btn-voltar-protocolo" class="flex items-center justify-center gap-2 px-3 py-2">
-                            <img src="{{ asset('images/Dinheiro.png') }}" alt="Dinheiro" class="w-6 h-6" />
-                            <span class="text-sm font-bold text-[#474747]">VIZUALIZAR</span>
-                        </button>      
-                    </div> -->
+                        <button id="btn-voltar-protocolo" type="button" class="flex items-center justify-center gap-2 px-3 py-2">
+                                <img src="{{ asset('images/Voltar.png') }}" alt="Voltar" class="w-4 h-4" />
+                        <span class="text-sm font-bold text-[#474747]">Voltar</span>
+                        </button>
+                    </div>
                 </div>
             </div> 
     </form>
 </x-app-layout>
 <script>
-    
-    document.addEventListener('DOMContentLoaded', function () {
-        const campoValor = document.getElementById('valor'); 
-        const campoValorPrevio = document.getElementById('autenticacao_valor_previo'); 
-        const campoValorPago = document.getElementById('autenticacao_valor_pago');
-        const campoTroco = document.getElementById('autenticacao_troco');
+document.addEventListener('DOMContentLoaded', function () {
+    const campoValor = document.getElementById('valor'); 
+    const campoValorPrevio = document.getElementById('autenticacao_valor_previo'); 
+    const campoValorPago = document.getElementById('autenticacao_valor_pago');
+    const campoTroco = document.getElementById('autenticacao_troco');
 
-        // Faz o campo "Valor Prévio" ter o mesmo do campo "Valor"
-        if (campoValor) {
-            campoValor.addEventListener('input', function () {
-                campoValorPrevio.value = campoValor.value;
-                calcularTroco();
-            });
-        }
+    // Atualiza "Valor Prévio" com o valor do campo "Valor"
+    if (campoValor) {
+        campoValor.addEventListener('input', function () {
+            campoValorPrevio.value = campoValor.value;
+            calcularTroco();
+        });
+    }
 
-       // Faz o campo "Troco" ter o valor da diferença entre "Valor Pago" e "Valor Prévio"
-        campoValorPago.addEventListener('input', calcularTroco);
+    // Atualiza "Troco" com base em "Valor Pago" e "Valor Prévio"
+    campoValorPago.addEventListener('input', calcularTroco);
 
-        function calcularTroco() {
-            const valorPrevio = parseFloat(campoValorPrevio.value.replace(',', '.')) || 0;
-            const valorPago = parseFloat(campoValorPago.value.replace(',', '.')) || 0;
-            const troco = valorPago-valorPrevio;
+    function calcularTroco() {
+        const valorPrevio = parseFloat(campoValorPrevio.value.replace(',', '.')) || 0;
+        const valorPago = parseFloat(campoValorPago.value.replace(',', '.')) || 0;
+        const troco = valorPago - valorPrevio;
+        campoTroco.value = troco.toFixed(2).replace('.', ',');
+    }
 
-            // Garante 2 casas decimais com vírgula
-            campoTroco.value = troco.toFixed(2).replace('.', ',');
-        }
-
-        document.getElementById('btn-voltar-protocolo').addEventListener('click', function () {
+    // Botão de voltar
+    document.getElementById('btn-voltar-protocolo').addEventListener('click', function () {
         window.location.href = "{{ route('protocolos.view') }}";
     });
-    });
+
+    // Liberação dos campos de cheque
+    const formaPagamento = document.getElementById('id_forma_pagamento');
+    const camposCheque = [
+        document.getElementById('id_banco'),
+        document.getElementById('autenticacao_conta'),
+        document.getElementById('autenticacao_agencia'),
+        document.getElementById('autenticacao_cheque')
+    ];
+
+    function liberaCamposCheque() {
+        const isCheque = formaPagamento.value === '4'; //Cheque
+        camposCheque.forEach(campo => {
+            campo.disabled = !isCheque;
+        });
+    }
+
+    // Roda qnd carrega e ao trocar a forma de pagamento
+    liberaCamposCheque();
+    formaPagamento.addEventListener('change', toggleCamposCheque);
+});
 </script>
 
