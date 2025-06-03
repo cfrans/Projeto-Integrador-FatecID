@@ -21,7 +21,7 @@
 
             <div class="w-70 h-10 bg-[#9f9f9f] rounded-md flex items-center px-2 ml-auto space-x-2">
 
-                <button class="w-8 h-8 flex items-center justify-center">
+                <button class="w-8 h-8 flex items-center justify-center" id="btn-retirar-protocolo">
                     <img src="{{ asset('images/Retirar.png') }}" alt="Retirar" class="w-5 h-5" />
                 </button>
 
@@ -523,4 +523,36 @@
                 });
             });
     });
+
+    document.getElementById('btn-retirar-protocolo').addEventListener('click', function() {
+        const numeroProtocolo = document.getElementById('numero_protocolo').value;
+        if (!numeroProtocolo) {
+            alert('Número do protocolo não encontrado!');
+            return;
+        }
+        // ...existing code...
+        fetch(`/protocolos/${numeroProtocolo}/atualizar-data-retirada`, {
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                'Accept': 'application/json'
+            }
+        })
+        // ...existing code...
+        .then(response => response.json())
+        .then(data => {
+            if (data.mensagem) {
+                alert(data.mensagem);
+                // Atualiza o campo data_retirada na tela
+                document.getElementById('data_retirada').value = new Date().toISOString().slice(0, 10);
+            } else if (data.erro) {
+                alert(data.erro);
+            }
+        })
+        .catch(error => {
+            alert('Erro ao atualizar data de retirada.');
+            console.error(error);
+        });
+    });                     
+
 </script>
