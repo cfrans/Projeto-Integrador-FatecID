@@ -8,11 +8,11 @@
         </h2>
     </x-slot>
 
-    <div class="bg-gray-100 min-h-screen">
+    <div class=" min-h-screen">
         <main class="w-full px-8">
 
 
-            <div class="bg-gray-100 p-6 rounded-md">
+            <div class=" p-6 rounded-md">
                 <x-input-label for="pesquisa_protocolo" class="ml-0 mb-0 block text-lg font-semibold">
                     Pesquisa de Protocolo
                 </x-input-label>
@@ -89,7 +89,7 @@
                 </div>
             </div>
 
-            <div class="bg-gray-100 p-6 mt-0 rounded-md">
+            <div class="p-6 mt-0 rounded-md">
                 <x-input-label for="protocolos_encontrados" class="ml-0 mb-0 block text-lg font-semibold">
                     Protocolo(s) Encontrado(s)
                 </x-input-label>
