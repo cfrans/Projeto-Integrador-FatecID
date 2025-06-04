@@ -387,25 +387,46 @@
         </div>
     </div>
 
-    <script>
-        function redirecionarParaAutenticacao() {
-            var numero = document.getElementById('numero_protocolo').value;
-            if (numero) {
-                window.location.href = '/autenticacao/' + numero;
-            } else {
-                alert('Digite ou pesquise um número de protocolo antes de autenticar!');
-            }
-        }
-    </script>
+    <!-- SCRIPTS -->
+            <!-- READONLY -->
+                <script>
+            document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('input[type="date"]').forEach(input => {
+                input.readOnly = true;
+            });
 
-    <script>
-        document.getElementById('botao-voltar').addEventListener('click', function() {
-            window.location.href = '{{ route('dashboard') }}';
-        });
-    </script>
+            document.querySelectorAll('select').forEach(select => {
+                select.style.pointerEvents = 'none'; // bloqueia clique
+            
+                select.tabIndex = -1;
+                select.addEventListener('mousedown', e => e.preventDefault());
+            });
+            });
+
+            </script>
+
+            <!-- AUTENTICACAO -->
+            <script>
+                function redirecionarParaAutenticacao() {
+                    var numero = document.getElementById('numero_protocolo').value;
+                    if (numero) {
+                        window.location.href = '/autenticacao/' + numero;
+                    } else {
+                        alert('Digite ou pesquise um número de protocolo antes de autenticar!');
+                    }
+                }
+            </script>
+
+            <!-- VOLTAR -->
+            <script>
+                document.getElementById('botao-voltar').addEventListener('click', function() {
+                    window.location.href = '{{ route('dashboard') }}';
+                });
+            </script>
 
     {{-- @endsection --}}
     </div>
+    
 </x-app-layout>
 
 <script>

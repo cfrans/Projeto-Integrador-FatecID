@@ -228,6 +228,20 @@
             </div> 
     </form>
 </x-app-layout>
+
+<script>
+  window.addEventListener('DOMContentLoaded', () => {
+    const horaInput = document.getElementById('autenticacao_hora');
+    if (horaInput) {
+      const now = new Date();
+      // Formatar para HH:mm:ss
+      const horaFormatada = now.toLocaleTimeString('pt-BR', { hour12: false });
+      horaInput.value = horaFormatada;
+    }
+  });
+</script>
+
+
 <script>
 document.addEventListener('DOMContentLoaded', function () {
     const campoValor = document.getElementById('valor'); 
