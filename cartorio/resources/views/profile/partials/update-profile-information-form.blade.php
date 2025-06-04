@@ -17,7 +17,7 @@
         @csrf
         @method('patch')
 
-        <!-- Foto -->
+        {{-- <!-- Foto -->
         <div>
             <x-input-label for="foto" :value="__('Foto')" />
             <input
@@ -34,7 +34,7 @@
                     "
             />
             <x-input-error class="mt-2" :messages="$errors->get('foto')" />
-        </div>
+        </div> --}}
 
 
         <div>
@@ -48,7 +48,7 @@
             <x-text-input id="email" name="email" type="email" class="mt-1 block w-full" :value="old('email', $user->email)" required autocomplete="username" />
             <x-input-error class="mt-2" :messages="$errors->get('email')" />
 
-            @if ($user instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && ! $user->hasVerifiedEmail())
+            {{-- @if ($user instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && ! $user->hasVerifiedEmail())
                 <div>
                     <p class="text-sm mt-2 text-gray-800 dark:text-gray-200">
                         {{ __('Seu endereço não foi verificado.') }}
@@ -64,7 +64,7 @@
                         </p>
                     @endif
                 </div>
-            @endif
+            @endif --}}
         </div>
 
         <!-- Telefone -->
@@ -79,8 +79,6 @@
                 required
                 autofocus
                 autocomplete="tel"
-                pattern="^\+?\d{10,15}$"
-                title="Informe um telefone válido, com 10 a 15 dígitos, opcionalmente iniciando com +"
             />
             <x-input-error class="mt-2" :messages="$errors->get('telefone')" />
         </div>
@@ -100,20 +98,34 @@
             <x-input-error class="mt-2" :messages="$errors->get('endereco')" />
         </div>
 
-        <!-- Setor -->
-        <div>
-            <x-input-label for="setor" :value="__('Setor')" />
-            <x-text-input
-                id="setor"
-                name="setor"
-                type="text"
-                class="mt-1 block w-full"
-                :value="old('setor', $user->setor ?? '')"
-                required
-                autocomplete="organization"
-            />
-            <x-input-error class="mt-2" :messages="$errors->get('setor')" />
-        </div>
+  <!-- Setor (Dropdown) -->
+@php
+    $setoresFixos = ['Registro', 'Recepção', 'Financeiro', 'TI'];
+    $setorAtual = old('setor', $user->setor ?? '');
+@endphp
+
+<div>
+    <x-input-label for="setor" :value="__('Setor')" />
+    <select id="setor" name="setor"
+        class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+        required>
+        
+        <option value="" disabled {{ $setorAtual === '' ? 'selected' : '' }}>Selecione um setor</option>
+
+        {{-- Se for um valor fora da lista, exibe como opção adicional no topo --}}
+        @if ($setorAtual && !in_array($setorAtual, $setoresFixos))
+            <option value="{{ $setorAtual }}" selected>{{ $setorAtual }} (atual)</option>
+        @endif
+
+        {{-- Lista fixa --}}
+        @foreach ($setoresFixos as $setor)
+            <option value="{{ $setor }}" {{ $setorAtual === $setor ? 'selected' : '' }}>{{ $setor }}</option>
+        @endforeach
+    </select>
+
+    <x-input-error class="mt-2" :messages="$errors->get('setor')" />
+</div>
+
 
 
         <div class="flex items-center gap-4">

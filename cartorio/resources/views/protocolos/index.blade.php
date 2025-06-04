@@ -33,11 +33,11 @@ $dataCancelamento = Carbon::now()->addDays(30)->format('d/m/Y');
             <!-- Conjunto de botões -->
             
             <div class="w-30 h-10 bg-[#9f9f9f] rounded-md flex items-center justify-around px-2 ml-auto">
-                <button type="submit" class="w-10 h-10 flex items-center justify-center">
+                <button type="submit" class="w-10 h-10 flex items-center justify-center" title="Salvar Protocolo">
                 <img src="{{ asset('images/Salvar.png') }}" alt="Salvar" class="w-4 h-4" />
             </button>
 
-            <button type="button" class="w-10 h-10 flex items-center justify-center" onclick="limparFormulario()">
+            <button type="button" class="w-10 h-10 flex items-center justify-center" onclick="limparFormulario()" title="Limpar">
                  <img src="{{ asset('images/Limpar.png') }}" alt="Limpar" class="w-5 h-5" />
             </button>
 
@@ -45,7 +45,7 @@ $dataCancelamento = Carbon::now()->addDays(30)->format('d/m/Y');
 
 
             <!-- Botão voltar -->
-        <div class="w-9 h-9 bg-[#9f9f9f] rounded-full flex items-center justify-around px-2 ml-90 mr-20 hover:bg-[#8a8a8a]">
+        <div class="w-9 h-9 bg-[#9f9f9f] rounded-full flex items-center justify-around px-2 ml-90 mr-20 hover:bg-[#8a8a8a]" title="Voltar">
             <button id="botao-voltar" type="button" class="w-10 h-10 flex items-center justify-center">
                 <img src="{{ asset('images/Voltar.png') }}" alt="Voltar" class="w-4 h-4" />
             </button>
@@ -348,46 +348,74 @@ $dataCancelamento = Carbon::now()->addDays(30)->format('d/m/Y');
         </div>
 
         <script>
-        function limparFormulario() {
-            // Limpa os campos nativos do formulário
-            document.getElementById('formulario').reset();
+    function limparFormulario() {
 
-            // Limpa campos dinâmicos no container-campos (deixa só o primeiro)
-            const container = document.getElementById("container-campos");
-            const primeiraLinha = container.firstElementChild;
+        document.getElementById('formulario').reset();
+        const container = document.getElementById("container-campos");
+        const primeiraLinha = container.firstElementChild;
 
-            // Remove todas as outras linhas
-            while (container.children.length > 1) {
-                container.removeChild(container.lastElementChild);
+        // Remove todas as outras linhas
+        while (container.children.length > 1) {
+            container.removeChild(container.lastElementChild);
+        }
+
+        primeiraLinha.querySelectorAll("input, select").forEach(function (el) {
+            el.value = '';
+        });
+
+        // Atualiza o <select> de tipo com base no grupo atual
+        const grupoSelect = document.getElementById('id_grupo');
+        const grupoId = grupoSelect.value;
+
+        const tipoSelect = primeiraLinha.querySelector('select[name="id_tipo_parte[]"]');
+        if (tipoSelect) {
+            // Coleta todas as opções do select original
+            const todasOpcoes = Array.from(document.querySelectorAll('#tipo_select option'));
+            const filtradas = todasOpcoes.filter(opt => opt.dataset.grupo === grupoId);
+
+            // Limpa e preenche o select com as opções filtradas
+            tipoSelect.innerHTML = '';
+            filtradas.forEach(opt => tipoSelect.appendChild(opt.cloneNode(true)));
+
+            // Seleciona a primeira automaticamente
+            if (filtradas.length > 0) {
+                tipoSelect.value = filtradas[0].value;
             }
+        }
+    }
+</script>
 
-            // Limpa os campos da primeira linha
-            primeiraLinha.querySelectorAll("input, select").forEach(function (el) {
-                el.value = '';
-            });
-            }
-        </script>
 
         <script>
-            document.getElementById('botao-voltar').addEventListener('click', function () {
-                window.location.href = '{{ route('dashboard') }}';
-            });
-        </script>
+    document.getElementById("parte_adicionar").addEventListener("click", function () {
+        const container = document.getElementById("container-campos");
+        const novaLinha = container.firstElementChild.cloneNode(true); // Clona a primeira linha
+        const grupoSelect = document.getElementById('id_grupo');
+        const grupoId = grupoSelect.value;
 
+        // Limpa valores e IDs duplicados
+        novaLinha.querySelectorAll("input, select").forEach(function (el) {
+            el.value = '';
+            el.removeAttribute('id');
+        });
 
+        // Atualiza tipos no select clonado
+        const tipoSelect = novaLinha.querySelector('select[name="id_tipo_parte[]"]');
+        if (tipoSelect) {
+            const todasOpcoes = Array.from(document.querySelectorAll('#tipo_select option'));
+            const filtradas = todasOpcoes.filter(opt => opt.dataset.grupo === grupoId);
+            tipoSelect.innerHTML = '';
+            filtradas.forEach(opt => tipoSelect.appendChild(opt.cloneNode(true)));
+            // Seleciona o primeiro automaticamente
+            if (filtradas.length > 0) {
+                tipoSelect.value = filtradas[0].value;
+            }
+        }
 
-        <script>
-            document.getElementById("parte_adicionar").addEventListener("click", function() {
-                let container = document.getElementById("container-campos");
-                let novaLinha = container.firstElementChild.cloneNode(true); // Clona a primeira linha de campos
-                // Limpa os valores e remove os IDs duplicados
-                novaLinha.querySelectorAll("input, select").forEach(function (el) {
-                    el.value = '';
-                    el.removeAttribute('id');
-                });
-                container.appendChild(novaLinha); // Adiciona ao contêiner
-            });
-        </script>
+        container.appendChild(novaLinha); // Adiciona nova parte
+    });
+</script>
+
 
                 <script>
         document.getElementById('formulario').addEventListener('submit', async function(e) {

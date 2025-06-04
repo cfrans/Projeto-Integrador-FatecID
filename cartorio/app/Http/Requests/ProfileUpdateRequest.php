@@ -27,7 +27,7 @@ class ProfileUpdateRequest extends FormRequest
                 'max:255',
                 Rule::unique(Usuario::class)->ignore($this->user()->id),
             ],
-            'telefone' => ['required', 'regex:/^\+?\d{10,15}$/'],
+            'telefone' => ['required', 'string'],
             'endereco' => ['required', 'string', 'max:255'],
             'setor' => ['required', 'string', 'max:255'],
             'foto' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048']
@@ -60,7 +60,7 @@ class ProfileUpdateRequest extends FormRequest
     {
         return [
             'telefone.required' => 'O telefone é obrigatório.',
-            'telefone.regex' => 'Informe um telefone válido, com 10 a 15 dígitos, podendo começar com +.',
+            'telefone.regex' => 'Informe um telefone válido.',
             'endereco.required' => 'O endereço é obrigatório.',
             'endereco.string' => 'O endereço deve ser um texto válido.',
             'endereco.max' => 'O endereço deve ter no máximo 255 caracteres.',
