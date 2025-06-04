@@ -417,41 +417,60 @@ $dataCancelamento = Carbon::now()->addDays(30)->format('d/m/Y');
 </script>
 
 
-                <script>
-        document.getElementById('formulario').addEventListener('submit', async function(e) {
-            e.preventDefault(); // Impede o envio padrão
+              <script>
+document.addEventListener('DOMContentLoaded', function () {
+    const form = document.getElementById('formulario');
 
-            const form = e.target;
-            const formData = new FormData(form);
+    if (!form) {
+        console.error('Formulário com id="formulario" não encontrado.');
+        return;
+    }
 
-            try {
-                const response = await fetch('/protocolos', {
-                    method: 'POST',
-                    headers: {
-                        'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value
-                    },
-                    body: formData
-                });
+    form.addEventListener('submit', async function (e) {
+        e.preventDefault(); // Impede envio normal
 
-                if (response.ok) {
-                    window.location.href = "{{ route('protocolos.view') }}";
-                } else {
-                    let data;
-                    try {
-                        data = await response.json();
-                    } catch {
-                        data = {};
-                    }
-                    alert('Erro ao salvar: ' + (data.message || 'Erro desconhecido'));
-                    // NÃO redireciona!
+        console.log('Evento de submit disparado');
+
+        const formData = new FormData(form);
+
+        // Mostrar os dados que estão sendo enviados
+        console.log('Dados do formulário:', [...formData.entries()]);
+
+        try {
+            const response = await fetch('/protocolos', {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value
+                },
+                body: formData
+            });
+
+            console.log('Status da resposta:', response.status);
+
+            if (response.ok) {
+                console.log('Protocolo salvo com sucesso. Redirecionando...');
+                window.location.href = "{{ route('protocolos.view') }}";
+            } else {
+                let data;
+                try {
+                    data = await response.json();
+                    console.log('Resposta do erro:', data);
+                } catch {
+                    data = {};
+                    console.warn('Erro ao converter resposta para JSON');
                 }
-
-            } catch (error) {
-                console.error('Erro:', error);
-                alert('Erro ao enviar o formulário.');
+                alert('Erro ao salvar: ' + (data.message || 'Erro desconhecido'));
             }
-        });
-        </script>
+
+        } catch (error) {
+            console.error('Erro na requisição:', error);
+            alert('Erro ao enviar o formulário.');
+        }
+    });
+});
+</script>
+
+
 
         <script>
             document.addEventListener('DOMContentLoaded', function () {

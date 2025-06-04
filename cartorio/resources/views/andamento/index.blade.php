@@ -111,7 +111,7 @@
 
                 <!-- TODO: Puxar usuario -->
                 <div class="campo-formulario flex items-center ml-4">
-                        <x-text-input id="id_usuario" name="id_usuario" class="w-[140px] h-8 text-sm" value="{{ Auth::user() ? Auth::user()->nome : '' }}" readonly required />
+                        <x-text-input id="id_usuario" name="id_usuario" class="w-[200px] h-8 text-sm" value="{{ Auth::user() ? Auth::user()->nome : '' }}" readonly required />
                 </div>
                 
     </div>
