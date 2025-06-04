@@ -29,21 +29,33 @@
         </div>
     </div>
 
-<div class="flex justify-between items-center w-[85%] -mt-16">
-    <!-- Botão adicionar parte -->
-    <button type="button" id="andamento_adicionar"
-    class="bg-[#9f9f9f] text-black px-3 py-1 rounded hover:bg-[#8a8a8a] ml-auto mr-4">
-    +
+<div class="w-70 h-10 rounded-md flex items-center px-2 ml-auto space-x-2 -mr-8">
+   
+
+        <div class="flex items-center w-20 h-9 bg-[#9f9f9f] rounded-md flex items-center justify-center ">
+   
+    <button type="button" id="andamento_adicionar" class="bg-[#9f9f9f] text-black px-3 py-1 rounded" title="Adicionar Andamento">
+        +
     </button>
+
+    <!-- Botão salvar -->
+    <button type="submit"
+        class="w-9 h-9 bg-[#9f9f9f] rounded-md flex items-center justify-center " title="Salvar">
+        <img src="{{ asset('images/Salvar.png') }}" alt="Salvar" class="w-4 h-4" />
+    </button>
+</div>
+
+    
 
 
     <!-- Botão voltar -->
-    <div class="w-9 h-9 bg-[#9f9f9f] rounded-full flex items-center justify-center hover:bg-[#8a8a8a] -mr-6">
+    <div class="w-9 h-9 bg-[#9f9f9f] rounded-full flex items-center justify-center hover:bg-[#8a8a8a]">
         <button id="botao-voltar" type="button" onclick="window.location.href='{{ route('protocolos.view') }}'" class="w-full h-full flex items-center justify-center ">
             <img src="{{ asset('images/Voltar.png') }}" alt="Voltar" class="w-4 h-4" />
         </button>
     </div>
 </div>
+
 
 
 </div>
@@ -102,12 +114,6 @@
                         <x-text-input id="id_usuario" name="id_usuario" class="w-[140px] h-8 text-sm" value="{{ Auth::user() ? Auth::user()->nome : '' }}" readonly required />
                 </div>
                 
-               <div class="w-9 h-9 bg-[#9f9f9f] rounded-full flex items-center justify-center px-2 ml-auto mr-6 mt-[9px] hover:bg-[#8a8a8a]">
-                    <button type="submit" class="w-8 h-8 flex items-center justify-center">
-                     <img src="{{ asset('images/Salvar.png') }}" alt="Salvar" class="w-4 h-4" />
-                    </button>
-                </div>
-            </div>
     </div>
 
     
