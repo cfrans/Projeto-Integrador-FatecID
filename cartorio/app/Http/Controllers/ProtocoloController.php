@@ -146,4 +146,21 @@ class ProtocoloController extends Controller
             'partes' => $partes
         ]);
     }
+
+
+    public function atualizarDataRetirada($numero)
+    {
+        try {
+            $protocolo = Protocolo::where('numero_protocolo', $numero)->first();
+            if (!$protocolo) {
+                return response()->json(['erro' => 'Protocolo não encontrado'], 404);
+            }
+            $protocolo->data_retirada = Carbon::now()->format('Y-m-d');
+            $protocolo->save();
+            return response()->json(['mensagem' => 'Data de retirada atualizada com sucesso', 'protocolo' => $protocolo]);
+        } catch (\Exception $e) {
+            Log::error('Erro ao atualizar data de retirada: ' . $e->getMessage());
+            return response()->json(['erro' => 'Erro ao atualizar data de retirada'], 500);
+        }
+    }
 }
