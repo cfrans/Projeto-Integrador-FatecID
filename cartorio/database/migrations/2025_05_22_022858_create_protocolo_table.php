@@ -22,9 +22,9 @@ return new class extends Migration
             $table->date('data_documento');
             $table->date('data_abertura')->default(DB::raw('CURRENT_DATE'));
             $table->date('data_cancelamento')->nullable();
-            $table->integer('numero_protocolo')->nullable(); // será atribuído pela trigger
+            $table->integer('numero_protocolo')->nullable();
             $table->integer('numero_registro')->nullable();
-            $table->dateTime('data_retirada');
+            $table->dateTime('data_retirada')->nullable();
             $table->dateTime('data_registro')->nullable();
 
             // Relacionamentos

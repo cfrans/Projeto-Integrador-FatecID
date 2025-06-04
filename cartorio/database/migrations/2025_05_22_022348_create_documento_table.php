@@ -14,7 +14,6 @@ return new class extends Migration
     Schema::create('documento', function (Blueprint $table) {
         $table->id();
         $table->string('tipo', 64);
-        $table->string('classificacao', 30);
         $table->timestamps();
     });
     }
