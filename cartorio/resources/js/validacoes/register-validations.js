@@ -145,9 +145,6 @@ document.addEventListener('DOMContentLoaded', () => {
             email.value = email.value.toLowerCase(); // força lowercase
         }
 
-        // Valida telefone (mantém como está)
-        // Não tem limite no banco, só mascara e número
-
         // Valida endereço
         if (endereco.value.length > 255) {
             showMessage('Endereço muito longo (máx. 255 caracteres)', endereco);
