@@ -21,32 +21,32 @@
 
             <div class="w-70 h-10 bg-[#9f9f9f] rounded-md flex items-center px-2 ml-auto space-x-2">
 
-                <button class="w-8 h-8 flex items-center justify-center" id="btn-retirar-protocolo">
+                <button class="w-8 h-8 flex items-center justify-center" id="btn-retirar-protocolo" title="Retirar Protocolo">
                     <img src="{{ asset('images/Retirar.png') }}" alt="Retirar" class="w-5 h-5" />
                 </button>
 
-                <button class="w-8 h-8 flex items-center justify-center">
+                <button class="w-8 h-8 flex items-center justify-center" title="Editar Protocolo">
                     <img src="{{ asset('images/Editar.png') }}" alt="Editar" class="w-5 h-5" />
                 </button>
 
-                <button class="w-8 h-8 flex items-center justify-center">
+                <button class="w-8 h-8 flex items-center justify-center" title="Protocolo Anterior">
                     <img src="{{ asset('images/Voltar.png') }}" alt="Voltar" class="w-5 h-5" />
                 </button>
 
-                <button class="w-8 h-8 flex items-center justify-center">
+                <button class="w-8 h-8 flex items-center justify-center" title="Protocolo Seguinte">
                     <img src="{{ asset('images/Setadireita.png') }}" alt="Setadireita" class="w-5 h-5" />
                 </button>
 
-                <button onclick="window.location.href='{{ route('autenticacao.index') }}'" class="w-8 h-8 flex items-center justify-center">
+                <button onclick="window.location.href='{{ route('autenticacao.index') }}'" class="w-8 h-8 flex items-center justify-center" title="Autenticar Protocolo">
                     <img src="{{ asset('images/Dinheiro.png') }}" alt="Dinheiro" class="w-5 h-5" />
                 </button>
 
-                <button onclick="window.location.href='{{ route('andamento.index') }}'" class="w-8 h-8 flex items-center justify-center">
+                <button onclick="window.location.href='{{ route('andamento.index') }}'" class="w-8 h-8 flex items-center justify-center" title="Andamento">
                     <img src="{{ asset('images/Andamento.png') }}" alt="Andamento" class="w-5 h-5" />
                 </button>
 
 
-                <button type="button" class="w-8 h-8 flex items-center justify-center" onclick="limparFormulario()">
+                <button type="button" class="w-8 h-8 flex items-center justify-center" onclick="limparFormulario()" title="Imprimir Protocolo">
                     <img src="{{ asset('images/Imprimir.png') }}" alt="Imprimir" class="w-5 h-5" />
                 </button>
 
@@ -54,14 +54,14 @@
 
             <!-- Botão voltar -->
             <div class="w-9 h-9 bg-[#9f9f9f] rounded-full flex items-center justify-around px-2 ml-90 mr-20 hover:bg-[#8a8a8a]">
-                <button id="botao-voltar" type="button" class="w-10 h-10 flex items-center justify-center">
+                <button id="botao-voltar" type="button" class="w-10 h-10 flex items-center justify-center" title="Voltar Protocolo">
                     <img src="{{ asset('images/Voltar.png') }}" alt="Voltar" class="w-4 h-4" />
                 </button>
             </div>
         </div>
 
         <div id="container-campos">
-            <div class="flex justify-start w-[43%] h-18 bg-white rounded-md ml-14">
+            <div class="flex justify-start w-[31%] h-18 bg-white rounded-md ml-14">
 
                 <!-- Primeira coluna (1/7) -->
                 <div class="campo-formulario flex items-center ml-6">
@@ -86,18 +86,8 @@
                     </div>
                 </div>
 
-                <div class="campo-formulario flex items-center">
-                    <div class="text-left">
-                        <x-input-label for="registro">
-                            Registro
-                        </x-input-label>
-                        <x-text-input type="text" id="numero_registro" name="numero_registro" class="w-[150px] h-8 text-sm" required>
-                        </x-text-input>
-                    </div>
-                </div>
-
                  <div class="w-8 h-8 bg-[#9f9f9f] rounded-full flex items-center justify-center mt-[29px] ml-2">
-                     <button type="button" id="btn-pesquisar-protocolo" class="w-full h-full flex items-center justify-center rounded-full hover:bg-[#8f8f8f]">
+                     <button type="button" id="btn-pesquisar-protocolo" class="w-full h-full flex items-center justify-center rounded-full hover:bg-[#8f8f8f]" title="Pesquisar Protocolo">
                     <img src="{{ asset('images/Pesquisar.png') }}" alt="Pesquisar" class="w-4 h-4" />
                     </button>
                  </div>
@@ -221,6 +211,16 @@
                     </x-input-date>
                 </div>
             </div>
+
+            <div class="campo-formulario flex items-center">
+                    <div class="text-left">
+                        <x-input-label for="registro">
+                            Registro
+                        </x-input-label>
+                        <x-text-input type="text" id="numero_registro" name="numero_registro" class="w-[150px] h-8 text-sm" required>
+                        </x-text-input>
+                    </div>
+                </div>
 
             <!-- Sexta coluna (1/7) -->
             <div class="campo-formulario flex items-center">
@@ -361,22 +361,12 @@
             </div>
         </div>
 
-        <div id="container-campos">
-            <div class="flex justify-start w-[35%] h-18 bg-white rounded-md mt-6 ml-auto mr-16">
 
-                <!-- Primeira coluna (1/7) -->
-                <div class="campo-formulario flex items-center ml-6">
-                    <div class="text-left">
-                        <x-input-label for="parte_tipo">
-                            Custas
-                        </x-input-label>
-                        <x-text-input type="text" name="identificacao[]" class="w-[130px] h-8 text-sm" readonly>
-                        </x-text-input>
-                    </div>
-                </div>
+        <div id="container-campos">
+            <div class="flex justify-start w-[12%] h-18 bg-white rounded-md mt-6 ml-auto mr-16">
 
                 <!-- Segunda coluna (3/7) -->
-                <div class="campo-formulario flex items-center">
+                <div class="campo-formulario flex items-center ml-2">
                     <div class="text-left">
                         <x-input-label for="parte_nome">
                             Depósito
@@ -386,15 +376,6 @@
                     </div>
                 </div>
 
-                <div class="campo-formulario flex items-center">
-                    <div class="text-left">
-                        <x-input-label for="parte_nome">
-                            Saldo
-                        </x-input-label>
-                        <x-text-input type="text" name="identificacao[]" class="w-[130px] h-8 text-sm" required>
-                        </x-text-input>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
