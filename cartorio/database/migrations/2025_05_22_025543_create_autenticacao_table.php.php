@@ -14,7 +14,7 @@ return new class extends Migration
     Schema::create('autenticacao', function (Blueprint $table) {
         $table->id();
         $table->decimal('valor',10,2)->default(0.00);
-        $table->dateTime('data_autenticacao')->nullable();
+        $table->date('data_autenticacao')->nullable();
         $table->integer('numero_cheque')->nullable();
         $table->string('agencia', length: 6)->nullable();
         $table->string('conta', length: 15)->nullable();

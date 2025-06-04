@@ -5,6 +5,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProtocoloController;
 use App\Http\Controllers\ApresentanteController;
 use App\Http\Controllers\DocumentoController;
+use App\Http\Controllers\AutenticacaoController;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Log;
 
@@ -42,7 +43,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/indices', fn () => view('indices.index'))->name('indices.index');
 
     // Autenticação de valores
-    Route::get('/autenticacao', fn () => view('autenticacao.index'))->name('autenticacao.index');
+    // Route::get('/autenticacao', fn () => view('autenticacao.index'))->name('autenticacao.index');
+    Route::get('/autenticacao/{protocolo}', [AutenticacaoController::class, 'index'])->name('autenticacao.index');
 
     // Andamento
     Route::get('/andamento', fn () => view('andamento.index'))->name('andamento.index');

@@ -434,11 +434,16 @@ $dataCancelamento = Carbon::now()->addDays(30)->format('d/m/Y');
                 });
 
                 if (response.ok) {
-                    // Redireciona após sucesso
                     window.location.href = "{{ route('protocolos.view') }}";
                 } else {
-                    const data = await response.json();
+                    let data;
+                    try {
+                        data = await response.json();
+                    } catch {
+                        data = {};
+                    }
                     alert('Erro ao salvar: ' + (data.message || 'Erro desconhecido'));
+                    // NÃO redireciona!
                 }
 
             } catch (error) {
