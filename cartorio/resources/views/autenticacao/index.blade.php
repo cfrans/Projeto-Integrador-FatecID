@@ -33,8 +33,7 @@
                                 <x-input-label for="autenticacao_data">
                                     Data
                                 </x-input-label>
-                                <x-input-naoalteravel id="autenticacao_data" name="autenticacao_data" class="w-[200px] h-10 text-sm">
-                                </x-input-naoalteravel>
+                                <x-input-naoalteravel id="autenticacao_data" name="autenticacao_data" class="w-[200px] h-10 text-sm" value="{{ isset($protocolo->data_abertura) ? \Carbon\Carbon::parse($protocolo->data_abertura)->format('d/m/Y') : '' }}" readonly />
                             </div>
                         </div>
 
@@ -67,7 +66,7 @@
                                 <x-input-label for="autenticacao_grupo">
                                     Grupo
                                 </x-input-label>
-                                <x-input-naoalteravel id="protocolo_natureza" name="protocolo_natureza" class="w-[435px] h-10 text-sm">
+                                <x-input-naoalteravel id="protocolo_grupo" name="protocolo_grupo" value="{{ $protocolo->grupo->tipo ?? '' }}" class="w-[435px] h-10 text-sm">
                                 </x-input-naoalteravel>
                             </div>
                         </div>
@@ -78,7 +77,7 @@
                                 <x-input-label for="autenticacao_protocolo">
                                     Protocolo
                                 </x-input-label>
-                                <x-input-naoalteravel id="autenticacao_protocolo" name="autenticacao_protocolo" class="w-[200px] h-10 text-sm">
+                                <x-input-naoalteravel id="autenticacao_protocolo" name="autenticacao_protocolo" value="{{ $protocolo->numero_protocolo ?? '' }}" class="w-[200px] h-10 text-sm">
                                 </x-input-naoalteravel>
                             </div>
                         </div>
@@ -91,7 +90,7 @@
                                             <x-input-label for="autenticacao_apresentante">
                                                 Apresentante
                                             </x-input-label>
-                                            <x-input-naoalteravel id="apresentante_nome" name="apresentante_nome" class="w-[435px] h-10 text-sm">
+                                            <x-input-naoalteravel id="apresentante_nome" name="apresentante_nome" value="{{ $protocolo->apresentante->nome ?? '' }}"  class="w-[435px] h-10 text-sm">
                                             </x-input-naoalteravel>
                                         </div>
                                     </div>

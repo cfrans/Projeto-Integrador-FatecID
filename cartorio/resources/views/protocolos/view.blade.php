@@ -37,8 +37,15 @@
                     <img src="{{ asset('images/Setadireita.png') }}" alt="Setadireita" class="w-5 h-5" />
                 </button>
 
-                <button onclick="window.location.href='{{ route('autenticacao.index') }}'" class="w-8 h-8 flex items-center justify-center" title="Autenticar Protocolo">
-                    <img src="{{ asset('images/Dinheiro.png') }}" alt="Dinheiro" class="w-5 h-5" />
+                <button type="button" onclick="
+                    var numero = document.getElementById('numero_protocolo').value;
+                    if (numero) {
+                        window.location.href = '/autenticacao/' + numero;
+                    } else {
+                        alert('Digite ou pesquise um número de protocolo antes de autenticar!');
+                    }
+                " class="w-8 h-8 flex items-center justify-center" title="Autenticar Protocolo">
+                                    <img src="{{ asset('images/Dinheiro.png') }}" alt="Dinheiro" class="w-5 h-5" />
                 </button>
 
                 <button onclick="window.location.href='{{ route('andamento.index') }}'" class="w-8 h-8 flex items-center justify-center" title="Andamento">
@@ -382,7 +389,12 @@
 
     <script>
         function redirecionarParaAutenticacao() {
-            window.location.href = "{{ route('autenticacao.index') }}";
+            var numero = document.getElementById('numero_protocolo').value;
+            if (numero) {
+                window.location.href = '/autenticacao/' + numero;
+            } else {
+                alert('Digite ou pesquise um número de protocolo antes de autenticar!');
+            }
         }
     </script>
 
