@@ -15,7 +15,7 @@ return new class extends Migration
         $table->id();
         $table->string('tipo', length: 20);
         $table->timestamps();
-        $table->foreignId('id_natureza')->constrained('natureza');
+        $table->foreignId('id_grupo')->constrained('grupo');
     });
     }
 
