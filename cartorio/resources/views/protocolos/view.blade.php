@@ -445,10 +445,7 @@
         if (!dataAbertura) return '';
         const data = new Date(dataAbertura);
         data.setDate(data.getDate() + 10);
-        const dia = String(data.getDate()).padStart(2, '0');
-        const mes = String(data.getMonth() + 1).padStart(2, '0');
-        const ano = data.getFullYear();
-        return `${dia}/${mes}/${ano}`;
+        return data.toISOString().slice(0, 10); // YYYY-MM-DD para input type=date
     }
 
     function formatDateToInput(dateString) {
@@ -471,7 +468,7 @@
                 }
                 setValueById('data_abertura', data.data_abertura);
                 // Preencher campo previsão
-                document.getElementById('previsao').value = formatDateToInput(calcularPrevisao(data.data_abertura));
+                document.getElementById('previsao').value = calcularPrevisao(data.data_abertura);
                 setValueById('numero_protocolo', data.numero_protocolo);
                 setValueById('numero_registro', data.numero_registro);
                 setValueById('numero_documento_protocolo', data.numero_documento);
