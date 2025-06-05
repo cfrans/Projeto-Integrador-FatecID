@@ -16,7 +16,7 @@
 
     <div class="max-w-[75%] mx-auto w-full px-4">
         {{-- TODO: Criar o endpoint para o formulário --}}
-        <form id="formulario" action="/protocolos" method="post">
+        <form id="andamento_form" action="/protocolos" method="post">
             @csrf
 
             <div class="flex items-center justify-between w-[92%] h-20 mx-auto rounded-t-md px-6 mb-2">
@@ -122,17 +122,19 @@
     </div>
 
     <script>
-   document.getElementById('andamento_adicionar').addEventListener('click', function () {
+  document.getElementById('andamento_adicionar').addEventListener('click', function () {
     const container = document.getElementById('andamento_container');
     const blocoOriginal = container.querySelector('.andamento-bloco');
-
     const novoBloco = blocoOriginal.cloneNode(true);
 
+    // Limpa os valores
     novoBloco.querySelectorAll('input, select').forEach(element => {
         element.value = '';
+        element.removeAttribute('readonly');
+        element.removeAttribute('disabled');
     });
 
-    // Preencher data atual no input de data/hora (input com data-tipo="data-hora")
+    // Preenche data atual
     const inputData = novoBloco.querySelector('input[data-tipo="data-hora"]');
     if(inputData) {
         const hoje = new Date();
@@ -142,7 +144,7 @@
         inputData.value = `${dia}/${mes}/${ano}`;
     }
 
-    // Ajustar select pelo id correto
+    // Setar valor padrão do select
     const selectTipo = novoBloco.querySelector('select#id_tipo_andamento');
     if (selectTipo) {
       const defaultVal = selectTipo.getAttribute('data-default');
@@ -152,7 +154,54 @@
     container.appendChild(novoBloco);
 });
 
+
 </script>
+
+<script>
+document.getElementById('andamento_form').addEventListener('submit', function (e) {
+    e.preventDefault(); // Evita que a página seja recarregada
+
+    // 1. Torna todos os campos dos blocos já adicionados como readonly/disabled
+    const blocos = document.querySelectorAll('.andamento-bloco');
+    blocos.forEach(bloco => {
+        bloco.querySelectorAll('input, select').forEach(element => {
+            element.setAttribute('readonly', true);
+            element.setAttribute('disabled', true); // Para selects
+        });
+    });
+
+    // 2. Simula envio do formulário (remova esta parte se quiser envio real)
+    console.log("Simulando envio dos dados do formulário...");
+
+    // 3. Se quiser enviar realmente via fetch ou ajax:
+    // const formData = new FormData(this);
+    // fetch(this.action, {
+    //     method: this.method,
+    //     body: formData,
+    //     headers: {
+    //         'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value
+    //     }
+    // }).then(res => res.json()).then(data => {
+    //     console.log('Enviado com sucesso!', data);
+    // });
+
+    // Obs: você pode limpar ou deixar pronto para o próximo preenchimento aqui também.
+});
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const protocolo = sessionStorage.getItem('protocolo_atual');
+        if (protocolo) {
+            const inputProtocolo = document.getElementById('numero_protocolo');
+            if (inputProtocolo) {
+                inputProtocolo.value = protocolo;
+                inputProtocolo.setAttribute('readonly', true); // evita edição
+            }
+        }
+    });
+</script>
+
+
 
 </x-app-layout>
 
