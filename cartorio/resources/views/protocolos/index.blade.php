@@ -23,7 +23,6 @@ $dataCancelamento = Carbon::now()->addDays(30)->format('d/m/Y');
         </h2>
     </x-slot>
 
-
     <div class="max-w-[75%] mx-auto w-full px-4">
         {{-- TODO: Criar o endpoint para o formulario --}}
         <form id="formulario" action="/protocolos" method="post">
