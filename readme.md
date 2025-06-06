@@ -35,14 +35,14 @@ O sistema já conta com login seguro, módulos de consulta, cadastro e gestão d
 
 ## Como Executar o Projeto
 1. Acesse a versão demonstrativa do sistema no link:
-https://enderecoaserdefinido.cfrans.uk
+https://cartorio.cfrans.uk
 
 ## Equipe
-- Bruna de Novais Schultz
-- Caio Franson da Silva
-- Camila Barcaro Corrêa
-- Pedro de Oliveira Silva
-- Vitória Caroline da Silva Farias Faturi
+- [Bruna de Novais Schultz](https://github.com/Brunanschultz)
+- [Caio Franson da Silva](https://github.com/cfrans)
+- [Camila Barcaro Corrêa](https://github.com/camilabarcaro)
+- [Pedro de Oliveira Silva](https://github.com/pxdrui)
+- [Vitória Caroline da Silva Farias Faturi](https://github.com/vitoriafaturi)
 
 ## Licença
 - A Definir
