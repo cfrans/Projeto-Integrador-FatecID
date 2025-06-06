@@ -13,6 +13,7 @@ use App\Models\Parte;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
+
 class ProtocoloController extends Controller
 {
 
@@ -36,39 +37,37 @@ class ProtocoloController extends Controller
         try {
 
             $validated = $request->validate([
+                'numero_documento_protocolo' => 'required|integer',
+                'numero_documento_apresentante' => 'required|integer',
                 'id_documento' => 'required|integer',
-                'numero_documento' => 'required|integer',
                 'nome' => 'required|string|max:255',
                 'numero_contato' => 'nullable|string|max:20',
                 'email' => 'nullable|email|max:255',
                 'tipo_contato' => 'required|string|max:50',
                 'data_documento' => 'required|date',
-                'numero_protocolo' => 'nullable|integer',
-                'numero_registro' => 'nullable|integer',
-                'data_retirada' => 'nullable|date',
-                'data_registro' => 'nullable|date',
-                'data_cancelamento' => 'nullable|date',
                 'id_grupo' => 'required|exists:grupo,id',
                 'id_especie' => 'required|exists:especie,id',
                 'id_natureza' => 'required|exists:natureza,id',
             ]);
 
-
-            $apresentante = Apresentante::create($validated);
+            $apresentante = Apresentante::create([
+                'id_documento' => $validated['id_documento'],
+                'numero_documento' => $validated['numero_documento_apresentante'],
+                'nome' => $validated['nome'],
+                'numero_contato' => $validated['numero_contato'],
+                'email' => $validated['email'],
+                'tipo_contato' => $validated['tipo_contato'],
+            ]);
             Log::info('Apresentante criado: ', $apresentante->toArray());
 
             // Criar o protocolo relacionando ao apresentante
             $protocolo = Protocolo::create([
-                'numero_documento' => $validated['numero_documento'],
+                'numero_documento' => $validated['numero_documento_protocolo'],
                 'id_grupo' => $validated['id_grupo'],
                 'id_apresentante' => $apresentante->id,
                 'data_documento' => $validated['data_documento'],
                 'data_abertura' => Carbon::now()->format('Y-m-d'),
                 'data_cancelamento' => Carbon::now()->addDays(30)->format('Y-m-d'),
-                // 'numero_protocolo' => $validated['numero_protocolo'],
-                // 'numero_registro' => $validated['numero_registro'],
-                // 'data_registro' => $validated['data_registro'],
-                // 'data_retirada' => $validated['data_retirada'],
                 'id_usuario' => auth()->user()->id,
                 'id_especie' => $validated['id_especie'],
                 'id_natureza' => $validated['id_natureza'],
@@ -90,7 +89,7 @@ class ProtocoloController extends Controller
             }
 
             return view('protocolos.index', compact('protocolo'))
-           ->with('success', 'Protocolo salvo com sucesso!');
+                ->with('success', 'Protocolo salvo com sucesso!');
 
             // return redirect()->back()->with('success', 'Protocolo cadastrado!');
         } catch (\Exception $e) {
