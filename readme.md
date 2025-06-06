@@ -1,20 +1,29 @@
 # Projeto Integrador - Fatec ID
-# Sistema para Cartório
+# Sistema para Cartório TDPJ
 
 ## Sobre o Projeto
-Este projeto faz parte do desenvolvimento interdisciplinar do curso de Análise e Desenvolvimento de Sistemas da Fatec Indaiatuba, para o segundo semestre. O objetivo é criar um sistema para atender as necessidades de um cartório regional, melhorando a organização e gestão de informações.
+Este sistema faz parte do Projeto Integrador (PI) do 2º semestre do curso de Análise e Desenvolvimento de Sistemas da Fatec Indaiatuba – Dr. Archimedes Lammoglia.
 
-## Funcionalidades Previstas
-- A Definir
+Desenvolvemos uma solução funcional para modernizar as atividades de um cartório de Títulos, Documentos e Pessoas Jurídicas, com base em entrevistas reais, levantamento de requisitos e aplicação prática dos conteúdos de Engenharia de Software I e Sistemas de Informação. 
 
-## Tecnologias Utilizadas
-- **Linguagem:** PHP (Laravel) 
-- **Banco de Dados:** MySQL (via Docker)
+## Objetivos
+- Executar operações básicas de CRUD;
+- Organizar protocolos, apresentantes, documentos e autenticações;
+- Facilitar acesso, rastreabilidade e integridade das informações; e
+- Melhorar usabilidade, segurança e eficiência.
+
+O sistema já conta com login seguro, módulos de consulta, cadastro e gestão de protocolos, e está preparado para expansão com funcionalidades como relatórios e assinatura digital. 
+
+## Tecnologias e Metodologia:
+- **Linguagem:** PHP (Laravel com padrão MVC)
+- **Banco de Dados:** Postgres (Hospedado via Supabase)
 - **Frontend:** HTML, PHP, CSS, JavaScript
 - **Controle de Versão:** Git & GitHub
-- **Hospedagem:** Ubuntu Server (via Microsoft Azure)
+- Modelagem com DER e estimativa com Function Points
+- Aplicativo desenvolvido com base no ciclo PDCA; e
+- Práticas de versionamento, componentização e testes manuais.
 
-## Páginas disponíveis (índice temporário, será excluído quando implementado no menu)
+## Páginas disponíveis
 - /profile
 - /dashboard
 - /protocolos
@@ -23,12 +32,10 @@ Este projeto faz parte do desenvolvimento interdisciplinar do curso de Análise 
 - /autenticacao
 - /andamento
 - /sobre
-- /contato
 
 ## Como Executar o Projeto
 1. Acesse a versão demonstrativa do sistema no link:
 https://enderecoaserdefinido.cfrans.uk
-Utilize o login e senha 'demo'
 
 ## Equipe
 - Bruna de Novais Schultz
@@ -39,11 +46,3 @@ Utilize o login e senha 'demo'
 
 ## Licença
 - A Definir
-
-## ENV
-DB_CONNECTION=pgsql
-DB_HOST=https://pfutwxfjwbnuzurohvfa.supabase.co
-DB_PORT=5432
-DB_DATABASE=your-database-name
-DB_USERNAME=your-database-username
-DB_PASSWORD=your-database-password
