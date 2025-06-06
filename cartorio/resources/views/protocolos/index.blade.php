@@ -428,20 +428,20 @@ $dataCancelamento = Carbon::now()->addDays(30)->format('d/m/Y');
             form.addEventListener('submit', async function(e) {
                 e.preventDefault(); // Impede envio normal
 
-// LIMPEZA DE CAMPOS ANTES DO ENVIO
-const numeroDocumentoApresentante = document.getElementById('numero_documento_apresentante');
-const numeroContato = document.getElementById('numero_contato');
-const numeroTitulo = document.getElementById('numero_documento_protocolo');
+                // LIMPEZA DE CAMPOS ANTES DO ENVIO
+                const numeroDocumentoApresentante = document.getElementById('numero_documento_apresentante');
+                const numeroContato = document.getElementById('numero_contato');
+                const numeroTitulo = document.getElementById('numero_documento_protocolo');
 
-if (numeroDocumentoApresentante) {
-    numeroDocumentoApresentante.value = numeroDocumentoApresentante.value.replace(/\D/g, '');
-}
-if (numeroContato) {
-    numeroContato.value = numeroContato.value.replace(/\D/g, '');
-}
-if (numeroTitulo) {
-    numeroTitulo.value = numeroTitulo.value.replace(/\D/g, '');
-}
+                if (numeroDocumentoApresentante) {
+                    numeroDocumentoApresentante.value = numeroDocumentoApresentante.value.replace(/\D/g, '');
+                }
+                if (numeroContato) {
+                    numeroContato.value = numeroContato.value.replace(/\D/g, '');
+                }
+                if (numeroTitulo) {
+                    numeroTitulo.value = numeroTitulo.value.replace(/\D/g, '');
+                }
 
                 console.log('Evento de submit disparado');
 
