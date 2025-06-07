@@ -114,7 +114,7 @@
                     </div>
 
                     <div class="campo-formulario flex items-center ml-4">
-                        <x-text-input name="nome_usuario[]" class="w-[200px] h-8 text-sm" value="{{ Auth::user()->nome }}" readonly />
+                        <x-text-input name="nome_usuario[]" class="w-[350px] h-8 text-sm" value="{{ Auth::user()->nome }}" readonly />
                     </div>
                 </div>
             </template>
