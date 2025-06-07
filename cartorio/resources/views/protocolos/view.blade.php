@@ -44,7 +44,7 @@
         </div>
 
         <div id="container-campos">
-            <div class="flex justify-start w-[31%] h-18 bg-white rounded-md ml-14">
+            <div class="flex flex-auto justify-start w-[30%] h-20 bg-white rounded-md ml-14">
                 <div class="campo-formulario flex items-center ml-6">
                     <div class="text-left">
                         <x-input-label for="data_abertura">Data</x-input-label>
