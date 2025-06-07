@@ -33,11 +33,11 @@ $dataCancelamento = Carbon::now()->addDays(30)->format('d/m/Y');
 
                 <div class="w-30 h-10 bg-[#9f9f9f] rounded-md flex items-center justify-around px-2 ml-auto">
                     <button type="submit" class="w-10 h-10 flex items-center justify-center" title="Salvar Protocolo">
-                        <img src="{{ asset('images/Salvar.png') }}" alt="Salvar" class="w-4 h-4" />
+                        <img src="{{ asset('images/Salvar.png') }}" alt="Salvar" class="w-4 h-4 transition-transform duration-400 ease-in-out hover:scale-125" />
                     </button>
 
                     <button type="button" class="w-10 h-10 flex items-center justify-center" onclick="limparFormulario()" title="Limpar">
-                        <img src="{{ asset('images/Limpar.png') }}" alt="Limpar" class="w-5 h-5" />
+                        <img src="{{ asset('images/Limpar.png') }}" alt="Limpar" class="w-5 h-5 transition-transform duration-400 ease-in-out hover:scale-125" />
                     </button>
 
                 </div>

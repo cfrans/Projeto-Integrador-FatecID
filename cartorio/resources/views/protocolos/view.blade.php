@@ -15,25 +15,25 @@
         <div class="flex items-center gap-4 -mt-2 w-full mr-14">
             <div class="w-70 h-10 bg-[#9f9f9f] rounded-md flex items-center px-2 ml-auto space-x-2">
                 <button class="w-8 h-8 flex items-center justify-center no-print" id="btn-retirar-protocolo" title="Retirar Protocolo">
-                    <img src="{{ asset('images/Retirar.png') }}" alt="Retirar" class="w-5 h-5 no-print" />
+                    <img src="{{ asset('images/Retirar.png') }}" alt="Retirar" class="w-5 h-5 no-print transition-transform duration-400 ease-in-out hover:scale-125" />
                 </button>
                 <button class="w-8 h-8 flex items-center justify-center no-print" title="Editar Protocolo">
-                    <img src="{{ asset('images/Editar.png') }}" alt="Editar" class="w-5 h-5 no-print" />
+                    <img src="{{ asset('images/Editar.png') }}" alt="Editar" class="w-5 h-5 no-print transition-transform duration-400 ease-in-out hover:scale-125" />
                 </button>
                 <button class="w-8 h-8 flex items-center justify-center no-print" title="Protocolo Anterior">
-                    <img src="{{ asset('images/Voltar.png') }}" alt="Voltar" class="w-5 h-5 no-print" />
+                    <img src="{{ asset('images/Voltar.png') }}" alt="Voltar" class="w-5 h-5 no-print transition-transform duration-400 ease-in-out hover:scale-125" />
                 </button>
                 <button class="w-8 h-8 flex items-center justify-center no-print" title="Protocolo Seguinte">
-                    <img src="{{ asset('images/Setadireita.png') }}" alt="Setadireita" class="w-5 h-5 no-print" />
+                    <img src="{{ asset('images/Setadireita.png') }}" alt="Setadireita" class="w-5 h-5 no-print transition-transform duration-400 ease-in-out hover:scale-125" />
                 </button>
                 <button type="button" onclick="redirecionarParaAutenticacao()" class="w-8 h-8 flex items-center justify-center no-print" title="Autenticar Protocolo">
-                    <img src="{{ asset('images/Dinheiro.png') }}" alt="Dinheiro" class="w-5 h-5" />
+                    <img src="{{ asset('images/Dinheiro.png') }}" alt="Dinheiro" class="w-5 h-5 transition-transform duration-400 ease-in-out hover:scale-125" />
                 </button>
                 <button type="button" id="btn-andamento" class="w-8 h-8 flex items-center justify-center no-print" title="Andamento">
-                    <img src="{{ asset('images/Andamento.png') }}" alt="Andamento" class="w-5 h-5" />
+                    <img src="{{ asset('images/Andamento.png') }}" alt="Andamento" class="w-5 h-5 transition-transform duration-400 ease-in-out hover:scale-125" />
                 </button>
                 <button type="button" class="w-8 h-8 flex items-center justify-center no-print" onclick="window.print()" title="Imprimir Protocolo">
-                    <img src="{{ asset('images/Imprimir.png') }}" alt="Imprimir" class="w-5 h-5" />
+                    <img src="{{ asset('images/Imprimir.png') }}" alt="Imprimir" class="w-5 h-5 transition-transform duration-400 ease-in-out hover:scale-125" />
                 </button>
             </div>
             <div class="w-9 h-9 bg-[#9f9f9f] rounded-full flex items-center justify-around px-2 ml-90 mr-20 hover:bg-[#8a8a8a]">
@@ -339,10 +339,26 @@
         if (!numero) return alert('Digite o número do protocolo!');
 
         fetch(`/protocolos/buscar/${numero}`)
-            .then(response => response.json())
+            .then(response => {
+                // Modificação: Apenas verifica o status 404 para a mensagem específica
+                if (response.status === 404) {
+                    alert('Protocolo inexistente. Por favor, verifique o número digitado.');
+                    // IMPORTANTE: Se o protocolo não existe, não vamos processar o JSON.
+                    // A requisição falhou do ponto de vista de negócio.
+                    throw new Error('Protocolo não encontrado (404).'); // Isso levará ao bloco .catch
+                }
+                // Se a resposta não for 404, mas ainda não for 'ok', alertamos um erro genérico
+                if (!response.ok) {
+                    alert('Erro ao buscar protocolo. Por favor, tente novamente mais tarde.');
+                    throw new Error('Erro no servidor.'); // Isso levará ao bloco .catch
+                }
+                return response.json(); // Se a resposta for OK (2xx), continua processando o JSON
+            })
             .then(data => {
                 if (data.erro) {
                     alert(data.erro);
+                    // Limpa os dados preenchidos
+                    document.querySelectorAll('.campo-formulario input, .campo-formulario select').forEach(el => el.value = '');
                     return;
                 }
                 setValueById('data_abertura', data.data_abertura);
@@ -389,9 +405,18 @@
                     });
                     aplicarMascarasDeVisualizacao();
                 }
+
+                // >>> ATUALIZA A URL NO NAVEGADOR <<<
+                // Verifica se a URL atual já tem o número. Se não, ou se for diferente, atualiza.
+                const currentPath = window.location.pathname;
+                const expectedPath = `/protocolos/view/${numero}`;
+                if (currentPath !== expectedPath) {
+                    // Usa pushState para mudar a URL sem recarregar a página
+                    window.history.pushState({ protocol: numero }, '', expectedPath);
+                }
+
             })
             .catch(error => {
-                alert('Erro ao buscar protocolo. Veja o log do servidor.');
                 console.error('Erro ao buscar protocolo:', error);
                 fetch('/log-js-error', {
                     method: 'POST',
