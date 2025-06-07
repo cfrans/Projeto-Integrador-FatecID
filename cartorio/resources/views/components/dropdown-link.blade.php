@@ -4,7 +4,8 @@
     text-sm 
     leading-5 
     text-gray-700 
-    hover:bg-gray-100 
+    hover:bg-[#C27C5D]
+    hover:text-white
     focus:outline-none 
     focus:bg-gray-100 d
     ark:focus:bg-gray-800 

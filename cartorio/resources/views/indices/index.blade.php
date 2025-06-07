@@ -76,7 +76,7 @@
                                     <x-text-input id="numero_documento" name="numero_documento" class="w-full h-8 text-sm" />
                                 </div>
 
-                                <div class="campo-formulario flex flex-col w-[770px]">
+                                <div class="campo-formulario flex flex-col w-[675px]">
                                     <x-input-label for="nome">Nome</x-input-label>
                                     <x-text-input id="nome" name="nome" class="w-full h-8 text-sm" />
                                 </div>
