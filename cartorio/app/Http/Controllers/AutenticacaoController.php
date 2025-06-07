@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Protocolo;
 use App\Models\Autenticacao;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Validator;
 
 class AutenticacaoController extends Controller
 {
@@ -30,10 +32,10 @@ class AutenticacaoController extends Controller
             }
         }
 
-        \Log::info('Dados recebidos para autenticação:', $dados);
+        Log::info('Dados recebidos para autenticação:', $dados);
 
         try {
-            $validated = \Validator::make($dados, [
+            $validated = Validator::make($dados, [
                 'valor' => 'required|numeric|min:0',
                 'data_autenticacao'=> 'nullable|string',
                 'numero_cheque' => 'nullable|integer',
@@ -43,15 +45,15 @@ class AutenticacaoController extends Controller
                 'id_protocolo' => 'required|exists:protocolo,id',
                 'id_forma_pagamento' => 'required|exists:forma_pagamento,id',
             ])->validate();
-            \Log::info('Dados validados:', $validated);
+            Log::info('Dados validados:', $validated);
         } catch (\Illuminate\Validation\ValidationException $e) {
-            \Log::error('Erro de validação:', $e->errors());
+            Log::error('Erro de validação:', $e->errors());
             throw $e;
         }
 
         $data = \Carbon\Carbon::createFromFormat('d/m/Y', $validated['data_autenticacao'])->format('Y-m-d');
 
-        $autenticacao = Autenticacao::create([
+        Autenticacao::create([
             'valor' => $validated['valor'],
             'data_autenticacao' => $data,
             'numero_cheque' => $validated['numero_cheque'] ?? null,
