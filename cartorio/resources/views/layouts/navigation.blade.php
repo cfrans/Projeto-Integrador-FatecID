@@ -45,12 +45,12 @@
                     </div>
 
 
-                    <x-nav-link :href="route('indices.index')" :active="request()->routeIs('indices.index')" class="hover:border-b-2 hover:border-[#C27C5D]">
+                    <x-nav-link :href="route('indices.index')" :active="request()->routeIs('indices.index')" class="hover:border-[#C27C5D]">
                         {{ __('Índices') }}
                     </x-nav-link>
 
 
-                    <x-nav-link :href="route('sobre.index')" :active="request()->routeIs('sobre.index')" class="hover:border-b-2    ">
+                    <x-nav-link :href="route('sobre.index')" :active="request()->routeIs('sobre.index')" class="hover:border-[#C27C5D]  ">
                         {{ __('Sobre') }}
                     </x-nav-link>
 
