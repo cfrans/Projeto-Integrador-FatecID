@@ -22,9 +22,8 @@
         </h2>
     </x-slot>
 
-    {{-- TODO: Criar o endpoint para o formulario --}}
-    <form action="/endpoint" method="post">
-
+    <form action="{{ route('autenticacao.store') }}" method="post">
+        @csrf
         {{-- DIV MENOR PARA O CONTEUDO DOS CAMPOS --}}
         <div class="flex justify-center items-start min-h-screen py-10 gap-5 bg-gray-100">
 
@@ -37,7 +36,10 @@
                             <x-input-label for="autenticacao_data">
                                 Data
                             </x-input-label>
-                            <x-input-naoalteravel id="autenticacao_data" name="autenticacao_data" class="w-[200px] h-10 text-sm" value="{{ isset($protocolo->data_abertura) ? \Carbon\Carbon::parse($protocolo->data_abertura)->format('d/m/Y') : '' }}" readonly />
+                            @php
+                                $now = $now ?? \Carbon\Carbon::now();
+                            @endphp
+                            <x-input-naoalteravel id="data_autenticacao" name="data_autenticacao" class="w-[200px] h-10 text-sm" value="{{ $now->format('d/m/Y') }}" readonly />
 
                         </div>
                     </div>
@@ -57,7 +59,7 @@
                     <div class="campo-formulario flex items-center ml-6">
                         <div class="text-left">
                             <x-input-label for="autenticacao_usuario">
-                                Usúario
+                                Usuário
                             </x-input-label>
                             <x-input-naoalteravel id="nome" name="nome" class="w-[200px] h-9 text-sm" value="{{ Auth::user() ? Auth::user()->nome : '' }}" readonly />
                         </div>
@@ -82,7 +84,7 @@
                             <x-input-label for="autenticacao_protocolo">
                                 Protocolo
                             </x-input-label>
-                            <x-input-naoalteravel id="autenticacao_protocolo" name="autenticacao_protocolo" value="{{ $protocolo->numero_protocolo ?? '' }}" class="w-[200px] h-10 text-sm">
+                            <x-input-naoalteravel id="id_protocolo" name="id_protocolo" value="{{ $protocolo->numero_protocolo ?? '' }}" class="w-[200px] h-10 text-sm">
                             </x-input-naoalteravel>
                         </div>
                     </div>
@@ -106,7 +108,7 @@
                             <x-input-label for="autenticacao_valor">
                                 Valor
                             </x-input-label>
-                            <x-input-number type="text" id="valor" name="valor" class="w-[200px] h-9 text-sm" required>
+                            <x-input-number type="number" step="0.01" id="valor" name="valor" class="w-[200px] h-9 text-sm" required>
                             </x-input-number>
                         </div>
                     </div>
@@ -131,15 +133,15 @@
                     <!-- Oitava coluna (8/8) -->
                     <div class="campo-formulario flex items-center ml-6">
                         <div class="text-left">
-                            <x-input-label for="autenticacao_banco">
+                            <x-input-label for="banco">
                                 Banco
                             </x-input-label>
-                            <x-input-select id="id_banco" name="id_banco" class="w-[300px] h-9 text-sm" required disabled>
-                                <option value="1">Caixa Econômica</option>
-                                <option value="2">Banco do Brasil</option>
-                                <option value="3">Itaú</option>
-                                <option value="4">Bradesco </option>
-                                <option value="5">Santander</option>
+                            <x-input-select id="banco" name="banco" class="w-[300px] h-9 text-sm" required disabled>
+                                <option value="Caixa Econômica">Caixa Econômica</option>
+                                <option value="Banco do Brasil">Banco do Brasil</option>
+                                <option value="Itaú">Itaú</option>
+                                <option value="Bradesco">Bradesco </option>
+                                <option value="Santander">Santander</option>
                             </x-input-select>
                         </div>
                     </div>
@@ -150,30 +152,30 @@
                     <!--<div id="cheque"> -->
                     <div class="campo-formulario flex items-center ml-3">
                         <div class="text-left">
-                            <x-input-label for="autenticacao_conta">
+                            <x-input-label for="conta">
                                 Conta
                             </x-input-label>
-                            <x-text-input id="autenticacao_conta" name="autenticacao_conta" class="w-[200px] h-9 text-sm" required disabled />
+                            <x-text-input id="conta" name="conta" class="w-[200px] h-9 text-sm" required disabled />
                         </div>
                     </div>
 
                     <!-- Segunda coluna (1/3) -->
                     <div class="campo-formulario flex items-center ml-6">
                         <div class="text-left">
-                            <x-input-label for="autenticacao_agencia">
+                            <x-input-label for="agencia">
                                 Agência
                             </x-input-label>
-                            <x-text-input id="autenticacao_agencia" name="autenticacao_agencia" class="w-[200px] h-9 text-sm" required disabled />
+                            <x-text-input id="agencia" name="agencia" class="w-[200px] h-9 text-sm" required disabled />
                         </div>
                     </div>
 
                     <!-- Terceira coluna (3/3) -->
                     <div class="campo-formulario flex items-center ml-6">
                         <div class="text-left">
-                            <x-input-label for="autenticacao_cheque">
+                            <x-input-label for="numero_cheque">
                                 Número do cheque
                             </x-input-label>
-                            <x-text-input id="autenticacao_cheque" name="autenticacao_cheque" class="w-[200px] h-9 text-sm" required disabled />
+                            <x-text-input id="numero_cheque" name="numero_cheque" class="w-[200px] h-9 text-sm" required disabled />
                         </div>
                     </div>
                     <!--</div>-->
@@ -190,7 +192,7 @@
                                 <x-input-label for="autenticacao_valor_previo">
                                     Valor Prévio:
                                 </x-input-label>
-                                <x-input-number type="text" id="autenticacao_valor_previo" name="autenticacao_valor_previo" class="w-[300px] h-9 text-sm" readonly required />
+                                <x-input-number type="number" step="0.01" id="autenticacao_valor_previo" name="autenticacao_valor_previo" class="w-[300px] h-9 text-sm" readonly required />
                             </div>
                         </div>
 
@@ -200,7 +202,7 @@
                                 <x-input-label for="autenticacao_valor_pago">
                                     Valor Pago:
                                 </x-input-label>
-                                <x-input-number type="text" id="autenticacao_valor_pago" name="autenticacao_valor_pago" class="w-[300px] h-9 text-sm" required />
+                                <x-input-number type="number" step="0.01" id="autenticacao_valor_pago" name="autenticacao_valor_pago" class="w-[300px] h-9 text-sm" required />
                             </div>
                         </div>
 
@@ -210,7 +212,7 @@
                                 <x-input-label for="autenticacao_troco">
                                     Troco:
                                 </x-input-label>
-                                <x-input-number type="text" id="autenticacao_troco" name="autenticacao_troco" class="w-[300px] h-9 text-sm" readonly required />
+                                <x-input-number type="number" step="0.01" id="autenticacao_troco" name="autenticacao_troco" class="w-[300px] h-9 text-sm" readonly required />
                             </div>
                         </div>
                     </div>
@@ -282,10 +284,10 @@
         // Liberação dos campos de cheque
         const formaPagamento = document.getElementById('id_forma_pagamento');
         const camposCheque = [
-            document.getElementById('id_banco'),
-            document.getElementById('autenticacao_conta'),
-            document.getElementById('autenticacao_agencia'),
-            document.getElementById('autenticacao_cheque')
+            document.getElementById('banco'),
+            document.getElementById('conta'),
+            document.getElementById('agencia'),
+            document.getElementById('numero_cheque')
         ];
 
         function liberaCamposCheque() {

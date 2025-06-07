@@ -45,6 +45,7 @@ Route::middleware(['auth'])->group(function () {
     // Autenticação de valores
     // Route::get('/autenticacao', fn () => view('autenticacao.index'))->name('autenticacao.index');
     Route::get('/autenticacao/{protocolo}', [AutenticacaoController::class, 'index'])->name('autenticacao.index');
+    Route::post('/autenticacao', [AutenticacaoController::class, 'store'])->name('autenticacao.store');
 
     // Andamento
     Route::get('/andamento', fn () => view('andamento.index'))->name('andamento.index');
