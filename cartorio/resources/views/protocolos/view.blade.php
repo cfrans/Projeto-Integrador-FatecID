@@ -132,16 +132,29 @@
                     <x-input-date type="date" id="data_cancelamento" name="data_cancelamento" class="w-[150px] h-8 text-sm" required />
                 </div>
             </div>
-            <div class="campo-formulario flex items-center">
-                <div class="text-left">
-                    <x-input-label for="data_registro">Data de registro</x-input-label>
-                    <x-input-date type="date" id="data_registro" name="data_registro" class="w-[150px] h-8 text-sm" required></x-input-date>
+             <div class="campo-formulario flex items-center">
+                    <div class="text-left">
+                        <x-input-label for="registro">
+                            Registro
+                        </x-input-label>
+                        <x-text-input type="text" id="numero_registro" name="numero_registro" class="w-[150px] h-8 text-sm"
+        value="{{ $protocolo->numero_registro ?? '' }}" readonly />
+                    </div>
                 </div>
-            </div>
+
+            <!-- Sexta coluna (1/7) -->
             <div class="campo-formulario flex items-center">
                 <div class="text-left">
-                    <x-input-label for="registro">Registro</x-input-label>
-                    <x-text-input type="text" id="numero_registro" name="numero_registro" class="w-[150px] h-8 text-sm" required readonly></x-text-input>
+                    <x-input-label for="data_registro">
+                        Data de Registro
+                    </x-input-label>
+                   <x-input-date 
+                    id="data_registro" 
+                    name="data_registro" 
+                    class="w-[150px] h-8 text-sm"
+                    :value="isset($protocolo) ? \Carbon\Carbon::parse($protocolo->data_registro)->format('Y-m-d') : ''" 
+                    readonly>
+                </x-input-date>
                 </div>
             </div>
             <div class="campo-formulario flex items-center">
@@ -231,16 +244,16 @@
             </div>
         </div>
 
-        <div id="container-campos">
-            <div class="flex justify-start w-[12%] h-20 bg-white rounded-md mt-6 ml-auto mr-16 mb-8">
-                <div class="campo-formulario flex items-center ml-2">
-                    <div class="text-left p-0 m-0">
-                        <x-input-label for="deposito">Depósito</x-input-label>
-                        <x-text-input type="text" name="identificacao[]" class="w-[135px] h-8 text-sm" required></x-text-input>
-                    </div>
-                </div>
+<div id="container-campos">
+    <div class="flex justify-start w-[12%] h-19 bg-white rounded-md mt-6 ml-auto mr-16 mb-10">
+        <div class="campo-formulario flex items-center ml-2">
+            <div class="text-left">
+                <x-input-label for="deposito">Depósito</x-input-label>
+                <x-text-input type="text" name="identificacao[]" class="w-[130px] h-8 text-sm" required readonly />
             </div>
         </div>
+    </div>
+</div>
     </div>
 </x-app-layout>
 
@@ -335,71 +348,73 @@
 
     // Event Listeners
     document.getElementById('btn-pesquisar-protocolo').addEventListener('click', () => {
-        const numero = document.getElementById('numero_protocolo').value;
-        if (!numero) return alert('Digite o número do protocolo!');
+    const numero = document.getElementById('numero_protocolo').value;
+    if (!numero) return alert('Digite o número do protocolo!');
 
-        fetch(`/protocolos/buscar/${numero}`)
-            .then(response => response.json())
-            .then(data => {
-                if (data.erro) {
-                    alert(data.erro);
-                    return;
-                }
-                setValueById('data_abertura', data.data_abertura);
-                setValueById('previsao', calcularPrevisao(data.data_abertura));
-                setValueById('numero_protocolo', data.numero_protocolo);
-                setValueById('numero_registro', data.numero_registro);
-                setValueById('numero_documento_protocolo', data.numero_documento);
-                setValueById('data_documento_protocolo', data.data_documento);
-                setValueById('data_retirada', formatDateToInput(data.data_retirada));
-                setValueById('data_registro', formatDateToInput(data.data_registro));
-                setValueById('data_cancelamento', data.data_cancelamento);
-                setSelectById('id_grupo', data.id_grupo);
-                setSelectById('id_natureza', data.id_natureza);
-                setSelectById('id_especie', data.id_especie);
+    fetch(`/protocolos/buscar/${numero}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.erro) {
+                alert(data.erro);
+                return;
+            }
+            setValueById('data_abertura', data.data_abertura);
+            setValueById('previsao', calcularPrevisao(data.data_abertura));
+            setValueById('numero_protocolo', data.numero_protocolo);
+            setValueById('numero_registro', data.numero_registro);
+            setValueById('numero_documento_protocolo', data.numero_documento);
+            setValueById('data_documento_protocolo', data.data_documento);
+            setValueById('data_retirada', formatDateToInput(data.data_retirada));
+            setValueById('data_registro', formatDateToInput(data.data_registro));
+            setValueById('data_cancelamento', data.data_cancelamento);
+            setSelectById('id_grupo', data.id_grupo);
+            setSelectById('id_natureza', data.id_natureza);
+            setSelectById('id_especie', data.id_especie);
 
-                if (data.apresentante) {
-                    setSelectById('id_documento_apresentante', data.apresentante.id_documento);
-                    setValueById('numero_documento_apresentante', data.apresentante.numero_documento);
-                    setValueById('nome_apresentante', data.apresentante.nome);
-                    setValueById('tipo_contato_apresentante', data.apresentante.tipo_contato);
-                    setValueById('numero_contato_apresentante', data.apresentante.numero_contato);
-                    setValueById('email_apresentante', data.apresentante.email);
-                }
+            if (data.apresentante) {
+                setSelectById('id_documento_apresentante', data.apresentante.id_documento);
+                setValueById('numero_documento_apresentante', data.apresentante.numero_documento);
+                setValueById('nome_apresentante', data.apresentante.nome);
+                setValueById('tipo_contato_apresentante', data.apresentante.tipo_contato);
+                setValueById('numero_contato_apresentante', data.apresentante.numero_contato);
+                setValueById('email_apresentante', data.apresentante.email);
+            }
 
-                const partes = data.partes || [];
-                const parteContainer = document.getElementById('container-partes');
-                if (parteContainer && partes.length > 0) {
-                    let linhas = parteContainer.querySelectorAll('.linha-parte');
-                    while (linhas.length < partes.length) {
-                        const novaLinha = linhas[0].cloneNode(true);
-                        novaLinha.querySelectorAll('input, select').forEach(el => el.value = '');
-                        parteContainer.appendChild(novaLinha);
-                        linhas = parteContainer.querySelectorAll('.linha-parte');
-                    }
-                    while (linhas.length > partes.length) {
-                        parteContainer.removeChild(linhas[linhas.length - 1]);
-                        linhas = parteContainer.querySelectorAll('.linha-parte');
-                    }
-                    linhas.forEach((linha, i) => {
-                        const select = linha.querySelector('select[name="id_tipo_parte[]"]');
-                        const input = linha.querySelector('input[name="identificacao[]"]');
-                        if (select) select.value = partes[i]?.id_tipo_parte || '';
-                        if (input) input.value = partes[i]?.identificacao || '';
-                    });
-                    aplicarMascarasDeVisualizacao();
+            const partes = data.partes || [];
+            const parteContainer = document.getElementById('container-partes');
+            if (parteContainer && partes.length > 0) {
+                let linhas = parteContainer.querySelectorAll('.linha-parte');
+                while (linhas.length < partes.length) {
+                    const novaLinha = linhas[0].cloneNode(true);
+                    novaLinha.querySelectorAll('input, select').forEach(el => el.value = '');
+                    parteContainer.appendChild(novaLinha);
+                    linhas = parteContainer.querySelectorAll('.linha-parte');
                 }
-            })
-            .catch(error => {
-                alert('Erro ao buscar protocolo. Veja o log do servidor.');
-                console.error('Erro ao buscar protocolo:', error);
-                fetch('/log-js-error', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json', 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content },
-                    body: JSON.stringify({ mensagem: error.message || error, stack: error.stack || null, protocolo: numero })
+                while (linhas.length > partes.length) {
+                    parteContainer.removeChild(linhas[linhas.length - 1]);
+                    linhas = parteContainer.querySelectorAll('.linha-parte');
+                }
+                linhas.forEach((linha, i) => {
+                    const select = linha.querySelector('select[name="id_tipo_parte[]"]');
+                    const input = linha.querySelector('input[name="identificacao[]"]');
+                    if (select) select.value = partes[i]?.id_tipo_parte || '';
+                    if (input) input.value = partes[i]?.identificacao || '';
                 });
+                aplicarMascarasDeVisualizacao();
+            }
+
+        })
+        .catch(error => {
+            alert('Erro ao buscar protocolo. Veja o log do servidor.');
+            console.error('Erro ao buscar protocolo:', error);
+            fetch('/log-js-error', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content },
+                body: JSON.stringify({ mensagem: error.message || error, stack: error.stack || null, protocolo: numero })
             });
-    });
+        });
+});
+
 
     document.getElementById('btn-retirar-protocolo').addEventListener('click', () => {
         const numeroProtocolo = document.getElementById('numero_protocolo').value;
