@@ -35,40 +35,38 @@
                             class="absolute top-full left-0 mt-[-5px] w-48 bg-white rounded-md shadow-lg z-50"
                             @click.away="open = false"
                             style="display: none;">
-                            <a href="{{ route('protocolos.index') }}" class="block px-4 py-2 text-sm text-gray-700 hover:text-white hover:bg-[#C27C5D]">
+                            <a href="{{ route('protocolos.index') }}" class="block px-4 py-2 text-sm text-gray-700 hover:text-white hover:bg-[#C27C5D] rounded-md"">
                                 Novo Protocolo
                             </a>
-                            <a href="{{ route('protocolos.view') }}" class="block px-4 py-2 text-sm text-gray-700 hover:text-white hover:bg-[#C27C5D]">
+                            <a href="{{ route('protocolos.view') }}" class="block px-4 py-2 text-sm text-gray-700 hover:text-white hover:bg-[#C27C5D] rounded-md"">
                                 Visualizar Protocolo
                             </a>
                         </div>
                     </div>
 
 
-                    <x-nav-link :href="route('indices.index')" :active="request()->routeIs('indices.index')" class="hover:border-b-2 hover:border-[#C27C5D]">
+                    <x-nav-link :href="route('indices.index')" :active="request()->routeIs('indices.index')" class="hover:border-[#C27C5D]">
                         {{ __('Índices') }}
                     </x-nav-link>
 
 
-                    <x-nav-link :href="route('sobre.index')" :active="request()->routeIs('sobre.index')" class="hover:border-b-2    ">
+                    <x-nav-link :href="route('sobre.index')" :active="request()->routeIs('sobre.index')" class="hover:border-[#C27C5D]  ">
                         {{ __('Sobre') }}
                     </x-nav-link>
 
                 </div>
             </div>
 
-            <!-- Settings Dropdown -->
+           <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ms-6">
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
-                        <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500  bg-[#f5f5f5]  hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
+                        <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-[#9e9e9e]  bg-[#f5f5f5]  hover:text-gray-500  focus:outline-none transition ease-in-out duration-150">
                             @auth
                             <div>{{ Auth::user()->nome }}</div>
                             @else
                             <div>Visitante</div>
                             @endauth
-
-
                             <div class="ms-1">
                                 <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                                     <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />

@@ -44,7 +44,7 @@
         </div>
 
         <div id="container-campos">
-            <div class="flex justify-start w-[31%] h-18 bg-white rounded-md ml-14">
+            <div class="flex flex-auto justify-start w-[30%] h-20 bg-white rounded-md ml-14">
                 <div class="campo-formulario flex items-center ml-6">
                     <div class="text-left">
                         <x-input-label for="data_abertura">Data</x-input-label>
@@ -134,14 +134,15 @@
             </div>
             <div class="campo-formulario flex items-center">
                 <div class="text-left">
-                    <x-input-label for="data_registro">Data de registro</x-input-label>
-                    <x-input-date type="date" id="data_registro" name="data_registro" class="w-[150px] h-8 text-sm" required></x-input-date>
+                    <x-input-label for="registro">Registro</x-input-label>
+                    <x-text-input type="text" id="numero_registro" name="numero_registro" class="w-[150px] h-8 text-sm" readonly />
                 </div>
             </div>
+
             <div class="campo-formulario flex items-center">
                 <div class="text-left">
-                    <x-input-label for="registro">Registro</x-input-label>
-                    <x-text-input type="text" id="numero_registro" name="numero_registro" class="w-[150px] h-8 text-sm" required readonly></x-text-input>
+                    <x-input-label for="data_registro">Data de Registro</x-input-label>
+                    <x-input-date id="data_registro" name="data_registro" class="w-[150px] h-8 text-sm" readonly></x-input-date>
                 </div>
             </div>
             <div class="campo-formulario flex items-center">
@@ -231,16 +232,16 @@
             </div>
         </div>
 
-        <div id="container-campos">
-            <div class="flex justify-start w-[12%] h-19 bg-white rounded-md mt-6 ml-auto mr-16 mb-8">
-                <div class="campo-formulario flex items-center ml-2">
-                    <div class="text-left">
-                        <x-input-label for="deposito">Depósito</x-input-label>
-                        <x-text-input type="text" name="identificacao[]" class="w-[130px] h-8 text-sm" required></x-text-input>
-                    </div>
-                </div>
+<div id="container-campos">
+    <div class="flex justify-start w-[12%] h-19 bg-white rounded-md mt-6 ml-auto mr-16 mb-10">
+        <div class="campo-formulario flex items-center ml-2">
+            <div class="text-left">
+                <x-input-label for="deposito">Depósito</x-input-label>
+                <x-text-input type="text" name="identificacao[]" class="w-[130px] h-8 text-sm" required readonly />
             </div>
         </div>
+    </div>
+</div>
     </div>
 </x-app-layout>
 
@@ -340,27 +341,20 @@
 
         fetch(`/protocolos/buscar/${numero}`)
             .then(response => {
-                // Modificação: Apenas verifica o status 404 para a mensagem específica
+                // Tratamento de erro 404 para mensagem específica
                 if (response.status === 404) {
                     alert('Protocolo inexistente. Por favor, verifique o número digitado.');
-                    // IMPORTANTE: Se o protocolo não existe, não vamos processar o JSON.
-                    // A requisição falhou do ponto de vista de negócio.
-                    throw new Error('Protocolo não encontrado (404).'); // Isso levará ao bloco .catch
+                    throw new Error('Protocolo não encontrado (404).');
                 }
-                // Se a resposta não for 404, mas ainda não for 'ok', alertamos um erro genérico
+                // Tratamento para outros erros HTTP
                 if (!response.ok) {
                     alert('Erro ao buscar protocolo. Por favor, tente novamente mais tarde.');
-                    throw new Error('Erro no servidor.'); // Isso levará ao bloco .catch
+                    throw new Error('Erro no servidor.');
                 }
-                return response.json(); // Se a resposta for OK (2xx), continua processando o JSON
+                return response.json(); // Processa a resposta JSON
             })
             .then(data => {
-                if (data.erro) {
-                    alert(data.erro);
-                    // Limpa os dados preenchidos
-                    document.querySelectorAll('.campo-formulario input, .campo-formulario select').forEach(el => el.value = '');
-                    return;
-                }
+                // Preenche os campos do protocolo
                 setValueById('data_abertura', data.data_abertura);
                 setValueById('previsao', calcularPrevisao(data.data_abertura));
                 setValueById('numero_protocolo', data.numero_protocolo);
@@ -374,6 +368,7 @@
                 setSelectById('id_natureza', data.id_natureza);
                 setSelectById('id_especie', data.id_especie);
 
+                // Preenche os campos do apresentante, ou limpa se não houver dados
                 if (data.apresentante) {
                     setSelectById('id_documento_apresentante', data.apresentante.id_documento);
                     setValueById('numero_documento_apresentante', data.apresentante.numero_documento);
@@ -381,47 +376,78 @@
                     setValueById('tipo_contato_apresentante', data.apresentante.tipo_contato);
                     setValueById('numero_contato_apresentante', data.apresentante.numero_contato);
                     setValueById('email_apresentante', data.apresentante.email);
+                } else {
+                    // Limpa campos do apresentante se não houver dados
+                    setSelectById('id_documento_apresentante', '');
+                    setValueById('numero_documento_apresentante', '');
+                    setValueById('nome_apresentante', '');
+                    setValueById('tipo_contato_apresentante', '');
+                    setValueById('numero_contato_apresentante', '');
+                    setValueById('email_apresentante', '');
                 }
 
+                // Gerencia e preenche as seções de partes
                 const partes = data.partes || [];
                 const parteContainer = document.getElementById('container-partes');
-                if (parteContainer && partes.length > 0) {
+                if (parteContainer) {
                     let linhas = parteContainer.querySelectorAll('.linha-parte');
-                    while (linhas.length < partes.length) {
-                        const novaLinha = linhas[0].cloneNode(true);
-                        novaLinha.querySelectorAll('input, select').forEach(el => el.value = '');
-                        parteContainer.appendChild(novaLinha);
-                        linhas = parteContainer.querySelectorAll('.linha-parte');
+                    // Remove linhas extras se houver mais do que o necessário (mantém a primeira como template)
+                    if (linhas.length > 1) {
+                        for(let i = linhas.length - 1; i > 0; i--) {
+                            parteContainer.removeChild(linhas[i]);
+                        }
                     }
-                    while (linhas.length > partes.length) {
-                        parteContainer.removeChild(linhas[linhas.length - 1]);
-                        linhas = parteContainer.querySelectorAll('.linha-parte');
+                    // Limpa e preenche a primeira linha, e adiciona novas se necessário
+                    if (linhas[0]) {
+                        // Limpa os valores do template (primeira linha)
+                        linhas[0].querySelectorAll('input, select').forEach(el => {
+                            el.value = '';
+                            if (el.id) el.removeAttribute('id'); // Remove IDs para evitar duplicidade em clones
+                        });
+
+                        if (partes.length > 0) {
+                            // Preenche a primeira linha
+                            setSelectById(linhas[0].querySelector('select[name="id_tipo_parte[]"]').id, partes[0]?.id_tipo_parte || '');
+                            setValueById(linhas[0].querySelector('input[name="identificacao[]"]').id, partes[0]?.identificacao || '');
+
+                            // Adiciona e preenche as demais linhas
+                            for (let i = 1; i < partes.length; i++) {
+                                const novaLinha = linhas[0].cloneNode(true);
+                                novaLinha.querySelectorAll('input, select').forEach(el => {
+                                    el.value = '';
+                                    if (el.id) el.removeAttribute('id');
+                                });
+                                parteContainer.appendChild(novaLinha);
+                                
+                                // Preenche a nova linha clonada
+                                const selectClone = novaLinha.querySelector('select[name="id_tipo_parte[]"]');
+                                const inputClone = novaLinha.querySelector('input[name="identificacao[]"]');
+                                if (selectClone) setSelectById(selectClone.id, partes[i]?.id_tipo_parte || '');
+                                if (inputClone) setValueById(inputClone.id, partes[i]?.identificacao || '');
+                            }
+                        }
+                    } else {
+                        console.warn("Nenhuma linha de template para partes encontrada.");
                     }
-                    linhas.forEach((linha, i) => {
-                        const select = linha.querySelector('select[name="id_tipo_parte[]"]');
-                        const input = linha.querySelector('input[name="identificacao[]"]');
-                        if (select) select.value = partes[i]?.id_tipo_parte || '';
-                        if (input) input.value = partes[i]?.identificacao || '';
-                    });
                     aplicarMascarasDeVisualizacao();
                 }
 
-                // >>> ATUALIZA A URL NO NAVEGADOR <<<
-                // Verifica se a URL atual já tem o número. Se não, ou se for diferente, atualiza.
+                // Atualiza a URL no navegador
                 const currentPath = window.location.pathname;
-                const expectedPath = `/protocolos/view/${numero}`;
+                const expectedPath = `/protocolos/view/${data.numero_protocolo}`;
                 if (currentPath !== expectedPath) {
-                    // Usa pushState para mudar a URL sem recarregar a página
-                    window.history.pushState({ protocol: numero }, '', expectedPath);
+                    window.history.pushState({ protocol: data.numero_protocolo }, '', expectedPath);
                 }
 
             })
             .catch(error => {
-                console.error('Erro ao buscar protocolo:', error);
+                // Este bloco pega erros de rede ou erros lançados explicitamente por nós no .then(response)
+                console.error('Erro na requisição AJAX ou de conexão:', error);
+                // Envia log para o backend
                 fetch('/log-js-error', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json', 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content },
-                    body: JSON.stringify({ mensagem: error.message || error, stack: error.stack || null, protocolo: numero })
+                    body: JSON.stringify({ mensagem: error.message || "Erro desconhecido na busca de protocolo", stack: error.stack || null, protocolo: numero })
                 });
             });
     });

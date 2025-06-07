@@ -235,7 +235,7 @@ $dataCancelamento = Carbon::now()->addDays(30)->format('d/m/Y');
                         <x-input-label for="apresentante_numero_documento">
                             Número do Documento
                         </x-input-label>
-                        <x-text-input type="text" id="numero_documento_apresentante" name="numero_documento_apresentante" class="w-[200px] h-8 text-sm" required>
+                        <x-text-input type="text" id="numero_documento_apresentante" name="numero_documento_apresentante" class="w-[250px] h-8 text-sm" required>
                         </x-text-input>
                     </div>
                 </div>
@@ -277,7 +277,7 @@ $dataCancelamento = Carbon::now()->addDays(30)->format('d/m/Y');
                         <x-input-label for="apresentante_numero_contato">
                             Número de Contato
                         </x-input-label>
-                        <x-text-input type="text" id="numero_contato" name="numero_contato" class="w-[200px] h-8 text-sm" required>
+                        <x-text-input type="text" id="numero_contato" name="numero_contato" class="w-[250px] h-8 text-sm" required>
                         </x-text-input>
                     </div>
                 </div>

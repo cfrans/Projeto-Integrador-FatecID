@@ -5,10 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Andamento;
 use App\Models\Protocolo;
-use App\Models\Usuario;
+use App\Models\Usuario; // Garanta que este Model existe e está correto
 use Illuminate\Support\Facades\Validator;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\DB; // Adicionado do branch 'main'
 
 class AndamentoController extends Controller
 {
@@ -22,6 +23,7 @@ class AndamentoController extends Controller
     {
         $numeroProtocolo = $request->query('numero_protocolo');
         $andamentos = [];
+        $protocolo = null; // Mantenha, pois 'main' estava compactando 'protocolo' para a view
 
         if ($numeroProtocolo) {
             $protocolo = Protocolo::where('numero_protocolo', $numeroProtocolo)->first();
@@ -37,11 +39,13 @@ class AndamentoController extends Controller
             }
         }
 
-        return view('andamento.index', compact('numeroProtocolo', 'andamentos'));
+        // 'main' compactava 'protocolo', 'caio' não. Mantemos 'protocolo' para flexibilidade.
+        return view('andamento.index', compact('numeroProtocolo', 'andamentos', 'protocolo'));
     }
 
     /**
      * Armazena um ou mais novos andamentos para um protocolo.
+     * Inclui lógica de transação de banco de dados e atualização de protocolo.
      *
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
@@ -50,7 +54,7 @@ class AndamentoController extends Controller
     {
         $dados = $request->all();
 
-        // Validação inicial do número do protocolo
+        // Validação inicial do número do protocolo principal
         $validatorProtocolo = Validator::make($dados, [
             'numero_protocolo' => 'required|exists:protocolo,numero_protocolo',
         ]);
@@ -71,48 +75,50 @@ class AndamentoController extends Controller
             return response()->json(['success' => false, 'message' => 'Nenhum andamento para cadastrar.'], 422);
         }
 
-        // Processa cada andamento enviado
-        for ($i = 0; $i < $qtde; $i++) {
-            $dataHora = $dados['data_hora'][$i] ?? null;
-            $valorRaw = $dados['valor'][$i] ?? '0';
+        DB::beginTransaction(); // Inicia a transação de banco de dados (do branch 'main')
 
-            // Pula o andamento se a data/hora estiver vazia (campo obrigatório)
-            if (!$dataHora) {
-                Log::warning("AndamentoController@store: Data/Hora do andamento {$i} está vazia.", ['index' => $i]);
-                $errorsOccurred = true;
-                continue;
-            }
+        try {
+            // Processa cada andamento enviado
+            for ($i = 0; $i < $qtde; $i++) {
+                $dataHora = $dados['data_hora'][$i] ?? null;
+                $valorRaw = $dados['valor'][$i] ?? '0';
 
-            // Garante que o valor é numérico (float)
-            $valorNumerico = (float) $valorRaw;
+                // Pula o andamento se a data/hora estiver vazia (campo obrigatório)
+                if (!$dataHora) {
+                    Log::warning("AndamentoController@store: Data/Hora do andamento {$i} está vazia.", ['index' => $i]);
+                    $errorsOccurred = true;
+                    continue;
+                }
 
-            $andamentoData = [
-                'valor' => $valorNumerico,
-                'data_hora' => $dataHora,
-                'id_protocolo' => $protocolo->id,
-                'observacao' => $dados['observacao'][$i] ?? null,
-                'id_tipo_andamento' => $dados['id_tipo_andamento'][$i] ?? null,
-                'id_usuario' => auth()->user()->id,
-            ];
+                // Garante que o valor é numérico (float)
+                $valorNumerico = (float) $valorRaw;
 
-            $validator = Validator::make($andamentoData, [
-                'valor' => 'required|numeric|min:0',
-                'data_hora' => 'required|date_format:d/m/Y H:i', // Formato esperado do frontend
-                'id_protocolo' => 'required|exists:protocolo,id',
-                'id_tipo_andamento' => 'required|exists:tipo_andamento,id',
-                'observacao' => 'nullable|string|max:500',
-                'id_usuario' => 'required|exists:usuario,id', // Nome da tabela de usuários
-            ]);
+                $andamentoData = [
+                    'valor' => $valorNumerico,
+                    'data_hora' => $dataHora,
+                    'id_protocolo' => $protocolo->id,
+                    'observacao' => $dados['observacao'][$i] ?? null,
+                    'id_tipo_andamento' => $dados['id_tipo_andamento'][$i] ?? null,
+                    'id_usuario' => auth()->user()->id,
+                ];
 
-            if ($validator->fails()) {
-                Log::warning("AndamentoController@store: Validação do andamento {$i} falhou.", $validator->errors()->toArray());
-                $errorsOccurred = true;
-                continue;
-            }
+                $validator = Validator::make($andamentoData, [
+                    'valor' => 'required|numeric|min:0',
+                    'data_hora' => 'required|date_format:d/m/Y H:i', // Formato esperado do frontend
+                    'id_protocolo' => 'required|exists:protocolo,id',
+                    'id_tipo_andamento' => 'required|exists:tipo_andamento,id',
+                    'observacao' => 'nullable|string|max:500',
+                    'id_usuario' => 'required|exists:usuario,id', // Nome da tabela de usuários
+                ]);
 
-            // Tenta criar o registro de andamento
-            try {
-                Andamento::create([
+                if ($validator->fails()) {
+                    Log::warning("AndamentoController@store: Validação do andamento {$i} falhou.", $validator->errors()->toArray());
+                    $errorsOccurred = true;
+                    continue;
+                }
+
+                // Tenta criar o registro de andamento
+                $andamento = Andamento::create([ // Captura o andamento criado se precisar dele mais tarde
                     'valor' => $andamentoData['valor'],
                     // Converte para o formato de banco de dados (YYYY-MM-DD HH:MM:SS)
                     'data_hora' => Carbon::createFromFormat('d/m/Y H:i', $andamentoData['data_hora'])->format('Y-m-d H:i:s'),
@@ -123,23 +129,41 @@ class AndamentoController extends Controller
                 ]);
                 $andamentosSalvosCount++;
                 Log::info("AndamentoController@store: Andamento {$i} salvo com sucesso.");
-            } catch (\Exception $e) {
-                Log::error("AndamentoController@store: Erro ao salvar andamento {$i} no banco de dados: " . $e->getMessage(), ['exception' => $e]);
-                $errorsOccurred = true;
-                continue;
-            }
-        }
 
-        // Resposta final baseada no resultado das operações
-        if ($andamentosSalvosCount > 0 && !$errorsOccurred) {
-            Log::info('AndamentoController@store: Todos os andamentos foram salvos com sucesso.');
-            return response()->json(['success' => true, 'message' => 'Andamento(s) cadastrado(s) com sucesso!'], 200);
-        } elseif ($andamentosSalvosCount > 0 && $errorsOccurred) {
-            Log::warning('AndamentoController@store: Alguns andamentos foram salvos, mas outros tiveram erros. Verifique os logs.');
-            return response()->json(['success' => false, 'message' => "{$andamentosSalvosCount} andamento(s) salvo(s), mas alguns erros ocorreram. Consulte os logs."], 200);
-        } else {
-            Log::error('AndamentoController@store: Nenhum andamento foi salvo devido a erros. Verifique os logs.');
-            return response()->json(['success' => false, 'message' => 'Nenhum andamento foi salvo. Verifique os dados fornecidos.'], 422);
+                // Lógica de atualização de protocolo (do branch 'main')
+                // Se for "Título Registrado"
+                if ((int)$andamentoData['id_tipo_andamento'] === 1) { // Usamos $andamentoData aqui
+                    // Atualizar data_registro
+                    $protocolo->data_registro = Carbon::createFromFormat('d/m/Y H:i', $andamentoData['data_hora'])->format('Y-m-d'); // Usamos $andamentoData aqui
+                    
+                    // Se ainda não tiver número de registro, gerar o próximo sequencial
+                    if (!$protocolo->numero_registro) {
+                        $ultimoNumero = Protocolo::max('numero_registro') ?? 0;
+                        $protocolo->numero_registro = $ultimoNumero + 1;
+                    }
+                    $protocolo->save();
+                    Log::info('AndamentoController@store: Protocolo atualizado com data_registro e/ou numero_registro.');
+                }
+            }
+
+            DB::commit(); // Confirma a transação (do branch 'main')
+
+            // Resposta final baseada no resultado das operações
+            if ($andamentosSalvosCount > 0 && !$errorsOccurred) {
+                Log::info('AndamentoController@store: Todos os andamentos foram salvos com sucesso.');
+                return response()->json(['success' => true, 'message' => 'Andamento(s) cadastrado(s) com sucesso!'], 200);
+            } elseif ($andamentosSalvosCount > 0 && $errorsOccurred) {
+                Log::warning('AndamentoController@store: Alguns andamentos foram salvos, mas outros tiveram erros. Consulte os logs.');
+                return response()->json(['success' => false, 'message' => "{$andamentosSalvosCount} andamento(s) salvo(s), mas alguns erros ocorreram. Consulte os logs."], 200);
+            } else {
+                Log::error('AndamentoController@store: Nenhum andamento foi salvo devido a erros. Consulte os logs.');
+                return response()->json(['success' => false, 'message' => 'Nenhum andamento foi salvo. Verifique os dados fornecidos.'], 422);
+            }
+
+        } catch (\Exception $e) {
+            DB::rollBack(); // Desfaz a transação em caso de erro (do branch 'main')
+            Log::error('AndamentoController@store: Erro fatal na transação: ' . $e->getMessage(), ['exception' => $e]);
+            return response()->json(['success' => false, 'message' => 'Erro interno do servidor ao salvar andamento(s).'], 500);
         }
     }
 }
