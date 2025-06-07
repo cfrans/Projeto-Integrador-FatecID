@@ -1,40 +1,61 @@
 <x-app-layout>
-    <x-slot name="title">Novo Protocolo</x-slot>
+    <x-slot name="title">Visualizar Protocolo</x-slot>
 
-    {{-- Estilo temporario para ajudar a ver as divisoes --}}
     <style>
         .campo-formulario {
             border: 0px;
             padding: 8px;
         }
+
+        @media print {
+            @page {
+                size: A4 landscape;
+                margin: 5mm;
+            }
+
+            body {
+                zoom: 80%;
+            }
+
+            #conteudo {
+            max-width: 100% !important;
+            width: 100% !important;
+            padding: 0 !important;
+            }
+
+            /* Remove botões ou partes não imprimíveis */
+            .no-print {
+                display: none !important;
+            }
+        }
     </style>
 
-    <x-slot name="header">
-        <h2 class="font-semibold text-base text-white leading-tight">
+    <x-slot name="header" class="no-print">
+        <h2 class="no-print font-semibold text-base text-white leading-tight">
             {{ __('Vizualização') }}
         </h2>
     </x-slot>
 
-    <div class="max-w-[75%] mx-auto w-full px-4">
+    <div class="max-w-[75%] mx-auto w-full px-4" id=conteudo>
         <div class="flex items-center gap-4 -mt-2 w-full mr-14">
             <!-- Conjunto de botões -->
 
             <div class="w-70 h-10 bg-[#9f9f9f] rounded-md flex items-center px-2 ml-auto space-x-2">
 
-                <button class="w-8 h-8 flex items-center justify-center" id="btn-retirar-protocolo" title="Retirar Protocolo">
-                    <img src="{{ asset('images/Retirar.png') }}" alt="Retirar" class="w-5 h-5" />
+                <button class="w-8 h-8 flex items-center justify-center no-print" id="btn-retirar-protocolo" title="Retirar Protocolo">
+                    <img src="{{ asset('images/Retirar.png') }}" alt="Retirar" class="w-5 h-5 no-print" />
                 </button>
 
-                <button class="w-8 h-8 flex items-center justify-center" title="Editar Protocolo">
-                    <img src="{{ asset('images/Editar.png') }}" alt="Editar" class="w-5 h-5" />
+                <button class="w-8 h-8 flex items-center justify-center no-print" title="Editar Protocolo">
+                    <img src="{{ asset('images/Editar.png') }}" alt="Editar" class="w-5 h-5 no-print" />
                 </button>
 
-                <button class="w-8 h-8 flex items-center justify-center" title="Protocolo Anterior">
-                    <img src="{{ asset('images/Voltar.png') }}" alt="Voltar" class="w-5 h-5" />
+                <button class="w-8 h-8 flex items-center justify-center no-print" title="Protocolo Anterior">
+                    <img src="{{ asset('images/Voltar.png') }}" alt="Voltar" class="w-5 h-5 no-print" />
                 </button>
 
-                <button class="w-8 h-8 flex items-center justify-center" title="Protocolo Seguinte">
-                    <img src="{{ asset('images/Setadireita.png') }}" alt="Setadireita" class="w-5 h-5" />
+                <button class="w-8 h-8 flex items-center justify-center no-print" title="Protocolo Seguinte">
+                    <img src="{{ asset('images/Setadireita.png') }}" alt="Setadireita" class="w-5 h-5 no-print" />
                 </button>
 
                 <button type="button" onclick="
@@ -44,18 +65,19 @@
                     } else {
                         alert('Digite ou pesquise um número de protocolo antes de autenticar!');
                     }
-                " class="w-8 h-8 flex items-center justify-center" title="Autenticar Protocolo">
+                " class="w-8 h-8 flex items-center justify-center no-print" title="Autenticar Protocolo">
                                     <img src="{{ asset('images/Dinheiro.png') }}" alt="Dinheiro" class="w-5 h-5" />
                 </button>
 
-                <button onclick="window.location.href='{{ route('andamento.index') }}'" class="w-8 h-8 flex items-center justify-center" title="Andamento">
+                <button onclick="window.location.href='{{ route('andamento.index') }}'" class="w-8 h-8 flex items-center justify-center no-print" title="Andamento">
                     <img src="{{ asset('images/Andamento.png') }}" alt="Andamento" class="w-5 h-5" />
                 </button>
 
 
-                <button type="button" class="w-8 h-8 flex items-center justify-center" onclick="limparFormulario()" title="Imprimir Protocolo">
+                <button type="button" class="w-8 h-8 flex items-center justify-center no-print" onclick="window.print()" title="Imprimir Protocolo">
                     <img src="{{ asset('images/Imprimir.png') }}" alt="Imprimir" class="w-5 h-5" />
                 </button>
+
 
             </div>
 
