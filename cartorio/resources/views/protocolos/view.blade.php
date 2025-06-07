@@ -15,25 +15,25 @@
         <div class="flex items-center gap-4 -mt-2 w-full mr-14">
             <div class="w-70 h-10 bg-[#9f9f9f] rounded-md flex items-center px-2 ml-auto space-x-2">
                 <button class="w-8 h-8 flex items-center justify-center no-print" id="btn-retirar-protocolo" title="Retirar Protocolo">
-                    <img src="{{ asset('images/Retirar.png') }}" alt="Retirar" class="w-5 h-5 no-print" />
+                    <img src="{{ asset('images/Retirar.png') }}" alt="Retirar" class="w-5 h-5 no-print transition-transform duration-400 ease-in-out hover:scale-125" />
                 </button>
                 <button class="w-8 h-8 flex items-center justify-center no-print" title="Editar Protocolo">
-                    <img src="{{ asset('images/Editar.png') }}" alt="Editar" class="w-5 h-5 no-print" />
+                    <img src="{{ asset('images/Editar.png') }}" alt="Editar" class="w-5 h-5 no-print transition-transform duration-400 ease-in-out hover:scale-125" />
                 </button>
                 <button class="w-8 h-8 flex items-center justify-center no-print" title="Protocolo Anterior">
-                    <img src="{{ asset('images/Voltar.png') }}" alt="Voltar" class="w-5 h-5 no-print" />
+                    <img src="{{ asset('images/Voltar.png') }}" alt="Voltar" class="w-5 h-5 no-print transition-transform duration-400 ease-in-out hover:scale-125" />
                 </button>
                 <button class="w-8 h-8 flex items-center justify-center no-print" title="Protocolo Seguinte">
-                    <img src="{{ asset('images/Setadireita.png') }}" alt="Setadireita" class="w-5 h-5 no-print" />
+                    <img src="{{ asset('images/Setadireita.png') }}" alt="Setadireita" class="w-5 h-5 no-print transition-transform duration-400 ease-in-out hover:scale-125" />
                 </button>
                 <button type="button" onclick="redirecionarParaAutenticacao()" class="w-8 h-8 flex items-center justify-center no-print" title="Autenticar Protocolo">
-                    <img src="{{ asset('images/Dinheiro.png') }}" alt="Dinheiro" class="w-5 h-5" />
+                    <img src="{{ asset('images/Dinheiro.png') }}" alt="Dinheiro" class="w-5 h-5 transition-transform duration-400 ease-in-out hover:scale-125" />
                 </button>
                 <button type="button" id="btn-andamento" class="w-8 h-8 flex items-center justify-center no-print" title="Andamento">
-                    <img src="{{ asset('images/Andamento.png') }}" alt="Andamento" class="w-5 h-5" />
+                    <img src="{{ asset('images/Andamento.png') }}" alt="Andamento" class="w-5 h-5 transition-transform duration-400 ease-in-out hover:scale-125" />
                 </button>
                 <button type="button" class="w-8 h-8 flex items-center justify-center no-print" onclick="window.print()" title="Imprimir Protocolo">
-                    <img src="{{ asset('images/Imprimir.png') }}" alt="Imprimir" class="w-5 h-5" />
+                    <img src="{{ asset('images/Imprimir.png') }}" alt="Imprimir" class="w-5 h-5 transition-transform duration-400 ease-in-out hover:scale-125" />
                 </button>
             </div>
             <div class="w-9 h-9 bg-[#9f9f9f] rounded-full flex items-center justify-around px-2 ml-90 mr-20 hover:bg-[#8a8a8a]">
@@ -132,29 +132,17 @@
                     <x-input-date type="date" id="data_cancelamento" name="data_cancelamento" class="w-[150px] h-8 text-sm" required />
                 </div>
             </div>
-             <div class="campo-formulario flex items-center">
-                    <div class="text-left">
-                        <x-input-label for="registro">
-                            Registro
-                        </x-input-label>
-                        <x-text-input type="text" id="numero_registro" name="numero_registro" class="w-[150px] h-8 text-sm"
-        value="{{ $protocolo->numero_registro ?? '' }}" readonly />
-                    </div>
-                </div>
-
-            <!-- Sexta coluna (1/7) -->
             <div class="campo-formulario flex items-center">
                 <div class="text-left">
-                    <x-input-label for="data_registro">
-                        Data de Registro
-                    </x-input-label>
-                   <x-input-date 
-                    id="data_registro" 
-                    name="data_registro" 
-                    class="w-[150px] h-8 text-sm"
-                    :value="isset($protocolo) ? \Carbon\Carbon::parse($protocolo->data_registro)->format('Y-m-d') : ''" 
-                    readonly>
-                </x-input-date>
+                    <x-input-label for="registro">Registro</x-input-label>
+                    <x-text-input type="text" id="numero_registro" name="numero_registro" class="w-[150px] h-8 text-sm" readonly />
+                </div>
+            </div>
+
+            <div class="campo-formulario flex items-center">
+                <div class="text-left">
+                    <x-input-label for="data_registro">Data de Registro</x-input-label>
+                    <x-input-date id="data_registro" name="data_registro" class="w-[150px] h-8 text-sm" readonly></x-input-date>
                 </div>
             </div>
             <div class="campo-formulario flex items-center">
@@ -348,73 +336,121 @@
 
     // Event Listeners
     document.getElementById('btn-pesquisar-protocolo').addEventListener('click', () => {
-    const numero = document.getElementById('numero_protocolo').value;
-    if (!numero) return alert('Digite o número do protocolo!');
+        const numero = document.getElementById('numero_protocolo').value;
+        if (!numero) return alert('Digite o número do protocolo!');
 
-    fetch(`/protocolos/buscar/${numero}`)
-        .then(response => response.json())
-        .then(data => {
-            if (data.erro) {
-                alert(data.erro);
-                return;
-            }
-            setValueById('data_abertura', data.data_abertura);
-            setValueById('previsao', calcularPrevisao(data.data_abertura));
-            setValueById('numero_protocolo', data.numero_protocolo);
-            setValueById('numero_registro', data.numero_registro);
-            setValueById('numero_documento_protocolo', data.numero_documento);
-            setValueById('data_documento_protocolo', data.data_documento);
-            setValueById('data_retirada', formatDateToInput(data.data_retirada));
-            setValueById('data_registro', formatDateToInput(data.data_registro));
-            setValueById('data_cancelamento', data.data_cancelamento);
-            setSelectById('id_grupo', data.id_grupo);
-            setSelectById('id_natureza', data.id_natureza);
-            setSelectById('id_especie', data.id_especie);
-
-            if (data.apresentante) {
-                setSelectById('id_documento_apresentante', data.apresentante.id_documento);
-                setValueById('numero_documento_apresentante', data.apresentante.numero_documento);
-                setValueById('nome_apresentante', data.apresentante.nome);
-                setValueById('tipo_contato_apresentante', data.apresentante.tipo_contato);
-                setValueById('numero_contato_apresentante', data.apresentante.numero_contato);
-                setValueById('email_apresentante', data.apresentante.email);
-            }
-
-            const partes = data.partes || [];
-            const parteContainer = document.getElementById('container-partes');
-            if (parteContainer && partes.length > 0) {
-                let linhas = parteContainer.querySelectorAll('.linha-parte');
-                while (linhas.length < partes.length) {
-                    const novaLinha = linhas[0].cloneNode(true);
-                    novaLinha.querySelectorAll('input, select').forEach(el => el.value = '');
-                    parteContainer.appendChild(novaLinha);
-                    linhas = parteContainer.querySelectorAll('.linha-parte');
+        fetch(`/protocolos/buscar/${numero}`)
+            .then(response => {
+                // Tratamento de erro 404 para mensagem específica
+                if (response.status === 404) {
+                    alert('Protocolo inexistente. Por favor, verifique o número digitado.');
+                    throw new Error('Protocolo não encontrado (404).');
                 }
-                while (linhas.length > partes.length) {
-                    parteContainer.removeChild(linhas[linhas.length - 1]);
-                    linhas = parteContainer.querySelectorAll('.linha-parte');
+                // Tratamento para outros erros HTTP
+                if (!response.ok) {
+                    alert('Erro ao buscar protocolo. Por favor, tente novamente mais tarde.');
+                    throw new Error('Erro no servidor.');
                 }
-                linhas.forEach((linha, i) => {
-                    const select = linha.querySelector('select[name="id_tipo_parte[]"]');
-                    const input = linha.querySelector('input[name="identificacao[]"]');
-                    if (select) select.value = partes[i]?.id_tipo_parte || '';
-                    if (input) input.value = partes[i]?.identificacao || '';
+                return response.json(); // Processa a resposta JSON
+            })
+            .then(data => {
+                // Preenche os campos do protocolo
+                setValueById('data_abertura', data.data_abertura);
+                setValueById('previsao', calcularPrevisao(data.data_abertura));
+                setValueById('numero_protocolo', data.numero_protocolo);
+                setValueById('numero_registro', data.numero_registro);
+                setValueById('numero_documento_protocolo', data.numero_documento);
+                setValueById('data_documento_protocolo', data.data_documento);
+                setValueById('data_retirada', formatDateToInput(data.data_retirada));
+                setValueById('data_registro', formatDateToInput(data.data_registro));
+                setValueById('data_cancelamento', data.data_cancelamento);
+                setSelectById('id_grupo', data.id_grupo);
+                setSelectById('id_natureza', data.id_natureza);
+                setSelectById('id_especie', data.id_especie);
+
+                // Preenche os campos do apresentante, ou limpa se não houver dados
+                if (data.apresentante) {
+                    setSelectById('id_documento_apresentante', data.apresentante.id_documento);
+                    setValueById('numero_documento_apresentante', data.apresentante.numero_documento);
+                    setValueById('nome_apresentante', data.apresentante.nome);
+                    setValueById('tipo_contato_apresentante', data.apresentante.tipo_contato);
+                    setValueById('numero_contato_apresentante', data.apresentante.numero_contato);
+                    setValueById('email_apresentante', data.apresentante.email);
+                } else {
+                    // Limpa campos do apresentante se não houver dados
+                    setSelectById('id_documento_apresentante', '');
+                    setValueById('numero_documento_apresentante', '');
+                    setValueById('nome_apresentante', '');
+                    setValueById('tipo_contato_apresentante', '');
+                    setValueById('numero_contato_apresentante', '');
+                    setValueById('email_apresentante', '');
+                }
+
+                // Gerencia e preenche as seções de partes
+                const partes = data.partes || [];
+                const parteContainer = document.getElementById('container-partes');
+                if (parteContainer) {
+                    let linhas = parteContainer.querySelectorAll('.linha-parte');
+                    // Remove linhas extras se houver mais do que o necessário (mantém a primeira como template)
+                    if (linhas.length > 1) {
+                        for(let i = linhas.length - 1; i > 0; i--) {
+                            parteContainer.removeChild(linhas[i]);
+                        }
+                    }
+                    // Limpa e preenche a primeira linha, e adiciona novas se necessário
+                    if (linhas[0]) {
+                        // Limpa os valores do template (primeira linha)
+                        linhas[0].querySelectorAll('input, select').forEach(el => {
+                            el.value = '';
+                            if (el.id) el.removeAttribute('id'); // Remove IDs para evitar duplicidade em clones
+                        });
+
+                        if (partes.length > 0) {
+                            // Preenche a primeira linha
+                            setSelectById(linhas[0].querySelector('select[name="id_tipo_parte[]"]').id, partes[0]?.id_tipo_parte || '');
+                            setValueById(linhas[0].querySelector('input[name="identificacao[]"]').id, partes[0]?.identificacao || '');
+
+                            // Adiciona e preenche as demais linhas
+                            for (let i = 1; i < partes.length; i++) {
+                                const novaLinha = linhas[0].cloneNode(true);
+                                novaLinha.querySelectorAll('input, select').forEach(el => {
+                                    el.value = '';
+                                    if (el.id) el.removeAttribute('id');
+                                });
+                                parteContainer.appendChild(novaLinha);
+                                
+                                // Preenche a nova linha clonada
+                                const selectClone = novaLinha.querySelector('select[name="id_tipo_parte[]"]');
+                                const inputClone = novaLinha.querySelector('input[name="identificacao[]"]');
+                                if (selectClone) setSelectById(selectClone.id, partes[i]?.id_tipo_parte || '');
+                                if (inputClone) setValueById(inputClone.id, partes[i]?.identificacao || '');
+                            }
+                        }
+                    } else {
+                        console.warn("Nenhuma linha de template para partes encontrada.");
+                    }
+                    aplicarMascarasDeVisualizacao();
+                }
+
+                // Atualiza a URL no navegador
+                const currentPath = window.location.pathname;
+                const expectedPath = `/protocolos/view/${data.numero_protocolo}`;
+                if (currentPath !== expectedPath) {
+                    window.history.pushState({ protocol: data.numero_protocolo }, '', expectedPath);
+                }
+
+            })
+            .catch(error => {
+                // Este bloco pega erros de rede ou erros lançados explicitamente por nós no .then(response)
+                console.error('Erro na requisição AJAX ou de conexão:', error);
+                // Envia log para o backend
+                fetch('/log-js-error', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content },
+                    body: JSON.stringify({ mensagem: error.message || "Erro desconhecido na busca de protocolo", stack: error.stack || null, protocolo: numero })
                 });
-                aplicarMascarasDeVisualizacao();
-            }
-
-        })
-        .catch(error => {
-            alert('Erro ao buscar protocolo. Veja o log do servidor.');
-            console.error('Erro ao buscar protocolo:', error);
-            fetch('/log-js-error', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json', 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content },
-                body: JSON.stringify({ mensagem: error.message || error, stack: error.stack || null, protocolo: numero })
             });
-        });
-});
-
+    });
 
     document.getElementById('btn-retirar-protocolo').addEventListener('click', () => {
         const numeroProtocolo = document.getElementById('numero_protocolo').value;
