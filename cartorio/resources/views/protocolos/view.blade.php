@@ -232,11 +232,11 @@
         </div>
 
         <div id="container-campos">
-            <div class="flex justify-start w-[12%] h-19 bg-white rounded-md mt-6 ml-auto mr-16 mb-8">
+            <div class="flex justify-start w-[12%] h-20 bg-white rounded-md mt-6 ml-auto mr-16 mb-8">
                 <div class="campo-formulario flex items-center ml-2">
-                    <div class="text-left">
+                    <div class="text-left p-0 m-0">
                         <x-input-label for="deposito">Depósito</x-input-label>
-                        <x-text-input type="text" name="identificacao[]" class="w-[130px] h-8 text-sm" required></x-text-input>
+                        <x-text-input type="text" name="identificacao[]" class="w-[135px] h-8 text-sm" required></x-text-input>
                     </div>
                 </div>
             </div>
