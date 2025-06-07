@@ -64,6 +64,13 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/protocolo/buscar-indices', [ProtocoloController::class, 'buscarParaIndices']);
     Route::get('/protocolos/ultimo', [ProtocoloController::class, 'viewUltimoProtocolo'])->name('protocolos.ultimo');
 
+    Route::get('/andamentos', [AndamentoController::class, 'index'])->name('andamento.index');
+Route::get('/andamentos/create', [AndamentoController::class, 'create'])->name('andamento.create');
+Route::post('/andamentos', [AndamentoController::class, 'store'])->name('andamento.store');
+
+
+
+
 });
 
 require __DIR__.'/auth.php';
