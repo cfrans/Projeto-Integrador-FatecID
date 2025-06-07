@@ -163,6 +163,21 @@ class ProtocoloController extends Controller
         }
     }
 
+/**
+     * Exibe a página de visualização de um protocolo.
+     * Recebe o número do protocolo da URL e o passa para a view.
+     *
+     * @param string|null $numero_protocolo O número do protocolo a ser pré-carregado.
+     * @return \Illuminate\View\View
+     */
+    public function showView(?string $numero_protocolo = null)
+    {
+        // Este método simplesmente carrega a view de visualização.
+        // O valor de $numero_protocolo (vindo da URL) é passado para a view
+        // sob a chave 'ultimo_numero'. O JavaScript da view usará este valor
+        // para buscar os detalhes do protocolo automaticamente ao carregar.
+        return view('protocolos.view', ['ultimo_numero' => $numero_protocolo]);
+    }
 
     // TODO:ARRUMAR
    public function buscarIndices(Request $request)
