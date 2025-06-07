@@ -386,10 +386,15 @@
             </div>
         </div>
     </div>
+    {{-- @endsection --}}
+    </div>
+    
+</x-app-layout>
 
-    <!-- SCRIPTS -->
-            <!-- READONLY -->
-                <script>
+    <script>
+    // <!-- SCRIPTS -->
+            // <!-- READONLY -->
+                
             document.addEventListener('DOMContentLoaded', () => {
             document.querySelectorAll('input[type="date"]').forEach(input => {
                 input.readOnly = true;
@@ -403,10 +408,7 @@
             });
             });
 
-            </script>
-
-            <!-- AUTENTICACAO -->
-            <script>
+            // <!-- AUTENTICACAO -->
                 function redirecionarParaAutenticacao() {
                     var numero = document.getElementById('numero_protocolo').value;
                     if (numero) {
@@ -415,19 +417,14 @@
                         alert('Digite ou pesquise um número de protocolo antes de autenticar!');
                     }
                 }
-            </script>
 
-            <!-- VOLTAR -->
-            <script>
+            // <!-- VOLTAR -->
                 document.getElementById('botao-voltar').addEventListener('click', function() {
                     window.location.href = '{{ route('dashboard') }}';
                 });
             </script>
 
-    {{-- @endsection --}}
-    </div>
-    
-</x-app-layout>
+
 
 <script>
     // Função para preencher campos por id
@@ -513,6 +510,9 @@
                         if (select) select.value = partes[i]?.id_tipo_parte || '';
                         if (input) input.value = partes[i]?.identificacao || '';
                     });
+
+                            // chama a função de máscara logo após preencher
+                            aplicarMascarasDeVisualizacao();
                 }
             })
             .catch(error => {
@@ -566,4 +566,57 @@
         });
     });                     
 
+function aplicarMascarasDeVisualizacao() {
+    const doc = document.getElementById('numero_documento_apresentante');
+    const tipo = document.getElementById('id_documento_apresentante');
+    const contato = document.getElementById('numero_contato_apresentante');
+
+    // Máscara telefone
+    if (contato?.value) {
+        let raw = contato.value.replace(/\D/g, '');
+        let formatado = raw;
+        if (raw.length > 6) {
+            formatado = `(${raw.slice(0, 2)}) ${raw.slice(2, 7)}-${raw.slice(7)}`;
+        } else if (raw.length > 2) {
+            formatado = `(${raw.slice(0, 2)}) ${raw.slice(2)}`;
+        } else {
+            formatado = `(${raw}`;
+        }
+        contato.value = formatado;
+    }
+
+    // Máscara documento
+    if (doc?.value && tipo?.value) {
+        let valor = doc.value.replace(/\D/g, '');
+        switch (tipo.value) {
+            case '1': // RG
+                valor = valor.slice(0, 9);
+                if (valor.length > 7) {
+                    doc.value = `${valor.slice(0, 2)}.${valor.slice(2, 5)}.${valor.slice(5, 8)}-${valor.slice(8)}`;
+                } else if (valor.length > 4) {
+                    doc.value = `${valor.slice(0, 2)}.${valor.slice(2, 5)}.${valor.slice(5)}`;
+                } else if (valor.length > 2) {
+                    doc.value = `${valor.slice(0, 2)}.${valor.slice(2)}`;
+                } else {
+                    doc.value = valor;
+                }
+                break;
+            case '2': // CPF
+                valor = valor.slice(0, 11);
+                if (valor.length > 9) {
+                    doc.value = `${valor.slice(0, 3)}.${valor.slice(3, 6)}.${valor.slice(6, 9)}-${valor.slice(9)}`;
+                } else if (valor.length > 6) {
+                    doc.value = `${valor.slice(0, 3)}.${valor.slice(3, 6)}.${valor.slice(6)}`;
+                } else if (valor.length > 3) {
+                    doc.value = `${valor.slice(0, 3)}.${valor.slice(3)}`;
+                } else {
+                    doc.value = valor;
+                }
+                break;
+            case '3': // CNH
+                doc.value = valor.slice(0, 11);
+                break;
+        }
+    }
+}
 </script>
