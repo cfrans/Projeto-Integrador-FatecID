@@ -59,6 +59,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/protocolos/{numero_protocolo}/atualizar-data-retirada', [ProtocoloController::class, 'atualizarDataRetirada'])->name('protocolos.atualizarDataRetirada');
 
     Route::get('/protocolo/buscar-indices', [ProtocoloController::class, 'buscarParaIndices']);
+    Route::get('/protocolos/ultimo', [ProtocoloController::class, 'viewUltimoProtocolo'])->name('protocolos.ultimo');
 
 });
 

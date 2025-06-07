@@ -472,7 +472,7 @@ $dataCancelamento = Carbon::now()->addDays(30)->format('d/m/Y');
 
                     if (response.ok) {
                         console.log('Protocolo salvo com sucesso. Redirecionando...');
-                        window.location.href = "{{ route('protocolos.view') }}";
+                        window.location.href = `/protocolos/ultimo`;
                     } else {
                         let data;
                         try {

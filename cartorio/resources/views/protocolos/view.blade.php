@@ -643,3 +643,13 @@ function aplicarMascarasDeVisualizacao() {
     }
 }
 </script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    @if(!empty($ultimo_numero))
+        // Preenche o campo e dispara a busca
+        document.getElementById('numero_protocolo').value = "{{ $ultimo_numero }}";
+        document.getElementById('btn-pesquisar-protocolo').click();
+    @endif
+});
+</script>
