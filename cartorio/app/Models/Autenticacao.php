@@ -9,7 +9,7 @@ class Autenticacao extends Model
 
     protected $table = 'autenticacao';
     protected $fillable = [
-            'valor','data_autenticacao', 'numero_cheque','agencia','banco','id_usuario','id_protocolo','id_forma_pagamento'
+            'valor','data_autenticacao', 'numero_cheque','conta','agencia','banco','id_usuario','id_protocolo','id_forma_pagamento'
         ];
 
     public function usuario() {

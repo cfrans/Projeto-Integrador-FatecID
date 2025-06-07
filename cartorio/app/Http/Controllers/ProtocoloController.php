@@ -216,5 +216,13 @@ class ProtocoloController extends Controller
     ]);
 }
 
+public function viewUltimoProtocolo()
+{
+    $ultimo = Protocolo::orderByDesc('id')->first();
+    return view('protocolos.view', [
+        'ultimo_numero' => $ultimo ? $ultimo->numero_protocolo : null
+    ]);
+}
+
 
 }

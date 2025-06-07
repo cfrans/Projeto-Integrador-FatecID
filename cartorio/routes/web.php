@@ -6,6 +6,7 @@ use App\Http\Controllers\ProtocoloController;
 use App\Http\Controllers\ApresentanteController;
 use App\Http\Controllers\DocumentoController;
 use App\Http\Controllers\AutenticacaoController;
+use App\Http\Controllers\AndamentoController;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Log;
 
@@ -45,9 +46,11 @@ Route::middleware(['auth'])->group(function () {
     // Autenticação de valores
     // Route::get('/autenticacao', fn () => view('autenticacao.index'))->name('autenticacao.index');
     Route::get('/autenticacao/{protocolo}', [AutenticacaoController::class, 'index'])->name('autenticacao.index');
+    Route::post('/autenticacao', [AutenticacaoController::class, 'store'])->name('autenticacao.store');
 
     // Andamento
-    Route::get('/andamento', fn () => view('andamento.index'))->name('andamento.index');
+    Route::get('/andamento', [AndamentoController::class, 'index'])->name('andamento.index');
+    Route::post('/andamento', [AndamentoController::class, 'store'])->name('andamento.store');
 
     // Sobre
     Route::get('/sobre', fn () => view('sobre.index'))->name('sobre.index');
@@ -59,6 +62,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/protocolos/{numero_protocolo}/atualizar-data-retirada', [ProtocoloController::class, 'atualizarDataRetirada'])->name('protocolos.atualizarDataRetirada');
 
     Route::get('/protocolo/buscar-indices', [ProtocoloController::class, 'buscarParaIndices']);
+    Route::get('/protocolos/ultimo', [ProtocoloController::class, 'viewUltimoProtocolo'])->name('protocolos.ultimo');
 
 });
 

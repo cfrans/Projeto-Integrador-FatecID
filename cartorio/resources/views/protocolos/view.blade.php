@@ -69,10 +69,9 @@
                                     <img src="{{ asset('images/Dinheiro.png') }}" alt="Dinheiro" class="w-5 h-5" />
                 </button>
 
-                <button onclick="window.location.href='{{ route('andamento.index') }}'" class="w-8 h-8 flex items-center justify-center no-print" title="Andamento">
+                <button type="button" id="btn-andamento" class="w-8 h-8 flex items-center justify-center no-print" title="Andamento">
                     <img src="{{ asset('images/Andamento.png') }}" alt="Andamento" class="w-5 h-5" />
                 </button>
-
 
                 <button type="button" class="w-8 h-8 flex items-center justify-center no-print" onclick="window.print()" title="Imprimir Protocolo">
                     <img src="{{ asset('images/Imprimir.png') }}" alt="Imprimir" class="w-5 h-5" />
@@ -642,4 +641,56 @@ function aplicarMascarasDeVisualizacao() {
         }
     }
 }
+</script>
+
+<script>
+document.getElementById('btn-andamento')?.addEventListener('click', function() {
+    try {
+        var numero = document.getElementById('numero_protocolo').value;
+        if (numero) {
+            window.location.href = '/andamento?numero_protocolo=' + numero;
+        } else {
+            alert('Digite ou pesquise um número de protocolo antes de acessar o andamento!');
+            // Loga no console
+            console.error('Erro: número_protocolo não informado para gerar a URL de rota.');
+            // Envia para o backend Laravel
+            fetch('/log-js-error', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value
+                },
+                body: JSON.stringify({
+                    mensagem: 'Erro: número_protocolo não informado para gerar a URL de rota.',
+                    contexto: 'btn-andamento'
+                })
+            });
+        }
+    } catch (e) {
+        console.error('Erro ao tentar gerar a URL de rota:', e);
+        // Envia para o backend Laravel
+        fetch('/log-js-error', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value
+            },
+            body: JSON.stringify({
+                mensagem: e.message,
+                stack: e.stack,
+                contexto: 'btn-andamento'
+            })
+        });
+    }
+});
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    @if(!empty($ultimo_numero))
+        // Preenche o campo e dispara a busca
+        document.getElementById('numero_protocolo').value = "{{ $ultimo_numero }}";
+        document.getElementById('btn-pesquisar-protocolo').click();
+    @endif
+});
 </script>

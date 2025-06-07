@@ -16,7 +16,7 @@
 
     <div class="max-w-[75%] mx-auto w-full px-4">
         {{-- TODO: Criar o endpoint para o formulário --}}
-        <form id="andamento_form" action="/protocolos" method="post">
+        <form id="andamento_form" action="{{ route('andamento.store') }}" method="post">
             @csrf
 
             <div class="flex items-center justify-between w-[92%] h-20 mx-auto rounded-t-md px-6 mb-2">
@@ -24,8 +24,13 @@
     <div class="campo-formulario flex items-center -ml-8">
         <div class="text-left">
             <x-input-label for="numero_documento">Protocolo</x-input-label>
-            <x-input-naoalteravel id="numero_protocolo" name="numero_protocolo" class="w-[150px] h-8 text-sm">
-            </x-input-naoalteravel>
+            <x-input-naoalteravel
+    id="numero_protocolo"
+    name="numero_protocolo"
+    class="w-[150px] h-8 text-sm"
+    value="{{ $numeroProtocolo ?? '' }}"
+    readonly
+/>
         </div>
     </div>
 
@@ -111,7 +116,7 @@
 
                 <!-- TODO: Puxar usuario -->
                 <div class="campo-formulario flex items-center ml-4">
-                        <x-text-input id="id_usuario" name="id_usuario" class="w-[200px] h-8 text-sm" value="{{ Auth::user() ? Auth::user()->nome : '' }}" readonly required />
+                        <x-text-input id="nome_usuario" name="nome_usuario" class="w-[200px] h-8 text-sm" value="{{ Auth::user() ? Auth::user()->nome : '' }}" readonly required />
                 </div>
                 
     </div>
@@ -158,37 +163,6 @@
 </script>
 
 <script>
-document.getElementById('andamento_form').addEventListener('submit', function (e) {
-    e.preventDefault(); // Evita que a página seja recarregada
-
-    // 1. Torna todos os campos dos blocos já adicionados como readonly/disabled
-    const blocos = document.querySelectorAll('.andamento-bloco');
-    blocos.forEach(bloco => {
-        bloco.querySelectorAll('input, select').forEach(element => {
-            element.setAttribute('readonly', true);
-            element.setAttribute('disabled', true); // Para selects
-        });
-    });
-
-    // 2. Simula envio do formulário (remova esta parte se quiser envio real)
-    console.log("Simulando envio dos dados do formulário...");
-
-    // 3. Se quiser enviar realmente via fetch ou ajax:
-    // const formData = new FormData(this);
-    // fetch(this.action, {
-    //     method: this.method,
-    //     body: formData,
-    //     headers: {
-    //         'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value
-    //     }
-    // }).then(res => res.json()).then(data => {
-    //     console.log('Enviado com sucesso!', data);
-    // });
-
-    // Obs: você pode limpar ou deixar pronto para o próximo preenchimento aqui também.
-});
-</script>
-<script>
     document.addEventListener('DOMContentLoaded', function () {
         const protocolo = sessionStorage.getItem('protocolo_atual');
         if (protocolo) {
@@ -200,8 +174,6 @@ document.getElementById('andamento_form').addEventListener('submit', function (e
         }
     });
 </script>
-
-
 
 </x-app-layout>
 
