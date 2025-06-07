@@ -31,12 +31,14 @@
             <div class="flex flex-col gap-1 bg-white shadow-md rounded-md mt-8 p-6 w-fit">
                 <div class="flex flex-wrap justify-start w-full">
                     <!-- Primeira coluna (1/8) -->
+
                     <div class="campo-formulario flex items-center ml-3">
                         <div class="text-left">
                             <x-input-label for="autenticacao_data">
                                 Data
                             </x-input-label>
                             <x-input-naoalteravel id="autenticacao_data" name="autenticacao_data" class="w-[200px] h-10 text-sm" value="{{ isset($protocolo->data_abertura) ? \Carbon\Carbon::parse($protocolo->data_abertura)->format('d/m/Y') : '' }}" readonly />
+
                         </div>
                     </div>
 

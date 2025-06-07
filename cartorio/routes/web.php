@@ -57,6 +57,9 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/protocolos/buscar/{numero}', [ProtocoloController::class, 'buscarPorNumero'])->name('protocolos.buscar');
     Route::post('/protocolos/{numero_protocolo}/atualizar-data-retirada', [ProtocoloController::class, 'atualizarDataRetirada'])->name('protocolos.atualizarDataRetirada');
+
+    Route::get('/protocolo/buscar-indices', [ProtocoloController::class, 'buscarParaIndices']);
+
 });
 
 require __DIR__.'/auth.php';

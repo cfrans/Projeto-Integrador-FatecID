@@ -246,7 +246,7 @@
                         <x-input-label for="registro">
                             Registro
                         </x-input-label>
-                        <x-text-input type="text" id="numero_registro" name="numero_registro" class="w-[150px] h-8 text-sm" required>
+                        <x-text-input type="text" id="numero_registro" name="numero_registro" class="w-[150px] h-8 text-sm" required readonly>
                         </x-text-input>
                     </div>
                 </div>
@@ -276,9 +276,10 @@
                         Documento
                     </x-input-label>
                     <x-input-select id="id_documento_apresentante" name="id_documento " class="w-[150px] h-8 text-sm" required>
-                        <option value="1">RG</option>
-                        <option value="2">CPF</option>
-                        <option value="3">CNH</option>
+                            <option value="1">RG</option>
+                            <option value="2">CPF</option>
+                            <option value="3">CNH</option>
+                            <option value="4">CNPJ</option>
                     </x-input-select>
                 </div>
             </div>
@@ -392,7 +393,7 @@
 
 
         <div id="container-campos">
-            <div class="flex justify-start w-[12%] h-18 bg-white rounded-md mt-6 ml-auto mr-16">
+            <div class="flex justify-start w-[12%] h-19 bg-white rounded-md mt-6 ml-auto mr-16 mb-8">
 
                 <!-- Segunda coluna (3/7) -->
                 <div class="campo-formulario flex items-center ml-2">
