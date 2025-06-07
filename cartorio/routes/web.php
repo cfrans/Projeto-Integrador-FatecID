@@ -7,6 +7,7 @@ use App\Http\Controllers\ApresentanteController;
 use App\Http\Controllers\DocumentoController;
 use App\Http\Controllers\AutenticacaoController;
 use App\Http\Controllers\AndamentoController;
+use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Log;
 
@@ -19,9 +20,7 @@ Route::get('/', function () {
 Route::middleware(['auth'])->group(function () {
 
     // Dashboard
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -38,7 +37,7 @@ Route::middleware(['auth'])->group(function () {
 
     // Protocolos
     Route::get('/protocolos', fn () => view('protocolos.index'))->name('protocolos.index');
-    Route::get('/protocolos/view', fn () => view('protocolos.view'))->name('protocolos.view');
+    Route::get('/protocolos/view/{numero_protocolo?}', [ProtocoloController::class, 'showView'])->name('protocolos.view');
 
     // Índices
     Route::get('/indices', fn () => view('indices.index'))->name('indices.index');
