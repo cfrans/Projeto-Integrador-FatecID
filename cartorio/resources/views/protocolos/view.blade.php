@@ -249,7 +249,7 @@
         <div class="campo-formulario flex items-center ml-2">
             <div class="text-left">
                 <x-input-label for="deposito">Depósito</x-input-label>
-                <x-text-input type="text" name="identificacao[]" class="w-[130px] h-8 text-sm" value="{{ number_format($valorDeposito, 2, ',', '.') }}" required readonly />
+                <x-text-input type="text" name="identificacao[]" class="w-[130px] h-8 text-sm" required readonly />
             </div>
         </div>
     </div>
