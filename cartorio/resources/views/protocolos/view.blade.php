@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="title">Novo Protocolo</x-slot>
 
-    {{-- Estilo para ajudar a ver as divisoes --}}
+    {{-- Estilo temporario para ajudar a ver as divisoes --}}
     <style>
         .campo-formulario {
             border: 0px;
@@ -45,7 +45,7 @@
                         alert('Digite ou pesquise um número de protocolo antes de autenticar!');
                     }
                 " class="w-8 h-8 flex items-center justify-center" title="Autenticar Protocolo">
-                    <img src="{{ asset('images/Dinheiro.png') }}" alt="Dinheiro" class="w-5 h-5" />
+                                    <img src="{{ asset('images/Dinheiro.png') }}" alt="Dinheiro" class="w-5 h-5" />
                 </button>
 
                 <button onclick="window.location.href='{{ route('andamento.index') }}'" class="w-8 h-8 flex items-center justify-center" title="Andamento">
@@ -94,11 +94,11 @@
                     </div>
                 </div>
 
-                <div class="w-8 h-8 bg-[#9f9f9f] rounded-full flex items-center justify-center mt-[29px] ml-2">
-                    <button type="button" id="btn-pesquisar-protocolo" class="w-full h-full flex items-center justify-center rounded-full hover:bg-[#8f8f8f]" title="Pesquisar Protocolo">
-                        <img src="{{ asset('images/Pesquisar.png') }}" alt="Pesquisar" class="w-4 h-4" />
+                 <div class="w-8 h-8 bg-[#9f9f9f] rounded-full flex items-center justify-center mt-[29px] ml-2">
+                     <button type="button" id="btn-pesquisar-protocolo" class="w-full h-full flex items-center justify-center rounded-full hover:bg-[#8f8f8f]" title="Pesquisar Protocolo">
+                    <img src="{{ asset('images/Pesquisar.png') }}" alt="Pesquisar" class="w-4 h-4" />
                     </button>
-                </div>
+                 </div>
             </div>
         </div>
 
@@ -167,7 +167,7 @@
                     <x-input-label for="numero_documento">
                         Nº Documento / Título
                     </x-input-label>
-                    <x-text-input id="numero_documento_protocolo" name="numero_documento" class="w-[200px] h-8 text-sm" required readonly />
+                    <x-text-input id="numero_documento_protocolo" name="numero_documento" class="w-[200px] h-8 text-sm" required readonly/>
                 </div>
             </div>
 
@@ -220,14 +220,14 @@
             </div>
 
             <div class="campo-formulario flex items-center">
-                <div class="text-left">
-                    <x-input-label for="registro">
-                        Registro
-                    </x-input-label>
-                    <x-text-input type="text" id="numero_registro" name="numero_registro" class="w-[150px] h-8 text-sm" required>
-                    </x-text-input>
+                    <div class="text-left">
+                        <x-input-label for="registro">
+                            Registro
+                        </x-input-label>
+                        <x-text-input type="text" id="numero_registro" name="numero_registro" class="w-[150px] h-8 text-sm" required>
+                        </x-text-input>
+                    </div>
                 </div>
-            </div>
 
             <!-- Sexta coluna (1/7) -->
             <div class="campo-formulario flex items-center">
@@ -338,19 +338,19 @@
                         </x-input-label>
                         <x-input-select name="id_tipo_parte[]" class="w-[365px] h-8 text-sm" required>
                             {{-- Tipos do Grupo 1 --}}
-                            <option value="1" data-grupo="1">Condomínio</option>
-                            <option value="2" data-grupo="1">Destinatário</option>
-                            <option value="3" data-grupo="1">Emitente</option>
-                            <option value="4" data-grupo="1">Parte</option>
-                            <option value="5" data-grupo="1">Remetente</option>
-                            <option value="6" data-grupo="1">Síndico</option>
-
-                            {{-- Tipos do Grupo 2 --}}
-                            <option value="7" data-grupo="2">Associação</option>
-                            <option value="8" data-grupo="2">Diretor Executivo</option>
-                            <option value="9" data-grupo="2">Presidente</option>
-                            <option value="10" data-grupo="2">Secretário</option>
-                            <option value="11" data-grupo="2">Sócio</option>
+                    <option value="1" data-grupo="1">Condomínio</option>
+                    <option value="2" data-grupo="1">Destinatário</option>
+                    <option value="3" data-grupo="1">Emitente</option>
+                    <option value="4" data-grupo="1">Parte</option>
+                    <option value="5" data-grupo="1">Remetente</option>
+                    <option value="6" data-grupo="1">Síndico</option>
+                
+                    {{-- Tipos do Grupo 2 --}}
+                    <option value="7" data-grupo="2">Associação</option>
+                    <option value="8" data-grupo="2">Diretor Executivo</option>
+                    <option value="9" data-grupo="2">Presidente</option>
+                    <option value="10" data-grupo="2">Secretário</option>
+                    <option value="11" data-grupo="2">Sócio</option>
                         </x-input-select>
                     </div>
                 </div>
@@ -388,40 +388,45 @@
     </div>
     {{-- @endsection --}}
     </div>
-
+    
 </x-app-layout>
 
+    <script>
+    // <!-- SCRIPTS -->
+            // <!-- READONLY -->
+                
+            document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('input[type="date"]').forEach(input => {
+                input.readOnly = true;
+            });
+
+            document.querySelectorAll('select').forEach(select => {
+                select.style.pointerEvents = 'none'; // bloqueia clique
+            
+                select.tabIndex = -1;
+                select.addEventListener('mousedown', e => e.preventDefault());
+            });
+            });
+
+            // <!-- AUTENTICACAO -->
+                function redirecionarParaAutenticacao() {
+                    var numero = document.getElementById('numero_protocolo').value;
+                    if (numero) {
+                        window.location.href = '/autenticacao/' + numero;
+                    } else {
+                        alert('Digite ou pesquise um número de protocolo antes de autenticar!');
+                    }
+                }
+
+            // <!-- VOLTAR -->
+                document.getElementById('botao-voltar').addEventListener('click', function() {
+                    window.location.href = '{{ route('dashboard') }}';
+                });
+            </script>
+
+
+
 <script>
-    // <!-- READONLY -->
-    document.addEventListener('DOMContentLoaded', () => {
-        document.querySelectorAll('input[type="date"]').forEach(input => {
-            input.readOnly = true;
-        });
-
-        document.querySelectorAll('select').forEach(select => {
-            select.style.pointerEvents = 'none'; // bloqueia clique
-
-            select.tabIndex = -1;
-            select.addEventListener('mousedown', e => e.preventDefault());
-        });
-    });
-
-    // <!-- AUTENTICACAO -->
-    function redirecionarParaAutenticacao() {
-        var numero = document.getElementById('numero_protocolo').value;
-        if (numero) {
-            window.location.href = '/autenticacao/' + numero;
-        } else {
-            alert('Digite ou pesquise um número de protocolo antes de autenticar!');
-        }
-    }
-
-    // <!-- VOLTAR -->
-    document.getElementById('botao-voltar').addEventListener('click', function() {
-        window.location.href = '{{ route('dashboard') }}';
-    });
-
-
     // Função para preencher campos por id
     function setValueById(id, value) {
         const el = document.getElementById(id);
@@ -451,7 +456,7 @@
     document.getElementById('btn-pesquisar-protocolo').addEventListener('click', function() {
         const numero = document.getElementById('numero_protocolo').value;
         if (!numero) return alert('Digite o número do protocolo!');
-        fetch(/protocolos/buscar/${numero})
+        fetch(`/protocolos/buscar/${numero}`)
             .then(response => response.json())
             .then(data => {
                 if (data.erro) {
@@ -506,8 +511,8 @@
                         if (input) input.value = partes[i]?.identificacao || '';
                     });
 
-                    // chama a função de máscara logo após preencher
-                    aplicarMascarasDeVisualizacao();
+                            // chama a função de máscara logo após preencher
+                            aplicarMascarasDeVisualizacao();
                 }
             })
             .catch(error => {
@@ -537,81 +542,81 @@
             return;
         }
         // ...existing code...
-        fetch(/protocolos/${numeroProtocolo}/atualizar-data-retirada, {
-                method: 'POST',
-                headers: {
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
-                    'Accept': 'application/json'
-                }
-            })
-            // ...existing code...
-            .then(response => response.json())
-            .then(data => {
-                if (data.mensagem) {
-                    alert(data.mensagem);
-                    // Atualiza o campo data_retirada na tela
-                    document.getElementById('data_retirada').value = new Date().toISOString().slice(0, 10);
-                } else if (data.erro) {
-                    alert(data.erro);
-                }
-            })
-            .catch(error => {
-                alert('Erro ao atualizar data de retirada.');
-                console.error(error);
-            });
-    });
-
-    function aplicarMascarasDeVisualizacao() {
-        const doc = document.getElementById('numero_documento_apresentante');
-        const tipo = document.getElementById('id_documento_apresentante');
-        const contato = document.getElementById('numero_contato_apresentante');
-
-        // Máscara telefone
-        if (contato?.value) {
-            let raw = contato.value.replace(/\D/g, '');
-            let formatado = raw;
-            if (raw.length > 6) {
-                formatado = (${raw.slice(0, 2)}) ${raw.slice(2, 7)}-${raw.slice(7)};
-            } else if (raw.length > 2) {
-                formatado = (${raw.slice(0, 2)}) ${raw.slice(2)};
-            } else {
-                formatado = (${raw};
+        fetch(`/protocolos/${numeroProtocolo}/atualizar-data-retirada`, {
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                'Accept': 'application/json'
             }
-            contato.value = formatado;
+        })
+        // ...existing code...
+        .then(response => response.json())
+        .then(data => {
+            if (data.mensagem) {
+                alert(data.mensagem);
+                // Atualiza o campo data_retirada na tela
+                document.getElementById('data_retirada').value = new Date().toISOString().slice(0, 10);
+            } else if (data.erro) {
+                alert(data.erro);
+            }
+        })
+        .catch(error => {
+            alert('Erro ao atualizar data de retirada.');
+            console.error(error);
+        });
+    });                     
+
+function aplicarMascarasDeVisualizacao() {
+    const doc = document.getElementById('numero_documento_apresentante');
+    const tipo = document.getElementById('id_documento_apresentante');
+    const contato = document.getElementById('numero_contato_apresentante');
+
+    // Máscara telefone
+    if (contato?.value) {
+        let raw = contato.value.replace(/\D/g, '');
+        let formatado = raw;
+        if (raw.length > 6) {
+            formatado = `(${raw.slice(0, 2)}) ${raw.slice(2, 7)}-${raw.slice(7)}`;
+        } else if (raw.length > 2) {
+            formatado = `(${raw.slice(0, 2)}) ${raw.slice(2)}`;
+        } else {
+            formatado = `(${raw}`;
         }
+        contato.value = formatado;
+    }
 
-        // Máscara documento
-        if (doc?.value && tipo?.value) {
-            let valor = doc.value.replace(/\D/g, '');
-            switch (tipo.value) {
-                case '1': // RG
-                    valor = valor.slice(0, 9);
-                    if (valor.length > 7) {
-                        doc.value = ${valor.slice(0, 2)}.${valor.slice(2, 5)}.${valor.slice(5, 8)}-${valor.slice(8)};
-                    } else if (valor.length > 4) {
-                        doc.value = ${valor.slice(0, 2)}.${valor.slice(2, 5)}.${valor.slice(5)};
-                    } else if (valor.length > 2) {
-                        doc.value = ${valor.slice(0, 2)}.${valor.slice(2)};
-                    } else {
-                        doc.value = valor;
-                    }
-                    break;
-                case '2': // CPF
-                    valor = valor.slice(0, 11);
-                    if (valor.length > 9) {
-                        doc.value = ${valor.slice(0, 3)}.${valor.slice(3, 6)}.${valor.slice(6, 9)}-${valor.slice(9)};
-                    } else if (valor.length > 6) {
-                        doc.value = ${valor.slice(0, 3)}.${valor.slice(3, 6)}.${valor.slice(6)};
-                    } else if (valor.length > 3) {
-                        doc.value = ${valor.slice(0, 3)}.${valor.slice(3)};
-                    } else {
-                        doc.value = valor;
-                    }
-                    break;
-                case '3': // CNH
-                    doc.value = valor.slice(0, 11);
-                    break;
-            }
+    // Máscara documento
+    if (doc?.value && tipo?.value) {
+        let valor = doc.value.replace(/\D/g, '');
+        switch (tipo.value) {
+            case '1': // RG
+                valor = valor.slice(0, 9);
+                if (valor.length > 7) {
+                    doc.value = `${valor.slice(0, 2)}.${valor.slice(2, 5)}.${valor.slice(5, 8)}-${valor.slice(8)}`;
+                } else if (valor.length > 4) {
+                    doc.value = `${valor.slice(0, 2)}.${valor.slice(2, 5)}.${valor.slice(5)}`;
+                } else if (valor.length > 2) {
+                    doc.value = `${valor.slice(0, 2)}.${valor.slice(2)}`;
+                } else {
+                    doc.value = valor;
+                }
+                break;
+            case '2': // CPF
+                valor = valor.slice(0, 11);
+                if (valor.length > 9) {
+                    doc.value = `${valor.slice(0, 3)}.${valor.slice(3, 6)}.${valor.slice(6, 9)}-${valor.slice(9)}`;
+                } else if (valor.length > 6) {
+                    doc.value = `${valor.slice(0, 3)}.${valor.slice(3, 6)}.${valor.slice(6)}`;
+                } else if (valor.length > 3) {
+                    doc.value = `${valor.slice(0, 3)}.${valor.slice(3)}`;
+                } else {
+                    doc.value = valor;
+                }
+                break;
+            case '3': // CNH
+                doc.value = valor.slice(0, 11);
+                break;
         }
     }
+}
 </script>
