@@ -33,7 +33,8 @@
                                 <x-input-label for="autenticacao_data">
                                     Data
                                 </x-input-label>
-                                <x-input-naoalteravel id="autenticacao_data" name="autenticacao_data" class="w-[200px] h-10 text-sm" value="{{ isset($protocolo->data_abertura) ? \Carbon\Carbon::parse($protocolo->data_abertura)->format('d/m/Y') : '' }}" readonly />
+
+                                <x-input-naoalteravel id="autenticacao_data" name="autenticacao_data" class="w-[200px] h-10 text-sm" value="{{ now()->format('d/m/Y') }}" readonly />
                             </div>
                         </div>
 

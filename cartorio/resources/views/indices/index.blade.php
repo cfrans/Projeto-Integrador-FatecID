@@ -30,7 +30,7 @@
 
                             <div class="campo-formulario flex flex-col w-[600px]">
                                 <x-input-label for="natureza">Natureza</x-input-label>
-                                 <x-input-select id="id_natureza" name="id_natureza" class="w-full h-8 text-sm" required>
+                                 <x-input-select id="id_natureza" name="id_natureza" class="w-full h-8 text-sm">
 
                         {{-- Naturezas do Grupo 1 --}}
                         <option value="1" data-grupo="1">Ata de Condomínio</option>
@@ -64,8 +64,10 @@
                             <div class="campo-formulario flex flex-col w-[200px]">
                                 <x-input-label for="documento">Documento</x-input-label>
                                 <x-input-select id="documento" name="documento" class="w-full h-8 text-sm">
-                                    <option value="RG">RG</option>
-                                    <option value="CPF">CPF</option>
+                                    <option value="1">RG</option>
+                                    <option value="2">CPF</option>
+                                    <option value="3">CNH</option>
+                                    <option value="4">CNPJ</option>
                                 </x-input-select>
                             </div>
 
@@ -89,7 +91,7 @@
                 </div>
             </div>
 
-            <div class="p-6 mt-0 rounded-md">
+            <!-- <div class="p-6 mt-0 rounded-md">
                 <x-input-label for="protocolos_encontrados" class="ml-0 mb-0 block text-lg font-semibold">
                     Protocolo(s) Encontrado(s)
                 </x-input-label>
@@ -118,7 +120,58 @@
                         </tbody>
                     </table>
                 </div>
-            </div>
+            </div> -->
+
+           <x-input-label for="protocolos_encontrados" class="ml-6 mb-0 block text-lg font-semibold">
+    Protocolo(s) Encontrado(s)
+</x-input-label>
+
+<!-- Essa div ficará oculta por padrão -->
+<div id="protocolosEncontrados" class="flex justify-start w-[96.5%] h-[80px] mx-auto bg-white rounded-md andamento-bloco hidden">
+    <div class="campo-formulario flex items-center ml-6">
+        <div class="text-left">
+            <x-input-label for="resultado_protocolo">
+                Protocolo
+            </x-input-label>
+            <x-text-input id="resultado_protocolo" type="text" name="protocolo" class="w-[150px] h-8 text-sm" readonly />
+        </div>
+    </div>
+
+    <div class="campo-formulario flex items-center ml-6">
+        <div class="text-left">
+            <x-input-label for="resultado_grupo">
+               Grupo
+            </x-input-label>
+            <x-text-input id="resultado_grupo" type="text" name="grupo" class="w-[230px] h-8 text-sm" readonly />
+        </div>
+    </div>
+
+    <div class="campo-formulario flex items-center ml-6">
+        <div class="text-left">
+            <x-input-label for="resultado_natureza">
+                Natureza
+            </x-input-label>
+            <x-text-input id="resultado_natureza" type="text" name="natureza" class="w-[300px] h-8 text-sm" readonly />
+        </div>
+    </div>
+
+    <div class="campo-formulario flex items-center ml-6">
+        <div class="text-left">
+            <x-input-label for="resultado_data">
+                Data
+            </x-input-label>
+            <x-text-input id="resultado_data" type="text" name="data" class="w-[130px] h-8 text-sm" readonly />
+        </div>
+    </div>
+
+    <div class="w-8 h-8 bg-[#9f9f9f] rounded-full flex items-center justify-center ml-auto mr-10 self-center">
+        <button type="button" id="vizualizar" class="w-full h-full flex items-center justify-center rounded-full hover:bg-[#8f8f8f]" title="Visualizar Protocolo">
+            <img src="{{ asset('images/Vizualizar.png') }}" alt="Vizualizar" class="w-4 h-4" />
+        </button>
+    </div>
+</div>
+
+
 
         </main>
     </div>
@@ -158,4 +211,53 @@
         filtrarNaturezasPorGrupo(grupoSelect.value);
     });
 </script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const btnPesquisar = document.getElementById('btn-pesquisar-protocolo');
+
+    btnPesquisar.addEventListener('click', function (e) {
+        e.preventDefault();
+
+        const grupo = document.getElementById('grupo').value;
+        const natureza = document.getElementById('id_natureza').value;
+        const especie = document.getElementById('especie').value;
+        const numeroRegistro = document.getElementById('numero_registro').value;
+        const documento = document.getElementById('documento').value;
+        const numeroDocumento = document.getElementById('numero_documento').value;
+        const nome = document.getElementById('nome').value;
+
+        // Monta a query string com os parâmetros preenchidos
+        const params = new URLSearchParams();
+
+        if (grupo) params.append('grupo', grupo);
+        if (natureza) params.append('natureza', natureza);
+        if (especie) params.append('especie', especie);
+        if (numeroRegistro) params.append('numero_registro', numeroRegistro);
+        if (documento) params.append('documento', documento);
+        if (numeroDocumento) params.append('numero_documento', numeroDocumento);
+        if (nome) params.append('nome', nome);
+
+        fetch(`/protocolo/buscar-indices?${params.toString()}`)
+            .then(response => {
+                if (!response.ok) throw new Error('Nenhum protocolo encontrado.');
+                return response.json();
+            })
+            .then(data => {
+                // Preencha os campos da UI com os dados
+                document.getElementById('resultado_protocolo').value = data.numero_protocolo ?? '';
+                document.getElementById('resultado_grupo').value = data.grupo ?? '';
+                document.getElementById('resultado_natureza').value = data.natureza ?? '';
+                document.getElementById('resultado_data').value = data.data_documento ?? '';
+
+                document.getElementById('protocolosEncontrados').classList.remove('hidden');
+            })
+            .catch(error => {
+                alert(error.message);
+                document.getElementById('protocolosEncontrados').classList.add('hidden');
+            });
+    });
+});
+</script>
+
 
