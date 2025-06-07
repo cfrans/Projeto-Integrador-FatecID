@@ -7,15 +7,14 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            {{-- Div para a mensagem de login --}}
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-6"> {{-- Adicionado mb-6 para dar espaço --}}
+            {{-- Div para a mensagem de login (mantém sua sombra original se tiver) --}}
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-6">
                 <div class="p-6 text-gray-900">
                     {{ __("Você está logado como") }} {{ auth()->user()->usuario }}
                 </div>
             </div>
 
-            {{-- Nova Div para a Tabela de Últimos Protocolos --}}
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+            <div class="bg-white overflow-hidden shadow-lg sm:rounded-lg rounded-xl">
                 <div class="p-6 text-gray-900">
                     {{-- Título da Tabela --}}
                     <h2 class="font-semibold text-xl text-gray-800 leading-tight mb-4">
@@ -25,7 +24,7 @@
                     @if($protocolos->isEmpty())
                         <p>Nenhum protocolo encontrado.</p>
                     @else
-                        <div class="overflow-x-auto"> {{-- Adicionado para rolagem em telas menores --}}
+                        <div class="overflow-x-auto">
                             <table class="min-w-full divide-y divide-gray-200">
                                 <thead class="bg-gray-50">
                                     <tr>

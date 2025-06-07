@@ -57,7 +57,7 @@ $dataCancelamento = Carbon::now()->addDays(30)->format('d/m/Y');
             </x-input-label>
 
             {{-- DIV MENOR PARA O CONTEUDO DOS CAMPOS --}}
-            <div class="flex justify-start w-[92%] h-20 mx-auto bg-white rounded-t-md">
+            <div class="flex justify-start w-[92%] h-20 mx-auto bg-white rounded-t-md ">
 
 
                 <!-- Primeira coluna (2/7) -->
@@ -136,7 +136,7 @@ $dataCancelamento = Carbon::now()->addDays(30)->format('d/m/Y');
             </div>
             <!--parte de cima-->
 
-            <div class="flex justify-start w-[92%] h-20 mx-auto bg-white rounded-b-md">
+            <div class="flex justify-start w-[92%] h-20 mx-auto bg-white rounded-b-md ">
 
                 <!-- Primeira coluna (1/7) -->
                 <div class="campo-formulario flex items-center ml-6">
