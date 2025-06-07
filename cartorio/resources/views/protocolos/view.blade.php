@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="title">Novo Protocolo</x-slot>
 
-    {{-- Estilo temporario para ajudar a ver as divisoes --}}
+    {{-- Estilo para ajudar a ver as divisoes --}}
     <style>
         .campo-formulario {
             border: 0px;
@@ -45,7 +45,7 @@
                         alert('Digite ou pesquise um número de protocolo antes de autenticar!');
                     }
                 " class="w-8 h-8 flex items-center justify-center" title="Autenticar Protocolo">
-                                    <img src="{{ asset('images/Dinheiro.png') }}" alt="Dinheiro" class="w-5 h-5" />
+                    <img src="{{ asset('images/Dinheiro.png') }}" alt="Dinheiro" class="w-5 h-5" />
                 </button>
 
                 <button onclick="window.location.href='{{ route('andamento.index') }}'" class="w-8 h-8 flex items-center justify-center" title="Andamento">
@@ -94,11 +94,11 @@
                     </div>
                 </div>
 
-                 <div class="w-8 h-8 bg-[#9f9f9f] rounded-full flex items-center justify-center mt-[29px] ml-2">
-                     <button type="button" id="btn-pesquisar-protocolo" class="w-full h-full flex items-center justify-center rounded-full hover:bg-[#8f8f8f]" title="Pesquisar Protocolo">
-                    <img src="{{ asset('images/Pesquisar.png') }}" alt="Pesquisar" class="w-4 h-4" />
+                <div class="w-8 h-8 bg-[#9f9f9f] rounded-full flex items-center justify-center mt-[29px] ml-2">
+                    <button type="button" id="btn-pesquisar-protocolo" class="w-full h-full flex items-center justify-center rounded-full hover:bg-[#8f8f8f]" title="Pesquisar Protocolo">
+                        <img src="{{ asset('images/Pesquisar.png') }}" alt="Pesquisar" class="w-4 h-4" />
                     </button>
-                 </div>
+                </div>
             </div>
         </div>
 
@@ -167,7 +167,7 @@
                     <x-input-label for="numero_documento">
                         Nº Documento / Título
                     </x-input-label>
-                    <x-text-input id="numero_documento_protocolo" name="numero_documento" class="w-[200px] h-8 text-sm" required readonly/>
+                    <x-text-input id="numero_documento_protocolo" name="numero_documento" class="w-[200px] h-8 text-sm" required readonly />
                 </div>
             </div>
 
@@ -220,14 +220,14 @@
             </div>
 
             <div class="campo-formulario flex items-center">
-                    <div class="text-left">
-                        <x-input-label for="registro">
-                            Registro
-                        </x-input-label>
-                        <x-text-input type="text" id="numero_registro" name="numero_registro" class="w-[150px] h-8 text-sm" required>
-                        </x-text-input>
-                    </div>
+                <div class="text-left">
+                    <x-input-label for="registro">
+                        Registro
+                    </x-input-label>
+                    <x-text-input type="text" id="numero_registro" name="numero_registro" class="w-[150px] h-8 text-sm" required>
+                    </x-text-input>
                 </div>
+            </div>
 
             <!-- Sexta coluna (1/7) -->
             <div class="campo-formulario flex items-center">
@@ -338,19 +338,19 @@
                         </x-input-label>
                         <x-input-select name="id_tipo_parte[]" class="w-[365px] h-8 text-sm" required>
                             {{-- Tipos do Grupo 1 --}}
-                    <option value="1" data-grupo="1">Condomínio</option>
-                    <option value="2" data-grupo="1">Destinatário</option>
-                    <option value="3" data-grupo="1">Emitente</option>
-                    <option value="4" data-grupo="1">Parte</option>
-                    <option value="5" data-grupo="1">Remetente</option>
-                    <option value="6" data-grupo="1">Síndico</option>
-                
-                    {{-- Tipos do Grupo 2 --}}
-                    <option value="7" data-grupo="2">Associação</option>
-                    <option value="8" data-grupo="2">Diretor Executivo</option>
-                    <option value="9" data-grupo="2">Presidente</option>
-                    <option value="10" data-grupo="2">Secretário</option>
-                    <option value="11" data-grupo="2">Sócio</option>
+                            <option value="1" data-grupo="1">Condomínio</option>
+                            <option value="2" data-grupo="1">Destinatário</option>
+                            <option value="3" data-grupo="1">Emitente</option>
+                            <option value="4" data-grupo="1">Parte</option>
+                            <option value="5" data-grupo="1">Remetente</option>
+                            <option value="6" data-grupo="1">Síndico</option>
+
+                            {{-- Tipos do Grupo 2 --}}
+                            <option value="7" data-grupo="2">Associação</option>
+                            <option value="8" data-grupo="2">Diretor Executivo</option>
+                            <option value="9" data-grupo="2">Presidente</option>
+                            <option value="10" data-grupo="2">Secretário</option>
+                            <option value="11" data-grupo="2">Sócio</option>
                         </x-input-select>
                     </div>
                 </div>
@@ -386,184 +386,7 @@
             </div>
         </div>
     </div>
-
-    <!-- SCRIPTS -->
-            <!-- READONLY -->
-                <script>
-            document.addEventListener('DOMContentLoaded', () => {
-            document.querySelectorAll('input[type="date"]').forEach(input => {
-                input.readOnly = true;
-            });
-
-            document.querySelectorAll('select').forEach(select => {
-                select.style.pointerEvents = 'none'; // bloqueia clique
-            
-                select.tabIndex = -1;
-                select.addEventListener('mousedown', e => e.preventDefault());
-            });
-            });
-
-            </script>
-
-            <!-- AUTENTICACAO -->
-            <script>
-                function redirecionarParaAutenticacao() {
-                    var numero = document.getElementById('numero_protocolo').value;
-                    if (numero) {
-                        window.location.href = '/autenticacao/' + numero;
-                    } else {
-                        alert('Digite ou pesquise um número de protocolo antes de autenticar!');
-                    }
-                }
-            </script>
-
-            <!-- VOLTAR -->
-            <script>
-                document.getElementById('botao-voltar').addEventListener('click', function() {
-                    window.location.href = '{{ route('dashboard') }}';
-                });
-            </script>
-
     {{-- @endsection --}}
     </div>
-    
+
 </x-app-layout>
-
-<script>
-    // Função para preencher campos por id
-    function setValueById(id, value) {
-        const el = document.getElementById(id);
-        if (el) el.value = value || '';
-    }
-
-    function setSelectById(id, value) {
-        const el = document.getElementById(id);
-        if (el) el.value = value || '';
-    }
-
-    function calcularPrevisao(dataAbertura) {
-        if (!dataAbertura) return '';
-        const data = new Date(dataAbertura);
-        data.setDate(data.getDate() + 10);
-        return data.toISOString().slice(0, 10); // YYYY-MM-DD para input type=date
-    }
-
-    function formatDateToInput(dateString) {
-        if (!dateString) return '';
-        const date = new Date(dateString);
-        // Verifica se é uma data válida
-        if (isNaN(date)) return '';
-        return date.toISOString().slice(0, 10); // YYYY-MM-DD
-    }
-
-    document.getElementById('btn-pesquisar-protocolo').addEventListener('click', function() {
-        const numero = document.getElementById('numero_protocolo').value;
-        if (!numero) return alert('Digite o número do protocolo!');
-        fetch(`/protocolos/buscar/${numero}`)
-            .then(response => response.json())
-            .then(data => {
-                if (data.erro) {
-                    alert(data.erro);
-                    return;
-                }
-                setValueById('data_abertura', data.data_abertura);
-                // Preencher campo previsão
-                document.getElementById('previsao').value = calcularPrevisao(data.data_abertura);
-                setValueById('numero_protocolo', data.numero_protocolo);
-                setValueById('numero_registro', data.numero_registro);
-                setValueById('numero_documento_protocolo', data.numero_documento);
-                setValueById('data_documento_protocolo', data.data_documento);
-                setValueById('data_retirada', formatDateToInput(data.data_retirada));
-                setValueById('data_registro', formatDateToInput(data.data_registro));
-                setValueById('data_cancelamento', data.data_cancelamento);
-                setSelectById('id_grupo', data.id_grupo);
-                setSelectById('id_natureza', data.id_natureza);
-                setSelectById('id_especie', data.id_especie);
-                if (data.apresentante) {
-                    setSelectById('id_documento_apresentante', data.apresentante.id_documento);
-                    setValueById('numero_documento_apresentante', data.apresentante.numero_documento);
-                    setValueById('nome_apresentante', data.apresentante.nome);
-                    setValueById('tipo_contato_apresentante', data.apresentante.tipo_contato);
-                    setValueById('numero_contato_apresentante', data.apresentante.numero_contato);
-                    setValueById('email_apresentante', data.apresentante.email);
-                }
-                // Partes (preenche todos)
-                const partes = data.partes || [];
-                const parteContainer = document.getElementById('container-partes');
-                if (parteContainer && partes.length > 0) {
-                    // Seleciona todas as linhas de parte já existentes
-                    let linhas = parteContainer.querySelectorAll('.linha-parte');
-                    // Adiciona linhas se necessário
-                    while (linhas.length < partes.length) {
-                        const novaLinha = linhas[0].cloneNode(true);
-                        // Limpa valores
-                        novaLinha.querySelectorAll('input, select').forEach(el => el.value = '');
-                        parteContainer.appendChild(novaLinha);
-                        linhas = parteContainer.querySelectorAll('.linha-parte');
-                    }
-                    // Remove linhas extras
-                    while (linhas.length > partes.length) {
-                        parteContainer.removeChild(linhas[linhas.length - 1]);
-                        linhas = parteContainer.querySelectorAll('.linha-parte');
-                    }
-                    // Preenche cada linha
-                    linhas.forEach((linha, i) => {
-                        const select = linha.querySelector('select[name="id_tipo_parte[]"]');
-                        const input = linha.querySelector('input[name="identificacao[]"]');
-                        if (select) select.value = partes[i]?.id_tipo_parte || '';
-                        if (input) input.value = partes[i]?.identificacao || '';
-                    });
-                }
-            })
-            .catch(error => {
-                alert('Erro ao buscar protocolo. Veja o log do servidor.');
-                // Log detalhado no console do navegador
-                console.error('Erro ao buscar protocolo:', error);
-                // Envia log para o backend
-                fetch('/log-js-error', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
-                    },
-                    body: JSON.stringify({
-                        mensagem: error.message || error,
-                        stack: error.stack || null,
-                        protocolo: numero
-                    })
-                });
-            });
-    });
-
-    document.getElementById('btn-retirar-protocolo').addEventListener('click', function() {
-        const numeroProtocolo = document.getElementById('numero_protocolo').value;
-        if (!numeroProtocolo) {
-            alert('Número do protocolo não encontrado!');
-            return;
-        }
-        // ...existing code...
-        fetch(`/protocolos/${numeroProtocolo}/atualizar-data-retirada`, {
-            method: 'POST',
-            headers: {
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
-                'Accept': 'application/json'
-            }
-        })
-        // ...existing code...
-        .then(response => response.json())
-        .then(data => {
-            if (data.mensagem) {
-                alert(data.mensagem);
-                // Atualiza o campo data_retirada na tela
-                document.getElementById('data_retirada').value = new Date().toISOString().slice(0, 10);
-            } else if (data.erro) {
-                alert(data.erro);
-            }
-        })
-        .catch(error => {
-            alert('Erro ao atualizar data de retirada.');
-            console.error(error);
-        });
-    });                     
-
-</script>
