@@ -35,10 +35,10 @@
                             class="absolute top-full left-0 mt-[-5px] w-48 bg-white rounded-md shadow-lg z-50"
                             @click.away="open = false"
                             style="display: none;">
-                            <a href="{{ route('protocolos.index') }}" class="block px-4 py-2 text-sm text-gray-700 hover:text-white hover:bg-[#C27C5D]">
+                            <a href="{{ route('protocolos.index') }}" class="block px-4 py-2 text-sm text-gray-700 hover:text-white hover:bg-[#C27C5D] rounded-md"">
                                 Novo Protocolo
                             </a>
-                            <a href="{{ route('protocolos.view') }}" class="block px-4 py-2 text-sm text-gray-700 hover:text-white hover:bg-[#C27C5D]">
+                            <a href="{{ route('protocolos.view') }}" class="block px-4 py-2 text-sm text-gray-700 hover:text-white hover:bg-[#C27C5D] rounded-md"">
                                 Visualizar Protocolo
                             </a>
                         </div>
