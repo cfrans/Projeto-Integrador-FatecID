@@ -33,10 +33,6 @@ O sistema já conta com login seguro, módulos de consulta, cadastro e gestão d
 - /andamento
 - /sobre
 
-## Como Executar o Projeto
-1. Acesse a versão demonstrativa do sistema no link:
-https://cartorio.cfrans.uk
-
 ## Equipe
 - [Bruna de Novais Schultz](https://github.com/Brunanschultz)
 - [Caio Franson da Silva](https://github.com/cfrans)
