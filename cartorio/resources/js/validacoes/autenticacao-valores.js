@@ -86,9 +86,6 @@ document.addEventListener('DOMContentLoaded', function () {
             debugSaida += `${chave}: ${valor}\n`;
         }
 
-        console.log('submit interceptado');
-        alert('Dados que serão enviados:\n\n' + debugSaida); // Você pode remover isso para produção
-
         form.submit(); // Envio real do formulário
     });
 

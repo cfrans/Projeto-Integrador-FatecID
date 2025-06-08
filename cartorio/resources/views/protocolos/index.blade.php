@@ -84,11 +84,11 @@ $dataCancelamento = Carbon::now()->addDays(30)->format('d/m/Y');
                             <option value="5" data-grupo="1">Tradução</option>
 
                             {{-- Naturezas do Grupo 2 --}}
-                            <option value="4" data-grupo="2">Ata de Assembleia</option>
-                            <option value="5" data-grupo="2">Abertura de Filial</option>
-                            <option value="6" data-grupo="2">Contrato Social</option>
-                            <option value="7" data-grupo="2">Distrato</option>
-                            <option value="8" data-grupo="2">Estatuto</option>
+                            <option value="6" data-grupo="2">Ata de Assembleia</option>
+                            <option value="7" data-grupo="2">Abertura de Filial</option>
+                            <option value="8" data-grupo="2">Contrato Social</option>
+                            <option value="9" data-grupo="2">Distrato</option>
+                            <option value="10" data-grupo="2">Estatuto</option>
                         </x-input-select>
                     </div>
                 </div>
@@ -449,15 +449,6 @@ $dataCancelamento = Carbon::now()->addDays(30)->format('d/m/Y');
 
                 // Mostrar os dados que estão sendo enviados
                 console.log('Dados do formulário:', [...formData.entries()]);
-
-                // DEBUG ////////////////////////////////////
-                let debugSaida = '';
-                for (const [chave, valor] of formData.entries()) {
-                    debugSaida += `${chave}: ${valor}\n`;
-                }
-                alert('Dados que serão enviados:\n' + debugSaida);
-                // DEBUG ////////////////////////////////////
-
 
                 try {
                     const response = await fetch('/protocolos', {
