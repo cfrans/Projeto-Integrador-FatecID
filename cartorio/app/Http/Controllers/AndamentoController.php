@@ -23,24 +23,26 @@ class AndamentoController extends Controller
     {
         $numeroProtocolo = $request->query('numero_protocolo');
         $andamentos = [];
-        $protocolo = null; // Mantenha, pois 'main' estava compactando 'protocolo' para a view
+        $protocolo = null;
 
         if ($numeroProtocolo) {
             $protocolo = Protocolo::where('numero_protocolo', $numeroProtocolo)->first();
 
             if ($protocolo) {
-                // Carrega os andamentos existentes para o protocolo
                 $andamentos = Andamento::where('id_protocolo', $protocolo->id)
                     ->with('usuario')
                     ->get();
             } else {
-                // Loga se o protocolo não for encontrado para a view
                 Log::info('AndamentoController@index: Protocolo não encontrado para o número: ' . $numeroProtocolo);
             }
         }
 
-        // 'main' compactava 'protocolo', 'caio' não. Mantemos 'protocolo' para flexibilidade.
-        return view('andamento.index', compact('numeroProtocolo', 'andamentos', 'protocolo'));
+        return view('andamento.index', [
+            'numeroProtocolo' => $numeroProtocolo,
+            'andamentos' => $andamentos,
+            'protocolo' => $protocolo,
+            'data_retirada' => $protocolo->data_retirada ?? null,
+        ]);
     }
 
     /**
@@ -135,7 +137,7 @@ class AndamentoController extends Controller
                 if ((int)$andamentoData['id_tipo_andamento'] === 1) { // Usamos $andamentoData aqui
                     // Atualizar data_registro
                     $protocolo->data_registro = Carbon::createFromFormat('d/m/Y H:i', $andamentoData['data_hora'])->format('Y-m-d'); // Usamos $andamentoData aqui
-                    
+
                     // Se ainda não tiver número de registro, gerar o próximo sequencial
                     if (!$protocolo->numero_registro) {
                         $ultimoNumero = Protocolo::max('numero_registro') ?? 0;
@@ -159,7 +161,6 @@ class AndamentoController extends Controller
                 Log::error('AndamentoController@store: Nenhum andamento foi salvo devido a erros. Consulte os logs.');
                 return response()->json(['success' => false, 'message' => 'Nenhum andamento foi salvo. Verifique os dados fornecidos.'], 422);
             }
-
         } catch (\Exception $e) {
             DB::rollBack(); // Desfaz a transação em caso de erro (do branch 'main')
             Log::error('AndamentoController@store: Erro fatal na transação: ' . $e->getMessage(), ['exception' => $e]);

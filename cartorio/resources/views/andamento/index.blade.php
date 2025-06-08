@@ -4,6 +4,12 @@
         <h2 class="font-semibold text-base text-white leading-tight">Andamento</h2>
     </x-slot>
 
+    @if(!empty($data_retirada))
+        <div class="bg-yellow-200 text-yellow-800 px-4 py-2 rounded mb-4 font-bold">
+            Este protocolo já possui data de retirada. Os dados estão em modo de visualização.
+        </div>
+    @endif
+
     <style>
         .campo-formulario { border: 0px; padding: 8px; }
     </style>
@@ -28,13 +34,17 @@
 
                 <div class="w-70 h-10 rounded-md flex items-center px-2 ml-auto space-x-2 -mr-8 ">
                     <div class="w-57 h-10 rounded-md flex items-center bg-[#9f9f9f]">
+                        @if(empty($data_retirada))
                         <button type="button" id="andamento_adicionar" class="bg-[#9f9f9f] transition-transform duration-400 ease-in-out hover:scale-125 text-black px-3 py-1 rounded ml-2" title="Adicionar Andamento">
                             +
                         </button>
+                        @endif
 
+                    @if(empty($data_retirada))
                         <button type="submit" class="w-9 h-9 bg-[#9f9f9f] rounded-md flex items-center justify-center mr-2" title="Salvar">
                             <img src="{{ asset('images/Salvar.png') }}" alt="Salvar" class="w-4 h-4 transition-transform duration-400 ease-in-out hover:scale-125" />
                         </button>
+                    @endif
                     </div>
 
                     <div class="w-9 h-9 bg-[#9f9f9f] rounded-full flex items-center justify-center hover:bg-[#8a8a8a]">
@@ -134,19 +144,45 @@
         document.getElementById('andamento_adicionar').addEventListener('click', function () {
             const template = document.getElementById('template_andamento');
             const clone = template.content.cloneNode(true);
-            
+
+            // Verifica os tipos de andamento já existentes
+            const tiposExistentes = Array.from(document.querySelectorAll('input[name="id_tipo_andamento_existente[]"]'))
+                .map(input => input.value);
+
+            // Função para saber se já existe um tipo específico
+            const existeTipo = tipo => tiposExistentes.includes(tipo.toString());
+
+            // Monta as opções do select conforme a regra
+            let opcoes = '';
+            if (!existeTipo(2)) {
+                // Só pode adicionar "Valor Autenticado"
+                opcoes = `<option value="2" selected>Valor Autenticado</option>`;
+            } else if (!existeTipo(1)) {
+                // Só pode adicionar "Título Registrado"
+                opcoes = `<option value="1" selected>Título Registrado</option>`;
+            } else {
+                // Só pode adicionar "Título Pronto para Retirada"
+                opcoes = `<option value="3" selected>Título Pronto para Retirada</option>`;
+            }
+
+            // Atualiza o select do clone
+            const select = clone.querySelector('select[name="id_tipo_andamento[]"]');
+            if (select) {
+                select.innerHTML = opcoes;
+            }
+
+            // Preenche data/hora atual
             const hoje = new Date();
             const dia = String(hoje.getDate()).padStart(2, '0');
             const mes = String(hoje.getMonth() + 1).padStart(2, '0');
             const ano = hoje.getFullYear();
             const horas = String(hoje.getHours()).padStart(2, '0');
             const minutos = String(hoje.getMinutes()).padStart(2, '0');
-            
             const dataAtual = dia + '/' + mes + '/' + ano + ' ' + horas + ':' + minutos;
-            
             const dataInput = clone.querySelector('[data-tipo="data-hora"]');
             if (dataInput) dataInput.value = dataAtual;
 
+            // Máscara de moeda
             const novoCampoValor = clone.querySelector('[name="valor[]"][data-moeda]');
             if (novoCampoValor) {
                 aplicarMascaraMoeda(novoCampoValor);

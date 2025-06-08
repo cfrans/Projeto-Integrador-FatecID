@@ -22,6 +22,12 @@
         </h2>
     </x-slot>
 
+    @if(!empty($data_retirada))
+        <div class="bg-yellow-200 text-yellow-800 px-4 py-2 rounded mb-4 font-bold">
+            Este protocolo já possui data de retirada. Os dados estão em modo de visualização.
+        </div>
+    @endif
+
     <form action="{{ route('autenticacao.store') }}" method="post">
         @csrf
         {{-- DIV MENOR PARA O CONTEUDO DOS CAMPOS --}}
@@ -220,13 +226,15 @@
                 <!-- Botões de ação -->
                 <div class="w-500 h-10 bg-[#9f9f9f] rounded-md flex items-center justify-around px-2">
 
-                    <button type="submit" class="flex items-center justify-center gap-2 px-3 py-2">
-                        <img src="{{ asset('images/Salvar.png') }}" alt="Salvar" class="w-4 h-4" />
-                        <span class="text-sm font-bold text-[#474747]">Salvar</span>
-                    </button>
+                    @if(empty($data_retirada))
+                        <button type="submit" class="flex items-center justify-center gap-2 px-3 py-2">
+                            <img src="{{ asset('images/Salvar.png') }}" alt="Salvar" class="w-4 h-4" />
+                            <span class="text-sm font-bold text-[#474747]">Salvar</span>
+                        </button>
+                    @endif
 
 
-                    <button id="btn-voltar-protocolo" type="button" class="flex items-center justify-center gap-2 px-3 py-2">
+                    <button id="btn-voltar-protocolo" type="button"  class="flex items-center justify-center gap-2 px-3 py-2">
                         <img src="{{ asset('images/Voltar.png') }}" alt="Voltar" class="w-4 h-4" />
                         <span class="text-sm font-bold text-[#474747]">Voltar</span>
                     </button>
@@ -278,7 +286,12 @@
 
         // Botão de voltar
         document.getElementById('btn-voltar-protocolo').addEventListener('click', function() {
-            window.location.href = "{{ route('protocolos.view') }}";
+            const numeroProtocolo = document.getElementById('id_protocolo').value;
+            if (numeroProtocolo) {
+                window.location.href = `/protocolos/view/${numeroProtocolo}`;
+            } else {
+                window.location.href = "{{ route('protocolos.view') }}";
+            }
         });
 
         // Liberação dos campos de cheque
