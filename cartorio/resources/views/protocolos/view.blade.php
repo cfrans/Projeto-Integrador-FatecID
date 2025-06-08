@@ -29,6 +29,9 @@
                 <button type="button" onclick="redirecionarParaAutenticacao()" class="w-8 h-8 flex items-center justify-center no-print acao-protocolo" title="Autenticar Protocolo">
                     <img src="{{ asset('images/Dinheiro.png') }}" alt="Dinheiro" class="w-5 h-5" />
                 </button>
+                <button type="button" id="btn-andamento" class="w-8 h-8 flex items-center justify-center no-print" title="Andamento">
+                    <img src="{{ asset('images/Andamento.png') }}" alt="Andamento" class="w-5 h-5" />
+                </button>
                 <button type="button" id="btn-retirar-protocolo" class="w-8 h-8 flex items-center justify-center no-print acao-protocolo" title="Retirar Protocolo">
                     <img src="{{ asset('images/Retirar.png') }}" alt="Retirar" class="w-5 h-5 no-print" />
                 </button>
