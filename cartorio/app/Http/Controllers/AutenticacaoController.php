@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Protocolo;
 use App\Models\Autenticacao;
+use App\Models\Andamento;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
@@ -45,7 +46,7 @@ class AutenticacaoController extends Controller
         try {
             $validated = Validator::make($dados, [
                 'valor' => 'required|numeric|min:0',
-                'data_autenticacao'=> 'nullable|string',
+                'data_autenticacao' => 'nullable|string',
                 'numero_cheque' => 'nullable|integer',
                 'agencia' => 'nullable|string|max:6',
                 'conta' => 'nullable|string|max:15',
@@ -61,7 +62,7 @@ class AutenticacaoController extends Controller
 
         $data = \Carbon\Carbon::createFromFormat('d/m/Y', $validated['data_autenticacao'])->format('Y-m-d');
 
-        Autenticacao::create([
+        $autenticacao = Autenticacao::create([
             'valor' => $validated['valor'],
             'data_autenticacao' => $data,
             'numero_cheque' => $validated['numero_cheque'] ?? null,
@@ -73,7 +74,18 @@ class AutenticacaoController extends Controller
             'id_forma_pagamento' => $validated['id_forma_pagamento'],
         ]);
 
+        // Criação do andamento
+        $andamento = Andamento::create([
+            'valor' => $autenticacao->valor,
+            'data_hora' => now(),
+            'id_tipo_andamento' => 2,
+            'id_usuario' => auth()->user()->id,
+            'id_protocolo' => $autenticacao->id_protocolo,
+        ]);
+
+        Log::info('Autenticação salva com sucesso:', $autenticacao->toArray());
+        Log::info('Andamento salvo com sucesso:',$andamento->toArray());
+
         return redirect()->back()->with('success', 'Autenticação salva com sucesso!');
     }
 }
-

@@ -36,11 +36,11 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/documentos', [DocumentoController::class, 'store']);
 
     // Protocolos
-    Route::get('/protocolos', fn () => view('protocolos.index'))->name('protocolos.index');
+    Route::get('/protocolos', fn() => view('protocolos.index'))->name('protocolos.index');
     Route::get('/protocolos/view/{numero_protocolo?}', [ProtocoloController::class, 'showView'])->name('protocolos.view');
 
     // Índices
-    Route::get('/indices', fn () => view('indices.index'))->name('indices.index');
+    Route::get('/indices', fn() => view('indices.index'))->name('indices.index');
 
     // Autenticação de valores
     // Route::get('/autenticacao', fn () => view('autenticacao.index'))->name('autenticacao.index');
@@ -52,10 +52,10 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/andamento', [AndamentoController::class, 'store'])->name('andamento.store');
 
     // Sobre
-    Route::get('/sobre', fn () => view('sobre.index'))->name('sobre.index');
+    Route::get('/sobre', fn() => view('sobre.index'))->name('sobre.index');
 
     // Contato
-    Route::get('/contato', fn () => view('contato.index'))->name('contato.index');
+    Route::get('/contato', fn() => view('contato.index'))->name('contato.index');
 
     Route::get('/protocolos/buscar/{numero}', [ProtocoloController::class, 'buscarPorNumero'])->name('protocolos.buscar');
     Route::post('/protocolos/{numero_protocolo}/atualizar-data-retirada', [ProtocoloController::class, 'atualizarDataRetirada'])->name('protocolos.atualizarDataRetirada');
@@ -64,20 +64,17 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/protocolos/ultimo', [ProtocoloController::class, 'viewUltimoProtocolo'])->name('protocolos.ultimo');
 
     Route::get('/andamentos', [AndamentoController::class, 'index'])->name('andamento.index');
-Route::get('/andamentos/create', [AndamentoController::class, 'create'])->name('andamento.create');
-Route::post('/andamentos', [AndamentoController::class, 'store'])->name('andamento.store');
-
-
-
-
+    Route::get('/andamentos/create', [AndamentoController::class, 'create'])->name('andamento.create');
+    Route::post('/andamentos', [AndamentoController::class, 'store'])->name('andamento.store');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
 
 // TODO: Criar as rotas para as paginas de admin-only (ediçao de usuarios e afins)
 
 // teste de conexao do banco, depois remover
 use Illuminate\Support\Facades\DB;
+
 Route::get('/testar-conexao-db', function () {
     try {
         DB::connection()->getPdo(); // Tenta obter a conexão PDO
