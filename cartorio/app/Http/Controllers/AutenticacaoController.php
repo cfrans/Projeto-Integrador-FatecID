@@ -63,6 +63,8 @@ class AutenticacaoController extends Controller
 
         $data = \Carbon\Carbon::createFromFormat('d/m/Y', $validated['data_autenticacao'])->format('Y-m-d');
 
+        $numeroProtocolo = $request->input('id_protocolo');
+        
         $autenticacao = Autenticacao::create([
             'valor' => $validated['valor'],
             'data_autenticacao' => $data,
@@ -87,6 +89,9 @@ class AutenticacaoController extends Controller
         Log::info('Autenticação salva com sucesso:', $autenticacao->toArray());
         Log::info('Andamento salvo com sucesso:',$andamento->toArray());
 
-        return redirect()->back()->with('success', 'Autenticação salva com sucesso!');
+        
+
+        return redirect()->route('protocolos.view', ['numero_protocolo' => $numeroProtocolo])
+        ->with('success', 'Autenticação salva com sucesso!');
     }
 }

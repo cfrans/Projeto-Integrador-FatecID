@@ -16,7 +16,7 @@
         <div class="flex items-center gap-4 -mt-2 w-full mr-14">
             <div class="w-70 h-10 bg-[#9f9f9f] rounded-md flex items-center px-2 ml-auto space-x-2">
                
-                <button class="w-8 h-8 flex items-center justify-center no-print acao-protocolo" title="Editar Protocolo">
+                <button type="button" class="w-8 h-8 flex items-center justify-center no-print acao-protocolo" title="Editar Protocolo" id="btn-editar-protocolo">
                     <img src="{{ asset('images/Editar.png') }}" alt="Editar" class="w-5 h-5 no-print" />
                 </button>
                 <button type="button" id="btn-protocolo-anterior" class="w-8 h-8 flex items-center justify-center no-print" title="Protocolo Anterior">
@@ -168,13 +168,28 @@
             </div>
         </div>
 
-        <x-input-label for="protocolo_grupo" class="ml-20 mt-6">Dados do Apresentante</x-input-label>
+        <div class="flex items-center justify-between w-[92%] mx-auto mt-6 mb-2">
+            <x-input-label for="apresentante_grupo" class="ml-5">
+                Dados do Apresentante
+            </x-input-label>
+            <div class="flex items-center">
+                <button type="button" id="btn-salvar-edicao-apresentante"
+                    class="hidden ml-0 w-8 h-8 flex items-center justify-center hover:bg-[#8f8f8f]">
+                    <img src="{{ asset('images/Salvar.png') }}" alt="Salvar" class="w-5 h-5 no-print" />
+                </button>
+                <button type="button" id="btn-cancelar-edicao-apresentante"
+                    class="hidden ml-0 w-8 h-8 flex items-center justify-center hover:bg-[#8f8f8f]">
+                    <img src="{{ asset('images/Cancelar.png') }}" alt="Cancelar" class="w-5 h-5 no-print" />
+                </button>
+            </div>
+        </div>
 
+        <div id="apresentante_grupo">
         <div class="flex justify-start w-[92%] h-20 mx-auto bg-white rounded-t-md">
             <div class="campo-formulario flex items-center ml-6">
                 <div class="text-left">
                     <x-input-label for="id_documento_apresentante">Documento</x-input-label>
-                    <x-input-select id="id_documento_apresentante" name="id_documento" class="w-[150px] h-8 text-sm" required>
+                    <x-input-select id="id_documento_apresentante" name="id_documento" class="w-[150px] h-8 text-sm" required disabled>
                         <option value="1">RG</option>
                         <option value="2">CPF</option>
                         <option value="3">CNH</option>
@@ -216,8 +231,10 @@
                 </div>
             </div>
         </div>
+        </div>
 
-        <x-input-label for="protocolo_grupo" class="ml-20 mt-6">Dados da Parte</x-input-label>
+        
+        <x-input-label for="parte_grupo" class="ml-20 mt-6">Dados da Parte</x-input-label>
         <div id="container-partes">
             <div class="linha-parte flex justify-start w-[92%] h-20 mx-auto bg-white rounded-md">
                 <div class="campo-formulario flex items-center ml-6">
@@ -247,6 +264,7 @@
             </div>
         </div>
 
+
 <div id="container-campos">
     <div class="flex justify-start w-[12%] h-19 bg-white rounded-md mt-6 ml-auto mr-16 mb-10">
         <div class="campo-formulario flex items-center ml-2">
@@ -269,7 +287,8 @@
     Este protocolo está cancelado. Nenhuma ação pode ser realizada.
 </div>
 <input type ="hidden" id="protocolo_id" value="{{ $protocolo->id?? '' }}">
-    </div>
+<input type ="hidden" id="apresentante_id" value="{{ $apresentante->id ?? '' }}">
+</div>
 </x-app-layout>
 
 <script>
@@ -428,6 +447,7 @@
             setSelectById('id_grupo', data.id_grupo);
             setSelectById('id_natureza', data.id_natureza);
             setSelectById('id_especie', data.id_especie);
+            setValueById('apresentante_id', data.apresentante ? data.apresentante.id : '');
             atualizarBotaoCancelar();
 
             // Exibir mensagem se cancelado
@@ -601,4 +621,95 @@
             alert('ID do protocolo não encontrado!');
         }
     });
+
+    document.getElementById('btn-editar-protocolo').addEventListener('click', function() {
+        // Apresentante
+        document.getElementById('id_documento_apresentante').disabled = false;
+        document.querySelectorAll('#apresentante_grupo input, #apresentante_grupo select').forEach(el => {
+            el.readOnly = false;
+            el.disabled = false;
+            el.style.pointerEvents = '';
+            el.tabIndex = 0;
+        });
+
+        // Exibe botões de salvar/cancelar edição se desejar
+        document.getElementById('btn-salvar-edicao-apresentante')?.classList.remove('hidden');
+        document.getElementById('btn-cancelar-edicao-apresentante')?.classList.remove('hidden');
+
+        apresentanteOriginal = {
+        id_documento: document.getElementById('id_documento_apresentante').value,
+        numero_documento: document.getElementById('numero_documento_apresentante').value,
+        nome: document.getElementById('nome_apresentante').value,
+        tipo_contato: document.getElementById('tipo_contato_apresentante').value,
+        numero_contato: document.getElementById('numero_contato_apresentante').value,
+        email: document.getElementById('email_apresentante').value,
+        };
+
+    });
+
+    document.getElementById('btn-salvar-edicao-apresentante').addEventListener('click', function() {
+    // Pegue o ID do apresentante (você precisa garantir que ele está disponível, ex: em um campo hidden)
+    const apresentanteId = document.getElementById('apresentante_id')?.value;
+    if (!apresentanteId) {
+        alert('ID do apresentante não encontrado!');
+        return;
+    }
+
+    // Pegue os valores dos campos
+    const dados = {
+        id_documento: document.getElementById('id_documento_apresentante').value,
+        numero_documento: document.getElementById('numero_documento_apresentante').value,
+        nome: document.getElementById('nome_apresentante').value,
+        tipo_contato: document.getElementById('tipo_contato_apresentante').value,
+        numero_contato: document.getElementById('numero_contato_apresentante').value,
+        email: document.getElementById('email_apresentante').value,
+    };
+
+    fetch(`/apresentantes/${apresentanteId}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+        },
+        body: JSON.stringify(dados)
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.sucesso) {
+            alert(data.mensagem);
+            // Volta os campos para readonly
+            document.querySelectorAll('#apresentante_grupo input, #apresentante_grupo select').forEach(el => {
+                el.readOnly = true;
+                el.disabled = true;
+                el.style.pointerEvents = 'none';
+                el.tabIndex = -1;
+            });
+            document.getElementById('btn-salvar-edicao-apresentante').classList.add('hidden');
+            document.getElementById('btn-cancelar-edicao-apresentante').classList.add('hidden');
+        } else {
+            alert('Erro ao atualizar apresentante!');
+        }
+    })
+    .catch(() => alert('Erro ao atualizar apresentante!'));
+});
+    document.getElementById('btn-cancelar-edicao-apresentante').addEventListener('click', function() {
+        // Restaura os valores originais
+        document.getElementById('id_documento_apresentante').value = apresentanteOriginal.id_documento;
+        document.getElementById('numero_documento_apresentante').value = apresentanteOriginal.numero_documento;
+        document.getElementById('nome_apresentante').value = apresentanteOriginal.nome;
+        document.getElementById('tipo_contato_apresentante').value = apresentanteOriginal.tipo_contato;
+        document.getElementById('numero_contato_apresentante').value = apresentanteOriginal.numero_contato;
+        document.getElementById('email_apresentante').value = apresentanteOriginal.email;
+
+        // Volta os campos para readonly
+        document.querySelectorAll('#apresentante_grupo input, #apresentante_grupo select').forEach(el => {
+            el.readOnly = true;
+            el.disabled = true;
+            el.style.pointerEvents = 'none';
+            el.tabIndex = -1;
+        });
+        document.getElementById('btn-salvar-edicao-apresentante').classList.add('hidden');
+        document.getElementById('btn-cancelar-edicao-apresentante').classList.add('hidden');
+    });
+
 </script>
