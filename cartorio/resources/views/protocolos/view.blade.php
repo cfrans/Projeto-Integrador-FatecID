@@ -249,7 +249,14 @@
         <div class="campo-formulario flex items-center ml-2">
             <div class="text-left">
                 <x-input-label for="deposito">Depósito</x-input-label>
-                <x-text-input type="text" name="identificacao[]" class="w-[130px] h-8 text-sm" required readonly />
+                <x-text-input
+                    type="text"
+                    id="deposito"
+                    name="deposito"
+                    class="w-[130px] h-8 text-sm"
+                    value="{{ number_format($deposito ?? 0, 2, ',', '.') }}"
+                    readonly
+                />
             </div>
         </div>
     </div>
@@ -370,6 +377,11 @@
             setSelectById('id_grupo', data.id_grupo);
             setSelectById('id_natureza', data.id_natureza);
             setSelectById('id_especie', data.id_especie);
+
+            // Aqui preenche o campo depósito:
+            let deposito = Number(data.deposito);
+            if (isNaN(deposito)) deposito = 0;
+            setValueById('deposito', deposito.toFixed(2).replace('.', ','));
 
             if (data.apresentante) {
                 setSelectById('id_documento_apresentante', data.apresentante.id_documento);

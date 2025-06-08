@@ -10,10 +10,18 @@ use Illuminate\Support\Facades\Validator;
 
 class AutenticacaoController extends Controller
 {
-    public function index($protocolo)
+    public function index($numero_protocolo)
     {
-        $protocolo = Protocolo::with(['grupo', 'apresentante'])->where('numero_protocolo', $protocolo)->firstOrFail();
-        return view('autenticacao.index', compact('protocolo'));
+        $protocolo = Protocolo::with(['grupo', 'apresentante'])->where('numero_protocolo', $numero_protocolo)->firstOrFail();
+
+        // Busca autenticação existente para o protocolo
+        $autenticacao = Autenticacao::where('id_protocolo', $protocolo->id)->first();
+
+        return view('autenticacao.index', [
+            'protocolo' => $protocolo,
+            'autenticacao' => $autenticacao,
+            'now' => \Carbon\Carbon::now(),
+        ]);
     }
 
     public function store(Request $request)

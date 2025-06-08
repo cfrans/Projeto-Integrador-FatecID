@@ -47,5 +47,9 @@ class Protocolo extends Model
     public function partes() {
         return $this->hasMany(Parte::class, 'id_protocolo');
     }
+    public function autenticacao()
+    {
+        return $this->hasMany(\App\Models\Autenticacao::class, 'id_protocolo');
+    }
 }
 
