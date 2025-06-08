@@ -45,7 +45,7 @@ $dataCancelamento = Carbon::now()->addDays(30)->format('d/m/Y');
 
                 <!-- Botão voltar -->
                 <div class="w-9 h-9 bg-[#9f9f9f] rounded-full flex items-center justify-around px-2 ml-90 mr-20 hover:bg-[#8a8a8a]" title="Voltar">
-                    <button id="botao-voltar" type="button" class="w-10 h-10 flex items-center justify-center transition-transform duration-400 ease-in-out hover:scale-125">
+                    <button id="botao-voltar" type="button" class="w-10 h-10 flex items-center justify-center">
                         <img src="{{ asset('images/Voltar.png') }}" alt="Voltar" class="w-4 h-4" />
                     </button>
                 </div>
