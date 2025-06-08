@@ -5,13 +5,16 @@
     </x-slot>
 
     @if(!empty($data_retirada))
-        <div class="bg-yellow-200 text-yellow-800 px-4 py-2 rounded mb-4 font-bold">
-            Este protocolo já possui data de retirada. Os dados estão em modo de visualização.
-        </div>
+    <div class="bg-yellow-200 text-yellow-800 px-4 py-2 rounded mb-4 font-bold">
+        Este protocolo já possui data de retirada. Os dados estão em modo de visualização.
+    </div>
     @endif
 
     <style>
-        .campo-formulario { border: 0px; padding: 8px; }
+        .campo-formulario {
+            border: 0px;
+            padding: 8px;
+        }
     </style>
 
     <div class="max-w-[75%] mx-auto w-full px-4">
@@ -27,8 +30,7 @@
                             name="numero_protocolo"
                             class="w-[150px] h-8 text-sm"
                             value="{{ $numeroProtocolo ?? '' }}"
-                            readonly
-                        />
+                            readonly />
                     </div>
                 </div>
 
@@ -40,11 +42,11 @@
                         </button>
                         @endif
 
-                    @if(empty($data_retirada))
+                        @if(empty($data_retirada))
                         <button type="submit" class="w-9 h-9 bg-[#9f9f9f] rounded-md flex items-center justify-center mr-2" title="Salvar">
                             <img src="{{ asset('images/Salvar.png') }}" alt="Salvar" class="w-4 h-4 transition-transform duration-400 ease-in-out hover:scale-125" />
                         </button>
-                    @endif
+                        @endif
                     </div>
 
                     <div class="w-9 h-9 bg-[#9f9f9f] rounded-full flex items-center justify-center hover:bg-[#8a8a8a]">
@@ -55,7 +57,8 @@
                 </div>
             </div>
 
-            <div class="flex justify-start w-[92%] h-10 mx-auto bg-[#9f9f9f] rounded-t-md space-x-4"> <div class="text-left flex items-center ml-4 w-[180px]"> {{-- Ajustado w-[...] --}}
+            <div class="flex justify-start w-[92%] h-10 mx-auto bg-[#9f9f9f] rounded-t-md space-x-4">
+                <div class="text-left flex items-center ml-4 w-[180px]"> {{-- Ajustado w-[...] --}}
                     <x-input-label>Data/Hora</x-input-label>
                 </div>
                 <div class="text-left flex items-center w-[205px]"> {{-- Ajustado w-[...] --}}
@@ -139,9 +142,12 @@
         </form>
     </div>
 
+    <!-- CDN do SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     {{-- Script para adicionar andamento e aplicar máscara --}}
     <script>
-        document.getElementById('andamento_adicionar').addEventListener('click', function () {
+        document.getElementById('andamento_adicionar').addEventListener('click', function() {
             const template = document.getElementById('template_andamento');
             const clone = template.content.cloneNode(true);
 
@@ -233,13 +239,13 @@
 
             // Crie um novo FormData para coletar APENAS os dados que queremos enviar
             const formDataToSubmit = new FormData();
-            
+
             // Adicione o token CSRF
             const csrfToken = this.querySelector('input[name="_token"]');
             if (csrfToken) {
                 formDataToSubmit.append(csrfToken.name, csrfToken.value);
             }
-            
+
             // Adicione o numero_protocolo
             const numeroProtocoloInput = this.querySelector('input[name="numero_protocolo"]');
             if (numeroProtocoloInput) {
@@ -262,7 +268,7 @@
                 const valorExistenteRaw = bloco.querySelector('input[name="valor_existente_raw[]"]');
                 const observacaoExistente = bloco.querySelector('input[name="observacao_existente[]"]');
                 const idUsuarioExistente = bloco.querySelector('input[name="id_usuario_existente[]"]');
-                
+
                 if (dataInput && !dataInput.readOnly) { // É um andamento NOVO (editável)
                     formDataToSubmit.append('data_hora[]', dataInput.value);
                     formDataToSubmit.append('id_tipo_andamento[]', tipoInput ? tipoInput.value : '');
@@ -298,11 +304,23 @@
                     data = await response.json();
                 } catch (jsonError) {
                     console.error('Erro ao parsear JSON da resposta:', jsonError);
-                    data = { success: false, message: 'Resposta inválida do servidor.' };
+                    data = {
+                        success: false,
+                        message: 'Resposta inválida do servidor.'
+                    };
                 }
 
                 if (response.ok && data.success) {
-                    // alert(data.message || 'Andamento(s) salvo(s) com sucesso!');
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Sucesso!',
+                        text: data.message || 'Andamento(s) salvo(s) com sucesso!',
+                        confirmButtonText: 'OK',
+                        confirmButtonColor: '#c27c5d'
+                    }).then(() => {
+                        const currentProtocolo = document.getElementById('numero_protocolo').value;
+                        window.location.href = `/andamento?numero_protocolo=${currentProtocolo}`;
+                    });
                     const currentProtocolo = document.getElementById('numero_protocolo').value;
                     window.location.href = `/andamento?numero_protocolo=${currentProtocolo}`;
                 } else {
