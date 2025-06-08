@@ -11,9 +11,7 @@
 
         <div class=" min-h-screen">
             <main class="w-full px-8">
-
-
-                <div class=" p-6 rounded-md">
+                <div class="p-6 rounded-md">
                     <x-input-label for="pesquisa_protocolo" class="ml-0 mb-0 block text-lg font-semibold">
                         Pesquisa de Protocolo
                     </x-input-label>
@@ -27,7 +25,7 @@
                                     <x-input-select id="grupo" name="grupo" class="w-full h-8 text-sm">
                                         <option value="">Todos os Grupos</option>
                                         @foreach ($grupos as $grupo)
-                                        <option value="{{ $grupo->id }}">{{ $grupo->tipo }}</option>
+                                            <option value="{{ $grupo->id }}">{{ $grupo->tipo }}</option>
                                         @endforeach
                                     </x-input-select>
                                 </div>
@@ -37,7 +35,7 @@
                                     <x-input-select id="id_natureza" name="id_natureza" class="w-full h-8 text-sm">
                                         <option value="">Todas as Naturezas</option>
                                         @foreach ($naturezas as $natureza)
-                                        <option value="{{ $natureza->id }}" data-grupo="{{ $natureza->id_grupo }}">{{ $natureza->tipo }}</option>
+                                            <option value="{{ $natureza->id }}" data-grupo="{{ $natureza->id_grupo }}">{{ $natureza->tipo }}</option>
                                         @endforeach
                                     </x-input-select>
                                 </div>
@@ -47,7 +45,7 @@
                                     <x-input-select id="especie" name="especie" class="w-full h-8 text-sm">
                                         <option value="">Todas as Espécies</option>
                                         @foreach ($especies as $especie)
-                                        <option value="{{ $especie->id }}">{{ $especie->tipo }}</option>
+                                            <option value="{{ $especie->id }}">{{ $especie->tipo }}</option>
                                         @endforeach
                                     </x-input-select>
                                 </div>
@@ -97,7 +95,6 @@
                     </div>
                 </div>
 
-                <!-- Essa div ficará oculta por padrão -->
                 <div class="p-6 mt-0 rounded-md" id="area-resultados" style="display: none;">
                     <x-input-label class="ml-0 mb-0 block text-lg font-semibold">
                         Protocolo(s) Encontrado(s)
@@ -115,32 +112,24 @@
                                 </tr>
                             </thead>
                             <tbody id="tabela-resultados">
-                            </tbody>
+                                </tbody>
                         </table>
-
-                        </div> <div id="navegacao-resultados" class="flex items-center justify-between mt-4" style="display: none;">
-                            <div id="info-resultados" class="text-sm text-gray-700"></div>
-                            <div id="paginacao-resultados" class="flex items-center gap-1"></div>
-                        </div>
-
                     </div>
 
+                    <div id="navegacao-resultados" class="flex items-center justify-between mt-4" style="display: none;">
+                        <div id="info-resultados" class="text-sm text-gray-700"></div>
+                        <div id="paginacao-resultados" class="flex items-center gap-1"></div>
                     </div>
                 </div>
 
-
-
-
             </main>
         </div>
-
     </div>
-
 </x-app-layout>
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    // --- Variáveis Globais ---
+    // --- Referências aos Elementos do DOM ---
     const form = document.getElementById('form-pesquisa-protocolo'); 
     const grupoSelect = document.getElementById('grupo');
     const naturezaSelect = document.getElementById('id_natureza');
@@ -159,6 +148,7 @@ document.addEventListener('DOMContentLoaded', function() {
         naturezaSelect.innerHTML = '';
         const opcaoTodas = todasOpcoesNatureza.find(opt => opt.value === '');
         if (opcaoTodas) naturezaSelect.appendChild(opcaoTodas.cloneNode(true));
+        
         todasOpcoesNatureza.forEach(opcao => {
             if (opcao.value === "") return;
             if (!grupoIdSelecionado || opcao.dataset.grupo == grupoIdSelecionado) {
@@ -167,14 +157,11 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    grupoSelect.addEventListener('change', function() { filtrarNaturezasPorGrupo(this.value); });
-    filtrarNaturezasPorGrupo(grupoSelect.value);
-
-    // --- FUNÇÃO PRINCIPAL DE BUSCA ---
+    // --- Lógica Principal da Busca ---
     function executarBusca(page = 1) {
         const formData = new FormData(form);
         const params = new URLSearchParams(formData);
-        params.append('page', page); 
+        params.append('page', page);
 
         tabelaResultados.innerHTML = '<tr><td colspan="5" class="text-center py-4">Buscando...</td></tr>';
         areaResultados.style.display = 'block';
@@ -201,10 +188,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 protocolos.forEach(protocolo => {
                     const row = document.createElement('tr');
                     row.classList.add('border-b');
-                    // Usando a chave 'created_at' que o controller agora envia
                     const dataFormatada = new Date(protocolo.created_at).toLocaleDateString('pt-BR', { timeZone: 'UTC' });
                     
-                    // AJUSTE FINAL AQUI: Usando as chaves diretas (protocolo.grupo)
                     row.innerHTML = `
                         <td class="px-4 py-2 text-center">
                             <a href="/protocolos/view/${protocolo.numero_protocolo}" class="text-[#C27C5D] hover:text-[#A86A4F] font-bold" title="Abrir protocolo ${protocolo.numero_protocolo}">${protocolo.numero_protocolo}</a>
@@ -230,11 +215,10 @@ document.addEventListener('DOMContentLoaded', function() {
             });
     }
 
-    // --- FUNÇÃO PARA CRIAR OS BOTÕES DE PAGINAÇÃO ---
+    // --- Lógica da Paginação ---
     function renderizarPaginacao(links) {
         paginacaoResultadosEl.innerHTML = '';
         links.forEach(link => {
-            // Pequeno ajuste para ignorar os botões de "Anterior" e "Próxima" se não tiverem URL
             if (!link.url) {
                 const button = document.createElement('button');
                 button.innerHTML = link.label.replace('&laquo;', '«').replace('&raquo;', '»');
@@ -247,25 +231,24 @@ document.addEventListener('DOMContentLoaded', function() {
             const pageNumber = new URL(link.url).searchParams.get('page');
             const button = document.createElement('button');
             button.innerHTML = link.label.replace('&laquo;', '«').replace('&raquo;', '»');
-            button.className = 'px-3 py-1 text-sm rounded-md border';
+            button.className = 'px-3 py-1 text-sm rounded-md border bg-white text-gray-700 hover:bg-gray-50';
 
             if (link.active) {
-                button.className += ' bg-[#C27C5D] text-white border-[#C27C5D]';
+                button.className = 'px-3 py-1 text-sm rounded-md border bg-[#C27C5D] text-white border-[#C27C5D]';
                 button.disabled = true;
             } else {
-                button.className += ' bg-white text-gray-700 hover:bg-gray-50';
                 button.onclick = () => executarBusca(pageNumber);
             }
             paginacaoResultadosEl.appendChild(button);
         });
     }
 
-    // --- Event Listeners para os Botões Principais ---
+    // --- Event Listeners ---
+    grupoSelect.addEventListener('change', function() { filtrarNaturezasPorGrupo(this.value); });
     btnPesquisar.addEventListener('click', function(e) {
         e.preventDefault();
         executarBusca(1);
     });
-
     btnLimpar.addEventListener('click', function() {
         form.reset();
         areaResultados.style.display = 'none';
@@ -276,5 +259,7 @@ document.addEventListener('DOMContentLoaded', function() {
         filtrarNaturezasPorGrupo(grupoSelect.value);
     });
 
+    // Inicializa o filtro dinâmico ao carregar a página
+    filtrarNaturezasPorGrupo(grupoSelect.value);
 });
 </script>

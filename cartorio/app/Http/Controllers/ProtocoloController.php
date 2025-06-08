@@ -200,7 +200,7 @@ class ProtocoloController extends Controller
 
     public function buscarIndices(Request $request)
     {
-        $query = Protocolo::query()->with(['grupo', 'natureza']); // Carrega só as relações que vamos usar
+        $query = Protocolo::query()->with(['grupo', 'natureza']);
 
         if ($request->filled('grupo')) {
             $query->where('id_grupo', $request->grupo);
@@ -232,7 +232,7 @@ class ProtocoloController extends Controller
             'numero_protocolo' => $protocolo->numero_protocolo,
             'grupo'            => optional($protocolo->grupo)->tipo ?? 'N/A',
             'natureza'         => optional($protocolo->natureza)->tipo ?? 'N/A',
-            'created_at'       => $protocolo->created_at, // Enviando a data de criação
+            'created_at'       => $protocolo->created_at,
         ]);
 
         return response()->json($protocolosPaginados);
