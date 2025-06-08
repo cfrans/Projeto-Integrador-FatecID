@@ -11,26 +11,29 @@
         </h2>
     </x-slot>
 
+
     <div class="max-w-[75%] mx-auto w-full px-4" id="conteudo">
         <div class="flex items-center gap-4 -mt-2 w-full mr-14">
             <div class="w-70 h-10 bg-[#9f9f9f] rounded-md flex items-center px-2 ml-auto space-x-2">
-                <button class="w-8 h-8 flex items-center justify-center no-print" id="btn-retirar-protocolo" title="Retirar Protocolo">
-                    <img src="{{ asset('images/Retirar.png') }}" alt="Retirar" class="w-5 h-5 no-print" />
-                </button>
-                <button class="w-8 h-8 flex items-center justify-center no-print" title="Editar Protocolo">
+               
+                <button class="w-8 h-8 flex items-center justify-center no-print acao-protocolo" title="Editar Protocolo">
                     <img src="{{ asset('images/Editar.png') }}" alt="Editar" class="w-5 h-5 no-print" />
                 </button>
-                <button class="w-8 h-8 flex items-center justify-center no-print" title="Protocolo Anterior">
-                    <img src="{{ asset('images/Voltar.png') }}" alt="Voltar" class="w-5 h-5 no-print" />
+                <button type="button" id="btn-protocolo-anterior" class="w-8 h-8 flex items-center justify-center no-print" title="Protocolo Anterior">
+                    <img src="{{ asset('images/Voltar.png') }}" alt="Setaesquerda" class="w-5 h-5 no-print" />
                 </button>
-                <button class="w-8 h-8 flex items-center justify-center no-print" title="Protocolo Seguinte">
+                <button type="button" id="btn-protocolo-seguinte" class="w-8 h-8 flex items-center justify-center no-print" title="Protocolo Seguinte">
                     <img src="{{ asset('images/Setadireita.png') }}" alt="Setadireita" class="w-5 h-5 no-print" />
                 </button>
-                <button type="button" onclick="redirecionarParaAutenticacao()" class="w-8 h-8 flex items-center justify-center no-print" title="Autenticar Protocolo">
+                </button>
+                <button type="button" onclick="redirecionarParaAutenticacao()" class="w-8 h-8 flex items-center justify-center no-print acao-protocolo" title="Autenticar Protocolo">
                     <img src="{{ asset('images/Dinheiro.png') }}" alt="Dinheiro" class="w-5 h-5" />
                 </button>
-                <button type="button" id="btn-andamento" class="w-8 h-8 flex items-center justify-center no-print" title="Andamento">
-                    <img src="{{ asset('images/Andamento.png') }}" alt="Andamento" class="w-5 h-5" />
+                <button type="button" id="btn-retirar-protocolo" class="w-8 h-8 flex items-center justify-center no-print acao-protocolo" title="Retirar Protocolo">
+                    <img src="{{ asset('images/Retirar.png') }}" alt="Retirar" class="w-5 h-5 no-print" />
+                </button>
+                <button type="button" id="btn-cancelar-protocolo" class="w-8 h-8 flex items-center justify-center no-print acao-protocolo" title="Cancelar Protocolo">
+                    <img src="{{ asset('images/Cancelar.png') }}" alt="Cancelar" class="w-5 h-5" />
                 </button>
                 <button type="button" class="w-8 h-8 flex items-center justify-center no-print" onclick="window.print()" title="Imprimir Protocolo">
                     <img src="{{ asset('images/Imprimir.png') }}" alt="Imprimir" class="w-5 h-5" />
@@ -261,6 +264,11 @@
         </div>
     </div>
 </div>
+
+<div id="mensagem-cancelado" style="display:none;" class="ml-14 w-[92%] bg-red-200 text-red-800 px-4 py-2 rounded mb-4 font-bold">
+    Este protocolo está cancelado. Nenhuma ação pode ser realizada.
+</div>
+<input type ="hidden" id="protocolo_id" value="{{ $protocolo->id?? '' }}">
     </div>
 </x-app-layout>
 
@@ -353,7 +361,49 @@
         }
     };
 
-    // Event Listeners
+        // Funções para exibir/ocultar mensagem de cancelamento e bloquear/desbloquear ações
+    function exibirMensagemCancelado() {
+        document.getElementById('mensagem-cancelado').style.display = 'block';
+    }
+    function removerMensagemCancelado() {
+        document.getElementById('mensagem-cancelado').style.display = 'none';
+    }
+    function bloquearAcoesProtocolo() {
+        // Desabilite botões conforme necessário
+        document.querySelectorAll('.acao-protocolo').forEach(btn => {
+            btn.disabled = true;
+            btn.classList.add('opacity-50', 'cursor-not-allowed');
+        });
+    }
+    function desbloquearAcoesProtocolo() {
+        document.querySelectorAll('.acao-protocolo').forEach(btn => {
+            btn.disabled = false;
+            btn.classList.remove('opacity-50', 'cursor-not-allowed');
+        });
+    }
+
+    function atualizarBotaoCancelar() {
+        const dataRegistro = document.getElementById('data_registro')?.value;
+        const dataRetirada = document.getElementById('data_retirada')?.value;
+        const dataCancelamento = document.getElementById('data_cancelamento')?.value;
+        const btnCancelar = document.getElementById('btn-cancelar-protocolo');
+        if (btnCancelar) {
+            if (dataRegistro || dataRetirada || dataCancelamento ) {
+                btnCancelar.disabled = true;
+                btnCancelar.title = "Não é possível cancelar após registro ou retirada.";
+                btnCancelar.classList.add('opacity-50', 'cursor-not-allowed');
+            } else {
+                btnCancelar.disabled = false;
+                btnCancelar.title = "Cancelar Protocolo";
+                btnCancelar.classList.remove('opacity-50', 'cursor-not-allowed');
+            }
+        }
+    }
+
+    // Chama ao carregar a página
+    atualizarBotaoCancelar();
+
+// Event Listeners
     document.getElementById('btn-pesquisar-protocolo').addEventListener('click', () => {
     const numero = document.getElementById('numero_protocolo').value;
     if (!numero) return alert('Digite o número do protocolo!');
@@ -365,6 +415,7 @@
                 alert(data.erro);
                 return;
             }
+            setValueById('protocolo_id', data.id);
             setValueById('data_abertura', data.data_abertura);
             setValueById('previsao', calcularPrevisao(data.data_abertura));
             setValueById('numero_protocolo', data.numero_protocolo);
@@ -377,6 +428,16 @@
             setSelectById('id_grupo', data.id_grupo);
             setSelectById('id_natureza', data.id_natureza);
             setSelectById('id_especie', data.id_especie);
+            atualizarBotaoCancelar();
+
+            // Exibir mensagem se cancelado
+            if (data.data_cancelamento) {
+                exibirMensagemCancelado();
+                bloquearAcoesProtocolo();
+            } else {
+                removerMensagemCancelado();
+                desbloquearAcoesProtocolo();
+            }
 
             // Aqui preenche o campo depósito:
             let deposito = Number(data.deposito);
@@ -427,11 +488,20 @@
         });
 });
 
-
     document.getElementById('btn-retirar-protocolo').addEventListener('click', () => {
         const numeroProtocolo = document.getElementById('numero_protocolo').value;
+        const dataRegistro = document.getElementById('data_registro')?.value;
+        const dataCancelamento = document.getElementById('data_cancelamento')?.value;
         if (!numeroProtocolo) {
             alert('Número do protocolo não encontrado!');
+            return;
+        }
+        if (dataCancelamento) {
+            alert('Protocolo cancelado!');
+            return;
+        }
+        if (!dataRegistro) {
+            alert('Registro do protocolo não encontrado!');
             return;
         }
         fetch(`/protocolos/${numeroProtocolo}/atualizar-data-retirada`, {
@@ -446,9 +516,42 @@
             } else if (data.erro) {
                 alert(data.erro);
             }
+            setTimeout(atualizarBotaoCancelar, 500);
         })
         .catch(error => {
             alert('Erro ao atualizar data de retirada.');
+            console.error(error);
+        });
+    });
+
+    document.getElementById('btn-cancelar-protocolo').addEventListener('click', () => {
+        const dataRegistro = document.getElementById('data_registro')?.value;
+        const dataRetirada = document.getElementById('data_retirada')?.value;
+        const numeroProtocolo = document.getElementById('numero_protocolo').value;
+        if (!numeroProtocolo) {
+            alert('Número do protocolo não encontrado!');
+            return;
+        }
+        if(dataRegistro || dataRetirada) {
+            alert('Não é possível cancelar após registro ou retirada.');
+            return;
+        }
+        fetch(`/protocolos/${numeroProtocolo}/atualizar-data-cancelamento`, {
+            method: 'POST',
+            headers: { 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content, 'Accept': 'application/json' }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.mensagem) {
+                alert(data.mensagem);
+                document.getElementById('data_cancelamento').value = new Date().toISOString().slice(0, 10);
+                atualizarBotaoCancelar();
+            } else if (data.erro) {
+                alert(data.erro);
+            }
+        })
+        .catch(error => {
+            alert('Erro ao atualizar data de cancelamento.');
             console.error(error);
         });
     });
@@ -478,6 +581,24 @@
                 headers: { 'Content-Type': 'application/json', 'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value },
                 body: JSON.stringify({ mensagem: e.message, stack: e.stack, contexto: 'btn-andamento' })
             });
+        }
+    });
+
+    document.getElementById('btn-protocolo-anterior').addEventListener('click', function() {
+        const idAtual = document.getElementById('protocolo_id')?.value;
+        if (idAtual) {
+            window.location.href = `/protocolos/anterior/${idAtual}`;
+        } else {
+            alert('ID do protocolo não encontrado!');
+        }
+    });
+
+    document.getElementById('btn-protocolo-seguinte').addEventListener('click', function() {
+        const idAtual = document.getElementById('protocolo_id')?.value;
+        if (idAtual) {
+            window.location.href = `/protocolos/seguinte/${idAtual}`;
+        } else {
+            alert('ID do protocolo não encontrado!');
         }
     });
 </script>

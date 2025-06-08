@@ -57,9 +57,11 @@ Route::middleware(['auth'])->group(function () {
     // Contato
     Route::get('/contato', fn() => view('contato.index'))->name('contato.index');
 
-    Route::get('/protocolos/buscar/{numero}', [ProtocoloController::class, 'buscarPorNumero'])->name('protocolos.buscar');
+    Route::get('/protocolos/buscar/{numero_protocolo}', [ProtocoloController::class, 'buscarPorNumero'])->name('protocolos.buscar');
     Route::post('/protocolos/{numero_protocolo}/atualizar-data-retirada', [ProtocoloController::class, 'atualizarDataRetirada'])->name('protocolos.atualizarDataRetirada');
-
+    Route::post('/protocolos/{numero_protocolo}/atualizar-data-cancelamento', [ProtocoloController::class, 'atualizarDataCancelamento'])->name('protocolos.atualizarDataCancelamento');
+    Route::get('/protocolos/anterior/{id}', [ProtocoloController::class, 'protocoloAnterior'])->name('protocolos.anterior');
+    Route::get('/protocolos/seguinte/{id}', [ProtocoloController::class, 'protocoloSeguinte'])->name('protocolos.seguinte');
     Route::get('/protocolo/buscar-indices', [ProtocoloController::class, 'buscarParaIndices']);
     Route::get('/protocolos/ultimo', [ProtocoloController::class, 'viewUltimoProtocolo'])->name('protocolos.ultimo');
 
