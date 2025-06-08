@@ -198,56 +198,44 @@ class ProtocoloController extends Controller
         ]);
     }
 
-
     public function buscarIndices(Request $request)
     {
-        $query = Protocolo::query()->with(['grupo', 'natureza', 'especie']);
+        $query = Protocolo::query()->with(['grupo', 'natureza']);
 
         if ($request->filled('grupo')) {
-            $query->whereHas('grupo', function ($q) use ($request) {
-                $q->where('sigla', $request->grupo);
-            });
+            $query->where('id_grupo', $request->grupo);
         }
-
-        if ($request->filled('natureza')) {
-            $query->where('id_natureza', $request->natureza);
+        if ($request->filled('id_natureza')) {
+            $query->where('id_natureza', $request->id_natureza);
         }
-
         if ($request->filled('especie')) {
-            $query->whereHas('especie', function ($q) use ($request) {
-                $q->where('nome', 'like', '%' . $request->especie . '%');
-            });
+            $query->where('id_especie', $request->especie);
         }
-
         if ($request->filled('numero_registro')) {
             $query->where('numero_registro', $request->numero_registro);
         }
-
-        if ($request->filled('documento') && $request->filled('numero_documento')) {
+        if ($request->filled('numero_documento')) {
             $query->whereHas('apresentante', function ($q) use ($request) {
-                $q->where('id_documento', $request->documento)
-                    ->where('numero_documento', $request->numero_documento);
+                $q->where('numero_documento', $request->numero_documento);
+                if ($request->filled('documento')) {
+                    $q->where('id_documento', $request->documento);
+                }
             });
         }
-
         if ($request->filled('nome')) {
             $query->whereHas('apresentante', function ($q) use ($request) {
-                $q->where('nome', 'like', '%' . $request->nome . '%');
+                $q->whereRaw('LOWER(nome) LIKE ?', ['%' . strtolower($request->nome) . '%']);
             });
         }
 
-        $protocolo = $query->first();
-
-        if (!$protocolo) {
-            return response()->json(['erro' => 'Nenhum protocolo encontrado.'], 404);
-        }
-
-        return response()->json([
+        $protocolosPaginados = $query->latest()->paginate(10)->through(fn ($protocolo) => [
             'numero_protocolo' => $protocolo->numero_protocolo,
-            'grupo' => $protocolo->grupo->sigla ?? '',
-            'natureza' => $protocolo->natureza->nome ?? '',
-            'data_documento' => $protocolo->data_documento,
+            'grupo'            => optional($protocolo->grupo)->tipo ?? 'N/A',
+            'natureza'         => optional($protocolo->natureza)->tipo ?? 'N/A',
+            'created_at'       => $protocolo->created_at,
         ]);
+
+        return response()->json($protocolosPaginados);
     }
 
     public function viewUltimoProtocolo()
@@ -274,5 +262,18 @@ class ProtocoloController extends Controller
             return redirect()->route('protocolos.view', ['numero_protocolo' => $protocolo->numero_protocolo]);
         }
         return redirect()->back()->with('error', 'Não existe protocolo seguinte.');
+    }
+
+    public function indices()
+    {
+        $grupos = \App\Models\Grupo::all();
+        $naturezas = \App\Models\Natureza::all();
+        $especies = \App\Models\Especie::all();
+
+        return view('indices.index', [
+            'grupos' => $grupos,
+            'naturezas' => $naturezas,
+            'especies' => $especies,
+        ]);
     }
 }
