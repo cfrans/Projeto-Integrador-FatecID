@@ -450,15 +450,6 @@ $dataCancelamento = Carbon::now()->addDays(30)->format('d/m/Y');
                 // Mostrar os dados que estão sendo enviados
                 console.log('Dados do formulário:', [...formData.entries()]);
 
-                // DEBUG ////////////////////////////////////
-                let debugSaida = '';
-                for (const [chave, valor] of formData.entries()) {
-                    debugSaida += `${chave}: ${valor}\n`;
-                }
-                alert('Dados que serão enviados:\n' + debugSaida);
-                // DEBUG ////////////////////////////////////
-
-
                 try {
                     const response = await fetch('/protocolos', {
                         method: 'POST',
