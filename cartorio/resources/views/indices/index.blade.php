@@ -19,41 +19,36 @@
                     </x-input-label>
 
                     <div class="bg-white rounded-md">
-                        <form action="#" method="GET">
+                        <form action="#" method="GET" id="form-pesquisa-protocolo">
                             <div class="flex flex-wrap gap-4 p-4">
+
                                 <div class="campo-formulario flex flex-col w-[200px]">
                                     <x-input-label for="grupo">Grupo</x-input-label>
                                     <x-input-select id="grupo" name="grupo" class="w-full h-8 text-sm">
-                                        <option value="TD">Títulos e Documentos</option>
-                                        <option value="PJ">Pessoa Jurídica</option>
+                                        <option value="">Todos os Grupos</option>
+                                        @foreach ($grupos as $grupo)
+                                        <option value="{{ $grupo->id }}">{{ $grupo->tipo }}</option>
+                                        @endforeach
                                     </x-input-select>
                                 </div>
 
                                 <div class="campo-formulario flex flex-col w-[600px]">
-                                    <x-input-label for="natureza">Natureza</x-input-label>
+                                    <x-input-label for="id_natureza">Natureza</x-input-label>
                                     <x-input-select id="id_natureza" name="id_natureza" class="w-full h-8 text-sm">
-
-                                        {{-- Naturezas do Grupo 1 --}}
-                                        <option value="1" data-grupo="1">Ata de Condomínio</option>
-                                        <option value="2" data-grupo="1">Cedula de Crédito</option>
-                                        <option value="3" data-grupo="1">Conservação</option>
-                                        <option value="4" data-grupo="1">Notificação</option>
-                                        <option value="5" data-grupo="1">Tradução</option>
-
-                                        {{-- Naturezas do Grupo 2 --}}
-                                        <option value="4" data-grupo="2">Ata de Assembleia</option>
-                                        <option value="5" data-grupo="2">Abertura de Filial</option>
-                                        <option value="6" data-grupo="2">Contrato Social</option>
-                                        <option value="7" data-grupo="2">Distrato</option>
-                                        <option value="8" data-grupo="2">Estatuto</option>
+                                        <option value="">Todas as Naturezas</option>
+                                        @foreach ($naturezas as $natureza)
+                                        <option value="{{ $natureza->id }}" data-grupo="{{ $natureza->id_grupo }}">{{ $natureza->tipo }}</option>
+                                        @endforeach
                                     </x-input-select>
                                 </div>
 
                                 <div class="campo-formulario flex flex-col w-[200px]">
                                     <x-input-label for="especie">Espécie</x-input-label>
                                     <x-input-select id="especie" name="especie" class="w-full h-8 text-sm">
-                                        <option value="registro">Registro</option>
-                                        <option value="averbacao">Averbação</option>
+                                        <option value="">Todas as Espécies</option>
+                                        @foreach ($especies as $especie)
+                                        <option value="{{ $especie->id }}">{{ $especie->tipo }}</option>
+                                        @endforeach
                                     </x-input-select>
                                 </div>
 
@@ -65,6 +60,7 @@
                                 <div class="campo-formulario flex flex-col w-[200px]">
                                     <x-input-label for="documento">Documento</x-input-label>
                                     <x-input-select id="documento" name="documento" class="w-full h-8 text-sm">
+                                        <option value="">Todos os Documentos</option>
                                         <option value="1">RG</option>
                                         <option value="2">CPF</option>
                                         <option value="3">CNH</option>
@@ -77,101 +73,61 @@
                                     <x-text-input id="numero_documento" name="numero_documento" class="w-full h-8 text-sm" />
                                 </div>
 
-                                <div class="campo-formulario flex flex-col w-[675px]">
+                                <div class="campo-formulario flex flex-col w-[590px]">
                                     <x-input-label for="nome">Nome</x-input-label>
                                     <x-text-input id="nome" name="nome" class="w-full h-8 text-sm" />
                                 </div>
-                                
-                                <div class="w-auto h-8 bg-[#9f9f9f] hover:bg-[#8f8f8f] rounded-full flex items-center justify-center mt-[21px] ml-2 px-3">
-                                    <button type="button" id="btn-pesquisar-protocolo" class="flex items-center gap-1 text-[#545454] font-semibold text-sm" title="Pesquisar Protocolo">
-                                        <img src="{{ asset('images/Pesquisar.png') }}" alt="Pesquisar" class="w-4 h-4" />
-                                        Pesquisar
-                                    </button>
+
+                                <div class="flex items-center mt-[21px] ml-2 gap-2">
+                                    <div class="w-auto h-8 bg-[#9f9f9f] hover:bg-[#8f8f8f] rounded-full flex items-center justify-center px-3">
+                                        <button type="button" id="btn-pesquisar-protocolo" class="flex items-center gap-1 text-[#545454] font-semibold text-sm" title="Pesquisar Protocolo">
+                                            <img src="{{ asset('images/Pesquisar.png') }}" alt="Pesquisar" class="w-4 h-4" />
+                                            Pesquisar
+                                        </button>
+                                    </div>
+                                    <div class="w-auto h-8 bg-[#9f9f9f] hover:bg-[#8f8f8f] rounded-full flex items-center justify-center px-3">
+                                        <button type="button" id="btn-limpar-resultados" class="flex items-center gap-1 text-[#545454] font-semibold text-sm" title="Limpar Filtros e Resultados">
+                                            <img src="{{ asset('images/Limpar.png') }}" alt="Limpar" class="w-4 h-4" />
+                                            Limpar
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </form>
                     </div>
                 </div>
 
-                <!-- <div class="p-6 mt-0 rounded-md">
-                <x-input-label for="protocolos_encontrados" class="ml-0 mb-0 block text-lg font-semibold">
-                    Protocolo(s) Encontrado(s)
-                </x-input-label>
-
-                <div class="overflow-x-auto bg-white p-4 rounded-md">
-                    <table class="w-full rounded-md">
-                        <thead>
-                            <tr class="border-b">
-                                <th class="px-4 py-2 text-center whitespace-normal break-words">Protocolo</th>
-                                <th class="px-4 py-2 text-center whitespace-normal break-words">Grupo</th>
-                                <th class="px-4 py-2 text-center whitespace-normal break-words">Natureza</th>
-                                <th class="px-4 py-2 text-center whitespace-normal break-words">Data do Protocolo</th>
-                                <th class="px-4 py-2 text-center whitespace-normal break-words">Ação</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr class="border-b">
-                                <td class="px-4 py-2 text-center break-words">1</td>
-                                <td class="px-4 py-2 text-center break-words">TD</td>
-                                <td class="px-4 py-2 text-center break-words">Registro</td>
-                                <td class="px-4 py-2 text-center break-words">2025-05-21</td>
-                                <td class="px-4 py-2 text-center break-words">
-                                    <a href="#">camila</a>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div> -->
-
-                <x-input-label for="protocolos_encontrados" class="ml-6 mb-0 block text-lg font-semibold">
-                    Protocolo(s) Encontrado(s)
-                </x-input-label>
-
                 <!-- Essa div ficará oculta por padrão -->
-                <div id="protocolosEncontrados" class="flex justify-start w-[96.5%] h-[80px] mx-auto bg-white rounded-md andamento-bloco hidden">
-                    <div class="campo-formulario flex items-center ml-6">
-                        <div class="text-left">
-                            <x-input-label for="resultado_protocolo">
-                                Protocolo
-                            </x-input-label>
-                            <x-text-input id="resultado_protocolo" type="text" name="protocolo" class="w-[150px] h-8 text-sm" readonly />
+                <div class="p-6 mt-0 rounded-md" id="area-resultados" style="display: none;">
+                    <x-input-label class="ml-0 mb-0 block text-lg font-semibold">
+                        Protocolo(s) Encontrado(s)
+                    </x-input-label>
+
+                    <div class="overflow-x-auto bg-white p-4 rounded-md mt-2">
+                        <table class="w-full rounded-md">
+                            <thead>
+                                <tr class="border-b">
+                                    <th class="px-4 py-2 text-center">Protocolo</th>
+                                    <th class="px-4 py-2 text-center">Grupo</th>
+                                    <th class="px-4 py-2 text-center">Natureza</th>
+                                    <th class="px-4 py-2 text-center">Data</th>
+                                    <th class="px-4 py-2 text-center">Visualizar</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tabela-resultados">
+                            </tbody>
+                        </table>
+
+                        </div> <div id="navegacao-resultados" class="flex items-center justify-between mt-4" style="display: none;">
+                            <div id="info-resultados" class="text-sm text-gray-700"></div>
+                            <div id="paginacao-resultados" class="flex items-center gap-1"></div>
                         </div>
+
                     </div>
 
-                    <div class="campo-formulario flex items-center ml-6">
-                        <div class="text-left">
-                            <x-input-label for="resultado_grupo">
-                                Grupo
-                            </x-input-label>
-                            <x-text-input id="resultado_grupo" type="text" name="grupo" class="w-[230px] h-8 text-sm" readonly />
-                        </div>
-                    </div>
-
-                    <div class="campo-formulario flex items-center ml-6">
-                        <div class="text-left">
-                            <x-input-label for="resultado_natureza">
-                                Natureza
-                            </x-input-label>
-                            <x-text-input id="resultado_natureza" type="text" name="natureza" class="w-[300px] h-8 text-sm" readonly />
-                        </div>
-                    </div>
-
-                    <div class="campo-formulario flex items-center ml-6">
-                        <div class="text-left">
-                            <x-input-label for="resultado_data">
-                                Data
-                            </x-input-label>
-                            <x-text-input id="resultado_data" type="text" name="data" class="w-[130px] h-8 text-sm" readonly />
-                        </div>
-                    </div>
-
-                    <div class="w-8 h-8 bg-[#9f9f9f] rounded-full flex items-center justify-center ml-auto mr-10 self-center">
-                        <button type="button" id="vizualizar" class="w-full h-full flex items-center justify-center rounded-full hover:bg-[#8f8f8f]" title="Visualizar Protocolo">
-                            <img src="{{ asset('images/Vizualizar.png') }}" alt="Vizualizar" class="w-4 h-4" />
-                        </button>
                     </div>
                 </div>
+
 
 
 
@@ -183,81 +139,142 @@
 </x-app-layout>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const grupoSelect = document.getElementById('grupo');
-        const naturezaSelect = document.getElementById('id_natureza');
-        const todasOpcoes = Array.from(naturezaSelect.options);
+document.addEventListener('DOMContentLoaded', function() {
+    // --- Variáveis Globais ---
+    const form = document.getElementById('form-pesquisa-protocolo'); 
+    const grupoSelect = document.getElementById('grupo');
+    const naturezaSelect = document.getElementById('id_natureza');
+    const todasOpcoesNatureza = Array.from(naturezaSelect.options);
+    const btnPesquisar = document.getElementById('btn-pesquisar-protocolo');
+    const tabelaResultados = document.getElementById('tabela-resultados');
+    const areaResultados = document.getElementById('area-resultados');
+    const btnLimpar = document.getElementById('btn-limpar-resultados');
+    const visualizarIconUrl = "{{ asset('images/Vizualizar.png') }}";
+    const infoResultadosEl = document.getElementById('info-resultados');
+    const paginacaoResultadosEl = document.getElementById('paginacao-resultados');
+    const navegacaoResultadosEl = document.getElementById('navegacao-resultados');
 
-        // Função para atualizar as naturezas com base no grupo selecionado
-        function filtrarNaturezasPorGrupo(grupoSelecionado) {
-            // Limpa as opções visíveis
-            naturezaSelect.innerHTML = '';
-
-            // Converte o valor do grupo (TD ou PJ) para o número correspondente (1 ou 2)
-            const grupoId = grupoSelecionado === 'TD' ? '1' : '2';
-
-            // Filtra e adiciona as opções compatíveis
-            todasOpcoes.forEach(opcao => {
-                if (opcao.dataset.grupo === grupoId) {
-                    naturezaSelect.appendChild(opcao);
-                }
-            });
-        }
-
-        // Evento: quando o grupo for alterado
-        grupoSelect.addEventListener('change', function() {
-            filtrarNaturezasPorGrupo(grupoSelect.value);
+    // --- Lógica de Filtro Dinâmico de Natureza ---
+    function filtrarNaturezasPorGrupo(grupoIdSelecionado) {
+        naturezaSelect.innerHTML = '';
+        const opcaoTodas = todasOpcoesNatureza.find(opt => opt.value === '');
+        if (opcaoTodas) naturezaSelect.appendChild(opcaoTodas.cloneNode(true));
+        todasOpcoesNatureza.forEach(opcao => {
+            if (opcao.value === "") return;
+            if (!grupoIdSelecionado || opcao.dataset.grupo == grupoIdSelecionado) {
+                naturezaSelect.appendChild(opcao.cloneNode(true));
+            }
         });
+    }
 
-        // Inicializa na carga da página
+    grupoSelect.addEventListener('change', function() { filtrarNaturezasPorGrupo(this.value); });
+    filtrarNaturezasPorGrupo(grupoSelect.value);
+
+    // --- FUNÇÃO PRINCIPAL DE BUSCA ---
+    function executarBusca(page = 1) {
+        const formData = new FormData(form);
+        const params = new URLSearchParams(formData);
+        params.append('page', page); 
+
+        tabelaResultados.innerHTML = '<tr><td colspan="5" class="text-center py-4">Buscando...</td></tr>';
+        areaResultados.style.display = 'block';
+        navegacaoResultadosEl.style.display = 'none';
+
+        fetch(`/protocolo/buscar-indices?${params.toString()}`)
+            .then(response => {
+                if (!response.ok) {
+                    return response.json().then(err => { throw new Error(err.erro || 'Nenhum protocolo encontrado.'); });
+                }
+                return response.json();
+            })
+            .then(paginatedData => {
+                tabelaResultados.innerHTML = '';
+                const protocolos = paginatedData.data;
+
+                if (protocolos.length === 0) {
+                    tabelaResultados.innerHTML = '<tr><td colspan="5" class="text-center py-4">Nenhum protocolo corresponde aos critérios.</td></tr>';
+                    infoResultadosEl.innerHTML = '';
+                    paginacaoResultadosEl.innerHTML = '';
+                    return;
+                }
+
+                protocolos.forEach(protocolo => {
+                    const row = document.createElement('tr');
+                    row.classList.add('border-b');
+                    // Usando a chave 'created_at' que o controller agora envia
+                    const dataFormatada = new Date(protocolo.created_at).toLocaleDateString('pt-BR', { timeZone: 'UTC' });
+                    
+                    // AJUSTE FINAL AQUI: Usando as chaves diretas (protocolo.grupo)
+                    row.innerHTML = `
+                        <td class="px-4 py-2 text-center">
+                            <a href="/protocolos/view/${protocolo.numero_protocolo}" class="text-[#C27C5D] hover:text-[#A86A4F] font-bold" title="Abrir protocolo ${protocolo.numero_protocolo}">${protocolo.numero_protocolo}</a>
+                        </td>
+                        <td class="px-4 py-2 text-center">${protocolo.grupo}</td>
+                        <td class="px-4 py-2 text-center">${protocolo.natureza}</td>
+                        <td class="px-4 py-2 text-center">${dataFormatada}</td>
+                        <td class="px-4 py-2 text-center">
+                            <a href="/protocolos/view/${protocolo.numero_protocolo}" class="inline-block" title="Visualizar protocolo ${protocolo.numero_protocolo}"><img src="${visualizarIconUrl}" alt="Visualizar" class="w-5 h-5" /></a>
+                        </td>
+                    `;
+                    tabelaResultados.appendChild(row);
+                });
+
+                infoResultadosEl.innerText = `Mostrando de ${paginatedData.from} a ${paginatedData.to} de ${paginatedData.total} resultados.`;
+                renderizarPaginacao(paginatedData.links);
+                navegacaoResultadosEl.style.display = 'flex';
+            })
+            .catch(error => {
+                tabelaResultados.innerHTML = `<tr><td colspan="5" class="text-center py-4 text-red-500">${error.message}</td></tr>`;
+                infoResultadosEl.innerHTML = '';
+                paginacaoResultadosEl.innerHTML = '';
+            });
+    }
+
+    // --- FUNÇÃO PARA CRIAR OS BOTÕES DE PAGINAÇÃO ---
+    function renderizarPaginacao(links) {
+        paginacaoResultadosEl.innerHTML = '';
+        links.forEach(link => {
+            // Pequeno ajuste para ignorar os botões de "Anterior" e "Próxima" se não tiverem URL
+            if (!link.url) {
+                const button = document.createElement('button');
+                button.innerHTML = link.label.replace('&laquo;', '«').replace('&raquo;', '»');
+                button.className = 'px-3 py-1 text-sm rounded-md border text-gray-400 cursor-not-allowed';
+                button.disabled = true;
+                paginacaoResultadosEl.appendChild(button);
+                return;
+            }
+
+            const pageNumber = new URL(link.url).searchParams.get('page');
+            const button = document.createElement('button');
+            button.innerHTML = link.label.replace('&laquo;', '«').replace('&raquo;', '»');
+            button.className = 'px-3 py-1 text-sm rounded-md border';
+
+            if (link.active) {
+                button.className += ' bg-[#C27C5D] text-white border-[#C27C5D]';
+                button.disabled = true;
+            } else {
+                button.className += ' bg-white text-gray-700 hover:bg-gray-50';
+                button.onclick = () => executarBusca(pageNumber);
+            }
+            paginacaoResultadosEl.appendChild(button);
+        });
+    }
+
+    // --- Event Listeners para os Botões Principais ---
+    btnPesquisar.addEventListener('click', function(e) {
+        e.preventDefault();
+        executarBusca(1);
+    });
+
+    btnLimpar.addEventListener('click', function() {
+        form.reset();
+        areaResultados.style.display = 'none';
+        navegacaoResultadosEl.style.display = 'none';
+        tabelaResultados.innerHTML = '';
+        infoResultadosEl.innerHTML = '';
+        paginacaoResultadosEl.innerHTML = '';
         filtrarNaturezasPorGrupo(grupoSelect.value);
     });
-</script>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const btnPesquisar = document.getElementById('btn-pesquisar-protocolo');
-
-        btnPesquisar.addEventListener('click', function(e) {
-            e.preventDefault();
-
-            const grupo = document.getElementById('grupo').value;
-            const natureza = document.getElementById('id_natureza').value;
-            const especie = document.getElementById('especie').value;
-            const numeroRegistro = document.getElementById('numero_registro').value;
-            const documento = document.getElementById('documento').value;
-            const numeroDocumento = document.getElementById('numero_documento').value;
-            const nome = document.getElementById('nome').value;
-
-            // Monta a query string com os parâmetros preenchidos
-            const params = new URLSearchParams();
-
-            if (grupo) params.append('grupo', grupo);
-            if (natureza) params.append('natureza', natureza);
-            if (especie) params.append('especie', especie);
-            if (numeroRegistro) params.append('numero_registro', numeroRegistro);
-            if (documento) params.append('documento', documento);
-            if (numeroDocumento) params.append('numero_documento', numeroDocumento);
-            if (nome) params.append('nome', nome);
-
-            fetch(`/protocolo/buscar-indices?${params.toString()}`)
-                .then(response => {
-                    if (!response.ok) throw new Error('Nenhum protocolo encontrado.');
-                    return response.json();
-                })
-                .then(data => {
-                    // Preencha os campos da UI com os dados
-                    document.getElementById('resultado_protocolo').value = data.numero_protocolo ?? '';
-                    document.getElementById('resultado_grupo').value = data.grupo ?? '';
-                    document.getElementById('resultado_natureza').value = data.natureza ?? '';
-                    document.getElementById('resultado_data').value = data.data_documento ?? '';
-
-                    document.getElementById('protocolosEncontrados').classList.remove('hidden');
-                })
-                .catch(error => {
-                    alert(error.message);
-                    document.getElementById('protocolosEncontrados').classList.add('hidden');
-                });
-        });
-    });
+});
 </script>

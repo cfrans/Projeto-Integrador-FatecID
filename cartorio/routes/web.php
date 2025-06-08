@@ -40,7 +40,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/protocolos/view/{numero_protocolo?}', [ProtocoloController::class, 'showView'])->name('protocolos.view');
 
     // Índices
-    Route::get('/indices', fn() => view('indices.index'))->name('indices.index');
+    Route::get('/indices', [ProtocoloController::class, 'indices'])->name('indices.index');
 
     // Autenticação de valores
     // Route::get('/autenticacao', fn () => view('autenticacao.index'))->name('autenticacao.index');
@@ -62,7 +62,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/protocolos/{numero_protocolo}/atualizar-data-cancelamento', [ProtocoloController::class, 'atualizarDataCancelamento'])->name('protocolos.atualizarDataCancelamento');
     Route::get('/protocolos/anterior/{id}', [ProtocoloController::class, 'protocoloAnterior'])->name('protocolos.anterior');
     Route::get('/protocolos/seguinte/{id}', [ProtocoloController::class, 'protocoloSeguinte'])->name('protocolos.seguinte');
-    Route::get('/protocolo/buscar-indices', [ProtocoloController::class, 'buscarParaIndices']);
+    Route::get('/protocolo/buscar-indices', [ProtocoloController::class, 'buscarIndices'])->name('protocolos.buscarIndices');
     Route::get('/protocolos/ultimo', [ProtocoloController::class, 'viewUltimoProtocolo'])->name('protocolos.ultimo');
 
     Route::get('/andamentos', [AndamentoController::class, 'index'])->name('andamento.index');
@@ -71,8 +71,6 @@ Route::middleware(['auth'])->group(function () {
 });
 
 require __DIR__ . '/auth.php';
-
-// TODO: Criar as rotas para as paginas de admin-only (ediçao de usuarios e afins)
 
 // teste de conexao do banco, depois remover
 use Illuminate\Support\Facades\DB;
