@@ -16,34 +16,34 @@
         <div class="flex items-center gap-4 -mt-2 w-full mr-14">
             <div class="w-70 h-10 bg-[#9f9f9f] rounded-md flex items-center px-2 ml-auto space-x-2">
                
-                <button type="button" class="w-8 h-8 flex items-center justify-center no-print acao-protocolo" title="Editar Protocolo" id="btn-editar-protocolo">
+                <button type="button" class="w-8 h-8 flex items-center justify-center no-print acao-protocolo transition-transform duration-400 ease-in-out hover:scale-125" title="Editar Protocolo" id="btn-editar-protocolo">
                     <img src="{{ asset('images/Editar.png') }}" alt="Editar" class="w-5 h-5 no-print" />
                 </button>
-                <button type="button" id="btn-protocolo-anterior" class="w-8 h-8 flex items-center justify-center no-print" title="Protocolo Anterior">
+                <button type="button" id="btn-protocolo-anterior" class="w-8 h-8 flex items-center justify-center no-print transition-transform duration-400 ease-in-out hover:scale-125" title="Protocolo Anterior">
                     <img src="{{ asset('images/Voltar.png') }}" alt="Setaesquerda" class="w-5 h-5 no-print" />
                 </button>
-                <button type="button" id="btn-protocolo-seguinte" class="w-8 h-8 flex items-center justify-center no-print" title="Protocolo Seguinte">
+                <button type="button" id="btn-protocolo-seguinte" class="w-8 h-8 flex items-center justify-center no-print transition-transform duration-400 ease-in-out hover:scale-125" title="Protocolo Seguinte">
                     <img src="{{ asset('images/Setadireita.png') }}" alt="Setadireita" class="w-5 h-5 no-print" />
                 </button>
                 </button>
-                <button type="button" onclick="redirecionarParaAutenticacao()" class="w-8 h-8 flex items-center justify-center no-print acao-protocolo" title="Autenticar Protocolo">
+                <button type="button" onclick="redirecionarParaAutenticacao()" class="w-8 h-8 flex items-center justify-center no-print acao-protocolo transition-transform duration-400 ease-in-out hover:scale-125" title="Autenticar Protocolo">
                     <img src="{{ asset('images/Dinheiro.png') }}" alt="Dinheiro" class="w-5 h-5" />
                 </button>
-                <button type="button" id="btn-andamento" class="w-8 h-8 flex items-center justify-center no-print" title="Andamento">
+                <button type="button" id="btn-andamento" class="w-8 h-8 flex items-center justify-center no-print transition-transform duration-400 ease-in-out hover:scale-125" title="Andamento">
                     <img src="{{ asset('images/Andamento.png') }}" alt="Andamento" class="w-5 h-5" />
                 </button>
-                <button type="button" id="btn-retirar-protocolo" class="w-8 h-8 flex items-center justify-center no-print acao-protocolo" title="Retirar Protocolo">
+                <button type="button" id="btn-retirar-protocolo" class="w-8 h-8 flex items-center justify-center no-print acao-protocolo transition-transform duration-400 ease-in-out hover:scale-125" title="Retirar Protocolo">
                     <img src="{{ asset('images/Retirar.png') }}" alt="Retirar" class="w-5 h-5 no-print" />
                 </button>
-                <button type="button" id="btn-cancelar-protocolo" class="w-8 h-8 flex items-center justify-center no-print acao-protocolo" title="Cancelar Protocolo">
+                <button type="button" id="btn-cancelar-protocolo" class="w-8 h-8 flex items-center justify-center no-print acao-protocolo transition-transform duration-400 ease-in-out hover:scale-125" title="Cancelar Protocolo">
                     <img src="{{ asset('images/Cancelar.png') }}" alt="Cancelar" class="w-5 h-5" />
                 </button>
-                <button type="button" class="w-8 h-8 flex items-center justify-center no-print" onclick="window.print()" title="Imprimir Protocolo">
+                <button type="button" class="w-8 h-8 flex items-center justify-center no-print transition-transform duration-400 ease-in-out hover:scale-125" onclick="window.print()" title="Imprimir Protocolo">
                     <img src="{{ asset('images/Imprimir.png') }}" alt="Imprimir" class="w-5 h-5" />
                 </button>
             </div>
             <div class="w-9 h-9 bg-[#9f9f9f] rounded-full flex items-center justify-around px-2 ml-90 mr-20 hover:bg-[#8a8a8a]">
-                <button id="botao-voltar" type="button" class="w-10 h-10 flex items-center justify-center" title="Voltar Protocolo">
+                <button id="botao-voltar" type="button" class="w-10 h-10 flex items-center justify-center transition-transform duration-400 ease-in-out hover:scale-125" title="Voltar Protocolo">
                     <img src="{{ asset('images/Voltar.png') }}" alt="Voltar" class="w-4 h-4" />
                 </button>
             </div>
