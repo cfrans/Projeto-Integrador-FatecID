@@ -7,7 +7,7 @@
 
     <x-slot name="header" class="no-print">
         <h2 class="no-print font-semibold text-base text-white leading-tight">
-            {{ __('Vizualização') }}
+            {{ __('Visualização') }}
         </h2>
     </x-slot>
 

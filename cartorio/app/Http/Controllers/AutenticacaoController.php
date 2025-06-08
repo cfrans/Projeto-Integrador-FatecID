@@ -22,6 +22,7 @@ class AutenticacaoController extends Controller
             'protocolo' => $protocolo,
             'autenticacao' => $autenticacao,
             'now' => \Carbon\Carbon::now(),
+            'data_retirada' => $protocolo->data_retirada ?? null,
         ]);
     }
 
