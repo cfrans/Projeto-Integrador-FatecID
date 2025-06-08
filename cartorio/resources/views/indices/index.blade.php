@@ -81,7 +81,6 @@
                                     <x-input-label for="nome">Nome</x-input-label>
                                     <x-text-input id="nome" name="nome" class="w-full h-8 text-sm" />
                                 </div>
-                                
                                 <div class="w-auto h-8 bg-[#9f9f9f] hover:bg-[#8f8f8f] rounded-full flex items-center justify-center mt-[21px] ml-2 px-3">
                                     <button type="button" id="btn-pesquisar-protocolo" class="flex items-center gap-1 text-[#545454] font-semibold text-sm" title="Pesquisar Protocolo">
                                         <img src="{{ asset('images/Pesquisar.png') }}" alt="Pesquisar" class="w-4 h-4" />
@@ -214,50 +213,58 @@
     });
 </script>
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        const btnPesquisar = document.getElementById('btn-pesquisar-protocolo');
+    const btnPesquisar = document.getElementById('btn-pesquisar-protocolo');
 
-        btnPesquisar.addEventListener('click', function(e) {
-            e.preventDefault();
+    btnPesquisar.addEventListener('click', function(e) {
+        e.preventDefault();
 
-            const grupo = document.getElementById('grupo').value;
-            const natureza = document.getElementById('id_natureza').value;
-            const especie = document.getElementById('especie').value;
-            const numeroRegistro = document.getElementById('numero_registro').value;
-            const documento = document.getElementById('documento').value;
-            const numeroDocumento = document.getElementById('numero_documento').value;
-            const nome = document.getElementById('nome').value;
+        const grupo = document.getElementById('grupo').value;
+        const natureza = document.getElementById('id_natureza').value;
+        const especie = document.getElementById('especie').value;
+        const numeroRegistro = document.getElementById('numero_registro').value;
+        const documento = document.getElementById('documento').value;
+        const numeroDocumento = document.getElementById('numero_documento').value;
+        const nome = document.getElementById('nome').value;
 
-            // Monta a query string com os parâmetros preenchidos
-            const params = new URLSearchParams();
+        // Monta a query string com os parâmetros preenchidos
+        const params = new URLSearchParams();
 
-            if (grupo) params.append('grupo', grupo);
-            if (natureza) params.append('natureza', natureza);
-            if (especie) params.append('especie', especie);
-            if (numeroRegistro) params.append('numero_registro', numeroRegistro);
-            if (documento) params.append('documento', documento);
-            if (numeroDocumento) params.append('numero_documento', numeroDocumento);
-            if (nome) params.append('nome', nome);
+        if (grupo) params.append('grupo', grupo);
+        if (natureza) params.append('natureza', natureza);
+        if (especie) params.append('especie', especie);
+        if (numeroRegistro) params.append('numero_registro', numeroRegistro);
+        if (documento) params.append('documento', documento);
+        if (numeroDocumento) params.append('numero_documento', numeroDocumento);
+        if (nome) params.append('nome', nome);
 
-            fetch(`/protocolo/buscar-indices?${params.toString()}`)
-                .then(response => {
-                    if (!response.ok) throw new Error('Nenhum protocolo encontrado.');
-                    return response.json();
-                })
-                .then(data => {
-                    // Preencha os campos da UI com os dados
-                    document.getElementById('resultado_protocolo').value = data.numero_protocolo ?? '';
-                    document.getElementById('resultado_grupo').value = data.grupo ?? '';
-                    document.getElementById('resultado_natureza').value = data.natureza ?? '';
-                    document.getElementById('resultado_data').value = data.data_documento ?? '';
+        fetch(`/protocolo/buscar-indices?${params.toString()}`)
+            .then(response => {
+                if (!response.ok) throw new Error('Nenhum protocolo encontrado.');
+                return response.json();
+            })
+            .then(data => {
+                // Preencha os campos da UI com os dados
+                document.getElementById('resultado_protocolo').value = data.numero_protocolo ?? '';
+                document.getElementById('resultado_grupo').value = data.grupo ?? '';
+                document.getElementById('resultado_natureza').value = data.natureza ?? '';
+                document.getElementById('resultado_data').value = data.data_documento ?? '';
 
-                    document.getElementById('protocolosEncontrados').classList.remove('hidden');
-                })
-                .catch(error => {
-                    alert(error.message);
-                    document.getElementById('protocolosEncontrados').classList.add('hidden');
+                document.getElementById('protocolosEncontrados').classList.remove('hidden');
+            })
+            .catch(error => {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Atenção!',
+                    text: error.message || 'Nenhum protocolo encontrado.',
+                    confirmButtonText: 'OK',
+                    confirmButtonColor: '#c27c5d'
                 });
-        });
+                document.getElementById('protocolosEncontrados').classList.add('hidden');
+            });
+    });
     });
 </script>
