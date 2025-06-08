@@ -335,7 +335,13 @@
 
             } catch (error) {
                 console.error('Erro na requisição AJAX ou de conexão:', error);
-                alert('Erro de conexão ou problema no servidor. Tente novamente.');
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Erro!',
+                    text: errorMessage,
+                    confirmButtonText: 'OK',
+                    confirmButtonColor: '#c27c5d'
+                });
             } finally {
                 document.querySelectorAll('[data-moeda]').forEach(function(campo) {
                     if (!campo.readOnly) {

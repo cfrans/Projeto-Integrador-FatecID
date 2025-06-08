@@ -258,8 +258,8 @@ document.addEventListener('DOMContentLoaded', function() {
         paginacaoResultadosEl.innerHTML = '';
         filtrarNaturezasPorGrupo(grupoSelect.value);
     });
-
     // Inicializa o filtro dinâmico ao carregar a página
     filtrarNaturezasPorGrupo(grupoSelect.value);
 });
 </script>
+

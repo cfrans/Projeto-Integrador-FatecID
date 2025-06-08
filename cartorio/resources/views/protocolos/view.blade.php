@@ -293,6 +293,7 @@
 <input type ="hidden" id="apresentante_id" value="{{ $apresentante->id ?? '' }}">
 </div>
 </x-app-layout>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
     document.addEventListener('DOMContentLoaded', () => {
@@ -379,7 +380,13 @@
         if (numero) {
             window.location.href = `/autenticacao/${numero}`;
         } else {
-            alert('Digite ou pesquise um número de protocolo antes de autenticar!');
+            Swal.fire({
+            icon: 'warning',
+            title: 'Atenção!',
+            text: 'Digite ou pesquise um número de protocolo antes de autenticar!',
+            confirmButtonText: 'OK',
+            confirmButtonColor: '#c27c5d'
+        });
         }
     };
 
@@ -428,8 +435,15 @@
 // Event Listeners
     document.getElementById('btn-pesquisar-protocolo').addEventListener('click', () => {
     const numero = document.getElementById('numero_protocolo').value;
-    if (!numero) return alert('Digite o número do protocolo!');
-
+    if (!numero) {
+    Swal.fire({
+        icon: 'warning',
+        title: 'Atenção!',
+        text: 'Digite o número do protocolo!',
+        confirmButtonText: 'OK'
+    });
+    return;
+    }
     fetch(`/protocolos/buscar/${numero}`)
         .then(response => response.json())
         .then(data => {
@@ -501,7 +515,13 @@
 
         })
         .catch(error => {
-            alert('Erro ao buscar protocolo. Veja o log do servidor.');
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Erro!',
+                    text: 'Erro ao buscar protocolo. Veja o log do servidor.',
+                    confirmButtonText: 'OK'
+                });
+
             console.error('Erro ao buscar protocolo:', error);
             fetch('/log-js-error', {
                 method: 'POST',
@@ -516,15 +536,33 @@
         const dataRegistro = document.getElementById('data_registro')?.value;
         const dataCancelamento = document.getElementById('data_cancelamento')?.value;
         if (!numeroProtocolo) {
-            alert('Número do protocolo não encontrado!');
+            Swal.fire({
+            icon: 'warning',
+            title: 'Atenção!',
+            text: 'Número do protocolo não encontrado!',
+            confirmButtonText: 'OK',
+            confirmButtonColor: '#c27c5d'
+            });
             return;
         }
         if (dataCancelamento) {
-            alert('Protocolo cancelado!');
+            Swal.fire({
+            icon: 'warning',
+            title: 'Atenção!',
+            text: 'Protocolo cancelado!',
+            confirmButtonText: 'OK',
+            confirmButtonColor: '#c27c5d'
+            });
             return;
         }
         if (!dataRegistro) {
-            alert('Registro do protocolo não encontrado!');
+            Swal.fire({
+            icon: 'warning',
+            title: 'Atenção!',
+            text: 'Registro do protocolo não encontrado!',
+            confirmButtonText: 'OK',
+            confirmButtonColor: '#c27c5d'
+            });
             return;
         }
         fetch(`/protocolos/${numeroProtocolo}/atualizar-data-retirada`, {
@@ -589,8 +627,13 @@
             if (numero) {
                 window.location.href = '/andamento?numero_protocolo=' + numero;
             } else {
-                alert('Digite ou pesquise um número de protocolo antes de acessar o andamento!');
-                console.error('Erro: número_protocolo não informado para gerar a URL de rota.');
+                Swal.fire({
+        icon: 'warning',
+        title: 'Atenção!',
+        text: 'Digite ou pesquise um número de protocolo antes de acessar o andamento!',
+        confirmButtonText: 'OK'
+    });
+               // console.error('Erro: número_protocolo não informado para gerar a URL de rota.');
                 fetch('/log-js-error', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json', 'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value },
@@ -612,7 +655,12 @@
         if (idAtual) {
             window.location.href = `/protocolos/anterior/${idAtual}`;
         } else {
-            alert('ID do protocolo não encontrado!');
+            Swal.fire({
+            icon: 'warning',
+            title: 'Atenção!',
+            text: 'ID do protocolo não encontrado!',
+            confirmButtonText: 'OK'
+            });
         }
     });
 
@@ -621,7 +669,12 @@
         if (idAtual) {
             window.location.href = `/protocolos/seguinte/${idAtual}`;
         } else {
-            alert('ID do protocolo não encontrado!');
+            Swal.fire({
+            icon: 'warning',
+            title: 'Atenção!',
+            text: 'ID do protocolo não encontrado!',
+            confirmButtonText: 'OK'
+            });
         }
     });
 
