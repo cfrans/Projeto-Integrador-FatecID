@@ -94,11 +94,11 @@
                         <option value="3" data-grupo="1">Conservação</option>
                         <option value="4" data-grupo="1">Notificação</option>
                         <option value="5" data-grupo="1">Tradução</option>
-                        <option value="4" data-grupo="2">Ata de Assembleia</option>
-                        <option value="5" data-grupo="2">Abertura de Filial</option>
-                        <option value="6" data-grupo="2">Contrato Social</option>
-                        <option value="7" data-grupo="2">Distrato</option>
-                        <option value="8" data-grupo="2">Estatuto</option>
+                        <option value="6" data-grupo="2">Ata de Assembleia</option>
+                        <option value="7" data-grupo="2">Abertura de Filial</option>
+                        <option value="8" data-grupo="2">Contrato Social</option>
+                        <option value="9" data-grupo="2">Distrato</option>
+                        <option value="10" data-grupo="2">Estatuto</option>
                     </x-input-select>
                 </div>
             </div>

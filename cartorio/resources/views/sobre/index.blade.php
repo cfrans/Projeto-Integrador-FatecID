@@ -9,7 +9,7 @@
 
     <div class="max-w-[75%] mx-auto w-full px-4">
 
-        <section class="bg-white text-gray-800 px-6 py-4 rounded-xl shadow-lg max-w-3xl mx-auto mt-4">
+        <section class="bg-white text-gray-800 px-6 py-4 rounded-md shadow-lg max-w-3xl mx-auto mt-4">
             
             <h2 class="text-xl font-semibold text-gray-800 border-b-2 inline-block pb-1 mb-6" style="border-color: #b46a4a;">
                 O Projeto
