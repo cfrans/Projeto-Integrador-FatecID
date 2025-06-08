@@ -31,6 +31,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/apresentantes/create', [ApresentanteController::class, 'create']);
     Route::post('/apresentantes', [ApresentanteController::class, 'store']);
+    Route::put('/apresentantes/{id}', [ApresentanteController::class, 'update'])->name('apresentantes.update');
 
     Route::get('/documentos/create', [DocumentoController::class, 'create']);
     Route::post('/documentos', [DocumentoController::class, 'store']);

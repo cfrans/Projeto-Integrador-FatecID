@@ -29,4 +29,27 @@ class ApresentanteController extends Controller
 
         return redirect()->back()->with('success', 'Apresentante cadastrado!');
     }
+    public function update(Request $request, $id)
+    {
+
+        \Log::info('Atualizando apresentante', [
+        'id' => $id,
+        'dados_recebidos' => $request->all()
+         ]);
+
+        $apresentante = Apresentante::findOrFail($id);
+        $apresentante->id_documento = $request->id_documento;
+        $apresentante->numero_documento = $request->numero_documento;
+        $apresentante->nome = $request->nome;
+        $apresentante->tipo_contato = $request->tipo_contato;
+        $apresentante->numero_contato = $request->numero_contato;
+        $apresentante->email = $request->email;
+        $apresentante->save();
+
+        \Log::info('Apresentante atualizado com sucesso', [
+        'id' => $apresentante->id
+        ]);
+
+        return response()->json(['sucesso' => true, 'mensagem' => 'Apresentante atualizado com sucesso!']);
+    }
 }
