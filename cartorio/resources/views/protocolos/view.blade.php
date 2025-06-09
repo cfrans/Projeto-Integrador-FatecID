@@ -440,7 +440,8 @@
         icon: 'warning',
         title: 'Atenção!',
         text: 'Digite o número do protocolo!',
-        confirmButtonText: 'OK'
+        confirmButtonText: 'OK',
+        confirmButtonColor: '#c27c5d'
     });
     return;
     }
@@ -519,7 +520,8 @@
                     icon: 'error',
                     title: 'Erro!',
                     text: 'Erro ao buscar protocolo. Veja o log do servidor.',
-                    confirmButtonText: 'OK'
+                    confirmButtonText: 'OK',
+                    confirmButtonColor: '#c27c5d'
                 });
 
             console.error('Erro ao buscar protocolo:', error);
@@ -590,8 +592,13 @@
         const dataRetirada = document.getElementById('data_retirada')?.value;
         const numeroProtocolo = document.getElementById('numero_protocolo').value;
         if (!numeroProtocolo) {
-            alert('Número do protocolo não encontrado!');
-            return;
+            Swal.fire({
+            icon: 'warning',
+            title: 'Atenção!',
+            text: 'Protocolo não encontrado!',
+            confirmButtonText: 'OK',
+            confirmButtonColor: '#c27c5d'
+            });
         }
         if(dataRegistro || dataRetirada) {
             alert('Não é possível cancelar após registro ou retirada.');
@@ -631,7 +638,8 @@
         icon: 'warning',
         title: 'Atenção!',
         text: 'Digite ou pesquise um número de protocolo antes de acessar o andamento!',
-        confirmButtonText: 'OK'
+        confirmButtonText: 'OK',
+        confirmButtonColor: '#c27c5d'
     });
                // console.error('Erro: número_protocolo não informado para gerar a URL de rota.');
                 fetch('/log-js-error', {
@@ -659,7 +667,8 @@
             icon: 'warning',
             title: 'Atenção!',
             text: 'ID do protocolo não encontrado!',
-            confirmButtonText: 'OK'
+            confirmButtonText: 'OK',
+            confirmButtonColor: '#c27c5d'
             });
         }
     });
@@ -673,7 +682,8 @@
             icon: 'warning',
             title: 'Atenção!',
             text: 'ID do protocolo não encontrado!',
-            confirmButtonText: 'OK'
+            confirmButtonText: 'OK',
+            confirmButtonColor: '#c27c5d'
             });
         }
     });
