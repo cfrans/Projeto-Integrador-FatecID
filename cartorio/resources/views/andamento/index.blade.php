@@ -17,7 +17,7 @@
         }
     </style>
 
-    <div class="max-w-[75%] mx-auto w-full px-4">
+ <div class="max-w-[75%] mx-auto w-full px-4">
         <form id="andamento_form" action="{{ route('andamento.store') }}" method="post">
             @csrf
 
@@ -26,39 +26,39 @@
                     <div class="text-left">
                         <x-input-label for="numero_protocolo">Protocolo</x-input-label>
                         <x-input-naoalteravel
-                            id="numero_protocolo"
-                            name="numero_protocolo"
-                            class="w-[150px] h-8 text-sm"
-                            value="{{ $numeroProtocolo ?? '' }}"
-                            readonly />
+                        id="numero_protocolo"
+                        name="numero_protocolo"
+                        class="w-[150px] h-8 text-sm"
+                        value="{{ $numeroProtocolo ?? '' }}"
+                        readonly />
                     </div>
                 </div>
 
-                <div class="w-70 h-10 rounded-md flex items-center px-2 ml-auto space-x-2 -mr-8 ">
-                    <div class="w-57 h-10 rounded-md flex items-center bg-[#9f9f9f]">
-                        @if(empty($data_retirada))
-                        <button type="button" id="andamento_adicionar" class="bg-[#9f9f9f] transition-transform duration-400 ease-in-out hover:scale-125 text-black px-3 py-1 rounded ml-2" title="Adicionar Andamento">
-                            +
-                        </button>
-                        @endif
+            <div class="w-70 h-10 rounded-md flex items-center px-2 ml-auto space-x-2 -mr-8 ">
+                <div class="w-57 h-10 rounded-md flex items-center bg-[#9f9f9f]">
+                    @if(empty($data_retirada))
+                    <button type="button" id="andamento_adicionar" class="bg-[#9f9f9f] transition-transform duration-400 ease-in-out hover:scale-125 text-black px-3 py-1 rounded ml-2" title="Adicionar Andamento">
+                        +
+                    </button>
+                    @endif
 
-                        @if(empty($data_retirada))
-                        <button type="submit" class="w-9 h-9 bg-[#9f9f9f] rounded-md flex items-center justify-center mr-2" title="Salvar">
-                            <img src="{{ asset('images/Salvar.png') }}" alt="Salvar" class="w-4 h-4 transition-transform duration-400 ease-in-out hover:scale-125" />
-                        </button>
-                        @endif
-                    </div>
-
-                    <div class="w-9 h-9 bg-[#9f9f9f] rounded-full flex items-center justify-center hover:bg-[#8a8a8a]">
-                        <button id="botao-voltar" type="button" onclick="window.history.back()" class="w-full h-full flex items-center justify-center">
-                            <img src="{{ asset('images/Voltar.png') }}" alt="Voltar" class="w-4 h-4" />
-                        </button>
-                    </div>
+                    @if(empty($data_retirada))
+                    <button type="submit" class="w-9 h-9 bg-[#9f9f9f] rounded-md flex items-center justify-center mr-2" title="Salvar">
+                    <img src="{{ asset('images/Salvar.png') }}" alt="Salvar" class="w-4 h-4 transition-transform duration-400 ease-in-out hover:scale-125" />
+                    </button>
+                    @endif
                 </div>
+
+                <div class="w-9 h-9 bg-[#9f9f9f] rounded-full flex items-center justify-center hover:bg-[#8a8a8a]">
+                    <button id="botao-voltar" type="button" onclick="window.history.back()" class="w-full h-full flex items-center justify-center">
+                    <img src="{{ asset('images/Voltar.png') }}" alt="Voltar" class="w-4 h-4" />
+                    </button>
+                </div>  
             </div>
+    </div>
 
-            <div class="flex justify-start w-[92%] h-10 mx-auto bg-[#9f9f9f] rounded-t-md space-x-4">
-                <div class="text-left flex items-center ml-4 w-[180px]"> {{-- Ajustado w-[...] --}}
+    <div class="flex justify-start w-[92%] h-10 mx-auto bg-[#9f9f9f] rounded-t-md space-x-4">
+            <div class="text-left flex items-center ml-4 w-[180px]"> {{-- Ajustado w-[...] --}}
                     <x-input-label>Data/Hora</x-input-label>
                 </div>
                 <div class="text-left flex items-center w-[205px]"> {{-- Ajustado w-[...] --}}
@@ -75,70 +75,72 @@
                 </div>
             </div>
 
-            <div id="andamento_container">
-                @foreach ($andamentos ?? [] as $and)
-                <div class="flex justify-start w-[92%] h-[54px] mx-auto bg-white rounded-b-md andamento-bloco">
-                    <div class="campo-formulario flex items-center ml-4">
-                        {{-- AQUI: Alterado de w-[110px] para w-[150px] --}}
-                        <x-text-input class="w-[150px] h-8 text-sm" value="{{ \Carbon\Carbon::parse($and->data_hora)->format('d/m/Y H:i') }}" readonly />
-                    </div>
-
-                    <div class="campo-formulario flex items-center ml-4">
-                        <x-input-select name="id_tipo_andamento_disabled[]" class="w-[190px] h-8 text-sm" disabled>
-                            <option value="1" {{ $and->id_tipo_andamento == 1 ? 'selected' : '' }}>Título Registrado</option>
-                            <option value="2" {{ $and->id_tipo_andamento == 2 ? 'selected' : '' }}>Valor Autenticado</option>
-                            <option value="3" {{ $and->id_tipo_andamento == 3 ? 'selected' : '' }}>Título Pronto para Retirada</option>
-                        </x-input-select>
-                        <input type="hidden" name="id_tipo_andamento_existente[]" value="{{ $and->id_tipo_andamento }}">
-                    </div>
-
-                    <div class="campo-formulario flex items-center ml-4">
-                        <x-input-number name="valor_existente[]" data-moeda class="w-[120px] h-8 text-sm" value="{{ number_format($and->valor, 2, ',', '.') }}" readonly />
-                        <input type="hidden" name="valor_existente_raw[]" value="{{ $and->valor }}">
-                    </div>
-
-                    <div class="campo-formulario flex items-center ml-4">
-                        <x-text-input name="observacao_existente[]" class="w-[350px] h-8 text-sm" value="{{ $and->observacao }}" readonly />
-                    </div>
-
-                    <div class="campo-formulario flex items-center ml-4">
-                        <x-text-input name="nome_usuario_existente[]" class="w-[200px] h-8 text-sm" value="{{ $and->usuario->nome ?? '' }}" readonly />
-                        <input type="hidden" name="id_usuario_existente[]" value="{{ $and->id_usuario }}">
-                        <input type="hidden" name="data_hora_existente[]" value="{{ \Carbon\Carbon::parse($and->data_hora)->format('d/m/Y H:i') }}">
-                    </div>
+    <div id="andamento_container">
+    @foreach ($andamentos ?? [] as $and)
+        <div class="flex justify-start w-[92%] h-[54px] mx-auto bg-white rounded-b-md andamento-bloco">
+                <div class="campo-formulario flex items-center ml-4">
+                     {{-- AQUI: Alterado de w-[110px] para w-[150px] --}}
+                    <x-text-input class="w-[150px] h-8 text-sm" value="{{ \Carbon\Carbon::parse($and->data_hora)->format('d/m/Y H:i') }}" readonly />
                 </div>
-                @endforeach
+
+                 <div class="campo-formulario flex items-center ml-4">
+                    <x-input-select name="id_tipo_andamento_disabled[]" class="w-[190px] h-8 text-sm" disabled>
+                    <option value="1" {{ $and->id_tipo_andamento == 1 ? 'selected' : '' }}>Título Registrado</option>
+                    <option value="2" {{ $and->id_tipo_andamento == 2 ? 'selected' : '' }}>Valor Autenticado</option>
+                    <option value="3" {{ $and->id_tipo_andamento == 3 ? 'selected' : '' }}>Título Pronto para Retirada</option>
+                    </x-input-select>
+                    <input type="hidden" name="id_tipo_andamento_existente[]" value="{{ $and->id_tipo_andamento }}">
+                </div>
+
+                <div class="campo-formulario flex items-center ml-4">
+                    <x-input-number name="valor_existente[]" data-moeda class="w-[120px] h-8 text-sm" value="{{ number_format($and->valor, 2, ',', '.') }}" readonly />
+                    <input type="hidden" name="valor_existente_raw[]" value="{{ $and->valor }}">
+                </div>
+
+                <div class="campo-formulario flex items-center ml-4">
+                    <x-text-input name="observacao_existente[]" class="w-[350px] h-8 text-sm" value="{{ $and->observacao }}" readonly />
+                </div>
+
+                <div class="campo-formulario flex items-center ml-4">
+                    <x-text-input name="nome_usuario_existente[]" class="w-[200px] h-8 text-sm" value="{{ $and->usuario->nome ?? '' }}" readonly />
+                    <input type="hidden" name="id_usuario_existente[]" value="{{ $and->id_usuario }}">
+                    <input type="hidden" name="data_hora_existente[]" value="{{ \Carbon\Carbon::parse($and->data_hora)->format('d/m/Y H:i') }}">
+                </div>
+        </div>
+    @endforeach
+    </div>
+
+    <template id="template_andamento">
+        <div class="flex justify-start w-[92%] h-[54px] mx-auto bg-white rounded-b-md andamento-bloco">
+
+                <div class="campo-formulario flex items-center ml-4">
+                    {{-- AQUI: Alterado de w-[110px] para w-[150px] --}}
+                    <x-text-input name="data_hora[]" class="w-[150px] h-8 text-sm" data-tipo="data-hora" required />
+                </div>
+
+                <div class="campo-formulario flex items-center ml-4">
+                    <x-input-select name="id_tipo_andamento[]" class="w-[190px] h-8 text-sm" required>
+                    <option value="1" selected>Título Registrado</option>
+                    <option value="2">Valor Autenticado</option>
+                    <option value="3">Título Pronto para Retirada</option>
+                    </x-input-select>
+                </div>
+
+                <div class="campo-formulario flex items-center ml-4">
+                    <x-input-number name="valor[]" data-moeda class="w-[120px] h-8 text-sm" value="0,00" required />
+                </div>
+
+                <div class="campo-formulario flex items-center ml-4">
+                    <x-text-input name="observacao[]" class="w-[350px] h-8 text-sm" required />
+                </div>
+
+                <div class="campo-formulario flex items-center ml-4">
+                    <x-text-input name="nome_usuario[]" class="w-[200px] h-8 text-sm" value="{{ Auth::user()->nome }}" readonly />
+                    <input type="hidden" name="id_usuario_novo[]" value="{{ Auth::user()->id }}">
+                </div>
+
             </div>
-
-            <template id="template_andamento">
-                <div class="flex justify-start w-[92%] h-[54px] mx-auto bg-white rounded-b-md andamento-bloco">
-                    <div class="campo-formulario flex items-center ml-4">
-                        {{-- AQUI: Alterado de w-[110px] para w-[150px] --}}
-                        <x-text-input name="data_hora[]" class="w-[150px] h-8 text-sm" data-tipo="data-hora" required />
-                    </div>
-
-                    <div class="campo-formulario flex items-center ml-4">
-                        <x-input-select name="id_tipo_andamento[]" class="w-[190px] h-8 text-sm" required>
-                            <option value="1" selected>Título Registrado</option>
-                            <option value="2">Valor Autenticado</option>
-                            <option value="3">Título Pronto para Retirada</option>
-                        </x-input-select>
-                    </div>
-
-                    <div class="campo-formulario flex items-center ml-4">
-                        <x-input-number name="valor[]" data-moeda class="w-[120px] h-8 text-sm" value="0,00" required />
-                    </div>
-
-                    <div class="campo-formulario flex items-center ml-4">
-                        <x-text-input name="observacao[]" class="w-[350px] h-8 text-sm" required />
-                    </div>
-
-                    <div class="campo-formulario flex items-center ml-4">
-                        <x-text-input name="nome_usuario[]" class="w-[200px] h-8 text-sm" value="{{ Auth::user()->nome }}" readonly />
-                        <input type="hidden" name="id_usuario_novo[]" value="{{ Auth::user()->id }}">
-                    </div>
-                </div>
-            </template>
+        </template>
         </form>
     </div>
 
@@ -255,32 +257,32 @@
             // Coleta e desformata os campos de andamento NOVOS (editáveis)
             // e coleta os campos de andamento EXISTENTES (readonly)
             document.querySelectorAll('.andamento-bloco').forEach(function(bloco) {
-                const dataInput = bloco.querySelector('[name="data_hora[]"]'); // Campo data_hora para novos
-                const tipoInput = bloco.querySelector('[name="id_tipo_andamento[]"]'); // Campo tipo para novos
-                const valorInput = bloco.querySelector('[name="valor[]"]'); // Campo valor para novos
-                const observacaoInput = bloco.querySelector('[name="observacao[]"]'); // Campo observacao para novos
-                const usuarioInput = bloco.querySelector('[name="nome_usuario[]"]'); // Campo nome do usuário para novos
-                const idUsuarioInput = bloco.querySelector('[name="id_usuario_novo[]"]'); // Campo ID do usuário para novos
+            const dataInput = bloco.querySelector('[name="data_hora[]"]'); // Campo data_hora para novos
+            const tipoInput = bloco.querySelector('[name="id_tipo_andamento[]"]'); // Campo tipo para novos
+            const valorInput = bloco.querySelector('[name="valor[]"]'); // Campo valor para novos
+            const observacaoInput = bloco.querySelector('[name="observacao[]"]'); // Campo observacao para novos
+            const usuarioInput = bloco.querySelector('[name="nome_usuario[]"]'); // Campo nome do usuário para novos
+            const idUsuarioInput = bloco.querySelector('[name="id_usuario_novo[]"]'); // Campo ID do usuário para novos
 
                 // Campos para andamentos existentes (readonly)
-                const dataHoraExistente = bloco.querySelector('input[name="data_hora_existente[]"]');
-                const idTipoAndamentoExistente = bloco.querySelector('input[name="id_tipo_andamento_existente[]"]');
-                const valorExistenteRaw = bloco.querySelector('input[name="valor_existente_raw[]"]');
-                const observacaoExistente = bloco.querySelector('input[name="observacao_existente[]"]');
-                const idUsuarioExistente = bloco.querySelector('input[name="id_usuario_existente[]"]');
+            const dataHoraExistente = bloco.querySelector('input[name="data_hora_existente[]"]');
+            const idTipoAndamentoExistente = bloco.querySelector('input[name="id_tipo_andamento_existente[]"]');
+            const valorExistenteRaw = bloco.querySelector('input[name="valor_existente_raw[]"]');
+            const observacaoExistente = bloco.querySelector('input[name="observacao_existente[]"]');
+            const idUsuarioExistente = bloco.querySelector('input[name="id_usuario_existente[]"]');
 
-                if (dataInput && !dataInput.readOnly) { // É um andamento NOVO (editável)
-                    formDataToSubmit.append('data_hora[]', dataInput.value);
-                    formDataToSubmit.append('id_tipo_andamento[]', tipoInput ? tipoInput.value : '');
-                    formDataToSubmit.append('valor[]', desformatarMoeda(valorInput ? valorInput.value : '0,00'));
-                    formDataToSubmit.append('observacao[]', observacaoInput ? observacaoInput.value : '');
-                    formDataToSubmit.append('id_usuario[]', idUsuarioInput ? idUsuarioInput.value : '');
-                } else if (dataHoraExistente && dataHoraExistente.readOnly) { // É um andamento EXISTENTE (readonly)
-                    formDataToSubmit.append('data_hora[]', dataHoraExistente.value);
-                    formDataToSubmit.append('id_tipo_andamento[]', idTipoAndamentoExistente ? idTipoAndamentoExistente.value : '');
-                    formDataToSubmit.append('valor[]', valorExistenteRaw ? valorExistenteRaw.value : '0.00');
-                    formDataToSubmit.append('observacao[]', observacaoExistente ? observacaoExistente.value : '');
-                    formDataToSubmit.append('id_usuario[]', idUsuarioExistente ? idUsuarioExistente.value : '');
+            if (dataInput && !dataInput.readOnly) { // É um andamento NOVO (editável)
+                formDataToSubmit.append('data_hora[]', dataInput.value);
+                formDataToSubmit.append('id_tipo_andamento[]', tipoInput ? tipoInput.value : '');
+                formDataToSubmit.append('valor[]', desformatarMoeda(valorInput ? valorInput.value : '0,00'));
+                formDataToSubmit.append('observacao[]', observacaoInput ? observacaoInput.value : '');
+                formDataToSubmit.append('id_usuario[]', idUsuarioInput ? idUsuarioInput.value : '');
+            } else if (dataHoraExistente && dataHoraExistente.readOnly) { // É um andamento EXISTENTE (readonly)
+                formDataToSubmit.append('data_hora[]', dataHoraExistente.value);
+                formDataToSubmit.append('id_tipo_andamento[]', idTipoAndamentoExistente ? idTipoAndamentoExistente.value : '');
+                formDataToSubmit.append('valor[]', valorExistenteRaw ? valorExistenteRaw.value : '0.00');
+                formDataToSubmit.append('observacao[]', observacaoExistente ? observacaoExistente.value : '');
+                formDataToSubmit.append('id_usuario[]', idUsuarioExistente ? idUsuarioExistente.value : '');
                 }
             });
 
@@ -293,8 +295,8 @@
                 const response = await fetch(this.action, {
                     method: 'POST',
                     headers: {
-                        'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value,
-                        'Accept': 'application/json'
+                    'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value,
+                    'Accept': 'application/json'
                     },
                     body: formDataToSubmit
                 });
