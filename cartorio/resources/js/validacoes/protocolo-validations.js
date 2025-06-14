@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     const numeroTitulo = document.getElementById('numero_documento_protocolo'); // Nº Documento / Título
     const tipoDocumentoSelect = document.getElementById('id_documento'); // Dropdown RG/CPF/CNH/CNPJ
-    const numeroDocumentoApresentante = document.getElementById('numero_documento_apresentante'); // CAMPO CORRETO
+    const numeroDocumentoApresentante = document.getElementById('numero_documento_apresentante');
     const email = document.getElementById('email');
 
     function showMessage(message, targetInput) {
@@ -115,7 +115,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Força o número_documento a ser só dígitos (remove pontos, traços, letras etc.)
+    // Força o número_documento a ser só dígitos
     const numeroDocumento = document.getElementById('numero_documento');
     if (numeroDocumento) {
         numeroDocumento.value = numeroDocumento.value.replace(/\D/g, '');
@@ -137,7 +137,5 @@ document.addEventListener('DOMContentLoaded', () => {
             numeroTitulo.value = numeroTitulo.value.replace(/\D/g, '');
         }
     });
-
-
 
 });

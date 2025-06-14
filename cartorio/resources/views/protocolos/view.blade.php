@@ -148,7 +148,6 @@
                     </div>
                 </div>
 
-            <!-- Sexta coluna (1/7) -->
             <div class="campo-formulario flex items-center">
                 <div class="text-left">
                     <x-input-label for="data_registro">
@@ -236,7 +235,6 @@
         </div>
         </div>
 
-        
         <x-input-label for="parte_grupo" class="ml-20 mt-6">Dados da Parte</x-input-label>
         <div id="container-partes">
             <div class="linha-parte flex justify-start w-[92%] h-20 mx-auto bg-white rounded-md">
@@ -266,7 +264,6 @@
                 </div>
             </div>
         </div>
-
 
 <div id="container-campos">
     <div class="flex justify-start w-[12%] h-19 bg-white rounded-md mt-6 ml-auto mr-16 mb-10">
@@ -714,7 +711,7 @@
     });
 
     document.getElementById('btn-salvar-edicao-apresentante').addEventListener('click', function() {
-    // Pegue o ID do apresentante (você precisa garantir que ele está disponível, ex: em um campo hidden)
+    // Pegue o ID do apresentante
     const apresentanteId = document.getElementById('apresentante_id')?.value;
     if (!apresentanteId) {
         alert('ID do apresentante não encontrado!');

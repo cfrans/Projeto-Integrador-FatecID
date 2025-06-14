@@ -1,5 +1,4 @@
 <x-app-layout>
-    <!-- Slot de título da aba do navegador -->
     <x-slot name="title">Autenticação</x-slot>
 
     <style>
@@ -15,7 +14,6 @@
         }
     </style>
 
-    <!-- Slot de cabeçalho visual da página -->
     <x-slot name="header">
         <h2 class="font-semibold text-base text-white leading-tight">
             {{ __('Autenticação') }}
@@ -23,15 +21,14 @@
     </x-slot>
 
     @if(!empty($data_retirada))
-        <div class="bg-yellow-200 text-yellow-800 px-4 py-2 rounded mb-4 font-bold">
-            Este protocolo já possui data de retirada. Os dados estão em modo de visualização.
-        </div>
+    <div class="bg-yellow-200 text-yellow-800 px-4 py-2 rounded mb-4 font-bold">
+        Este protocolo já possui data de retirada. Os dados estão em modo de visualização.
+    </div>
     @endif
 
     <form action="{{ route('autenticacao.store') }}" method="post">
         @csrf
-        {{-- DIV MENOR PARA O CONTEUDO DOS CAMPOS --}}
-    <div class="flex justify-center items-start min-h-screen py-10 gap-5 bg-gray-100">
+        <div class="flex justify-center items-start min-h-screen py-10 gap-5 bg-gray-100">
 
             <div class="flex flex-col gap-1 bg-white shadow-md rounded-md mt-8 p-6 w-fit">
                 <div class="flex flex-wrap justify-start w-full">
@@ -39,7 +36,7 @@
                     <div class="campo-formulario flex items-center ml-3">
                         <div class="text-left">
                             <x-input-label for="autenticacao_data">
-                            Data
+                                Data
                             </x-input-label>
                             @php
                             $now = $now ?? \Carbon\Carbon::now();
@@ -51,7 +48,7 @@
                     <div class="campo-formulario flex items-center ml-6">
                         <div class="text-left">
                             <x-input-label for="autenticacao_hora">
-                            Hora
+                                Hora
                             </x-input-label>
                             <x-input-naoalteravel id="autenticacao_hora" name="autenticacao_hora" class="w-[200px] h-9 text-sm">
                             </x-input-naoalteravel>
@@ -61,20 +58,20 @@
                     <div class="campo-formulario flex items-center ml-6">
                         <div class="text-left">
                             <x-input-label for="autenticacao_usuario">
-                            Usuário
+                                Usuário
                             </x-input-label>
                             <x-input-naoalteravel id="nome" name="nome" class="w-[200px] h-9 text-sm" value="{{ Auth::user() ? Auth::user()->nome : '' }}" readonly />
                         </div>
                     </div>
 
-            </div>
+                </div>
 
-            <div class="flex flex-wrap justify-start w-full">
-                   
+                <div class="flex flex-wrap justify-start w-full">
+
                     <div class="campo-formulario flex items-center ml-3">
                         <div class="text-left">
                             <x-input-label for="autenticacao_grupo">
-                            Grupo
+                                Grupo
                             </x-input-label>
                             <x-input-naoalteravel id="protocolo_grupo" name="protocolo_grupo" value="{{ $protocolo->grupo->tipo ?? '' }}" class="w-[435px] h-10 text-sm">
                             </x-input-naoalteravel>
@@ -84,80 +81,77 @@
                     <div class="campo-formulario flex items-center ml-6">
                         <div class="text-left">
                             <x-input-label for="autenticacao_protocolo">
-                            Protocolo
+                                Protocolo
                             </x-input-label>
                             <x-input-naoalteravel id="id_protocolo" name="id_protocolo" value="{{ $protocolo->numero_protocolo ?? '' }}" class="w-[200px] h-10 text-sm">
                             </x-input-naoalteravel>
                         </div>
                     </div>
 
-            </div>
+                </div>
 
-            <div class="flex flex-wrap justify-start w-full">
+                <div class="flex flex-wrap justify-start w-full">
 
                     <div class="campo-formulario flex items-center ml-3">
                         <div class="text-left">
                             <x-input-label for="autenticacao_apresentante">
-                            Apresentante
+                                Apresentante
                             </x-input-label>
                             <x-input-naoalteravel id="apresentante_nome" name="apresentante_nome" value="{{ $protocolo->apresentante->nome ?? '' }}" class="w-[435px] h-10 text-sm">
                             </x-input-naoalteravel>
                         </div>
                     </div>
 
-                  
                     <div class="campo-formulario flex items-center ml-6">
                         <div class="text-left">
                             <x-input-label for="autenticacao_valor">
-                            Valor
+                                Valor
                             </x-input-label>
                             <x-input-number type="number" step="0.01" id="valor" name="valor" class="w-[200px] h-9 text-sm" required>
                             </x-input-number>
                         </div>
                     </div>
 
-            </div>
+                </div>
 
-            <div class="flex flex-wrap justify-start w-full">
-                   
+                <div class="flex flex-wrap justify-start w-full">
+
                     <div class="campo-formulario flex items-center ml-3">
                         <div class="text-left">
                             <x-input-label for="autenticacao_pagamento">
-                            Forma de Pagamento
+                                Forma de Pagamento
                             </x-input-label>
                             <x-input-select id="id_forma_pagamento" name="id_forma_pagamento" class="w-[340px] h-9 text-sm" required>
-                            <option value="1">Dinheiro</option>
-                            <option value="2">Pix</option>
-                            <option value="3">Ted</option>
-                            <option value="4">Cheque</option>
+                                <option value="1">Dinheiro</option>
+                                <option value="2">Pix</option>
+                                <option value="3">Ted</option>
+                                <option value="4">Cheque</option>
                             </x-input-select>
                         </div>
                     </div>
 
-                 
                     <div class="campo-formulario flex items-center ml-6">
                         <div class="text-left">
                             <x-input-label for="banco">
-                            Banco
+                                Banco
                             </x-input-label>
                             <x-input-select id="banco" name="banco" class="w-[300px] h-9 text-sm" required disabled>
-                            <option value="Caixa Econômica">Caixa Econômica</option>
-                            <option value="Banco do Brasil">Banco do Brasil</option>
-                            <option value="Itaú">Itaú</option>
-                            <option value="Bradesco">Bradesco </option>
-                            <option value="Santander">Santander</option>
+                                <option value="Caixa Econômica">Caixa Econômica</option>
+                                <option value="Banco do Brasil">Banco do Brasil</option>
+                                <option value="Itaú">Itaú</option>
+                                <option value="Bradesco">Bradesco </option>
+                                <option value="Santander">Santander</option>
                             </x-input-select>
                         </div>
                     </div>
 
-            </div>
+                </div>
 
-            <div class="flex flex-wrap justify-start w-full">
-                    <!--<div id="cheque"> -->
+                <div class="flex flex-wrap justify-start w-full">
                     <div class="campo-formulario flex items-center ml-3">
                         <div class="text-left">
                             <x-input-label for="conta">
-                            Conta
+                                Conta
                             </x-input-label>
                             <x-text-input id="conta" name="conta" class="w-[200px] h-9 text-sm" required disabled />
                         </div>
@@ -166,7 +160,7 @@
                     <div class="campo-formulario flex items-center ml-6">
                         <div class="text-left">
                             <x-input-label for="agencia">
-                            Agência
+                                Agência
                             </x-input-label>
                             <x-text-input id="agencia" name="agencia" class="w-[200px] h-9 text-sm" required disabled />
                         </div>
@@ -175,68 +169,67 @@
                     <div class="campo-formulario flex items-center ml-6">
                         <div class="text-left">
                             <x-input-label for="numero_cheque">
-                            Número do cheque
+                                Número do cheque
                             </x-input-label>
                             <x-text-input id="numero_cheque" name="numero_cheque" class="w-[200px] h-9 text-sm" required disabled />
                         </div>
                     </div>
-                    <!--</div>-->
-            </div>
-        </div>
-
-        <div class="flex flex-col gap-4 mt-8">
-                <!-- DIV com os pagamentos -->
-            <div class="flex flex-col gap-1 bg-white shadow-md rounded-md p-6 w-fit">
-                <div class="flex flex-col justify-start w-full gap-4">
-
-                    <div class="campo-formulario flex items-center mx-auto">
-                        <div class="text-left">
-                            <x-input-label for="autenticacao_valor_previo">
-                            Valor Prévio:
-                            </x-input-label>
-                            <x-input-number type="number" step="0.01" id="autenticacao_valor_previo" name="autenticacao_valor_previo" class="w-[300px] h-9 text-sm" readonly required />
-                        </div>
-                    </div>
-
-                    <div class="campo-formulario flex items-center mx-auto">
-                        <div class="text-left">
-                            <x-input-label for="autenticacao_valor_pago">
-                            Valor Pago:
-                            </x-input-label>
-                            <x-input-number type="number" step="0.01" id="autenticacao_valor_pago" name="autenticacao_valor_pago" class="w-[300px] h-9 text-sm" required />
-                        </div>
-                    </div>
-
-                    <div class="campo-formulario flex items-center mx-auto">
-                        <div class="text-left">
-                            <x-input-label for="autenticacao_troco">
-                            Troco:
-                            </x-input-label>
-                            <x-input-number type="number" step="0.01" id="autenticacao_troco" name="autenticacao_troco" class="w-[300px] h-9 text-sm" readonly required />
-                        </div>
-                    </div>
-
                 </div>
             </div>
 
-                <!-- Botões de ação -->
-            <div class="w-500 h-10 bg-[#9f9f9f] rounded-md flex items-center justify-around px-2">
+            <div class="flex flex-col gap-4 mt-8">
+                <!-- DIV com os pagamentos -->
+                <div class="flex flex-col gap-1 bg-white shadow-md rounded-md p-6 w-fit">
+                    <div class="flex flex-col justify-start w-full gap-4">
 
-                @if(empty($data_retirada))
+                        <div class="campo-formulario flex items-center mx-auto">
+                            <div class="text-left">
+                                <x-input-label for="autenticacao_valor_previo">
+                                    Valor Prévio:
+                                </x-input-label>
+                                <x-input-number type="number" step="0.01" id="autenticacao_valor_previo" name="autenticacao_valor_previo" class="w-[300px] h-9 text-sm" readonly required />
+                            </div>
+                        </div>
+
+                        <div class="campo-formulario flex items-center mx-auto">
+                            <div class="text-left">
+                                <x-input-label for="autenticacao_valor_pago">
+                                    Valor Pago:
+                                </x-input-label>
+                                <x-input-number type="number" step="0.01" id="autenticacao_valor_pago" name="autenticacao_valor_pago" class="w-[300px] h-9 text-sm" required />
+                            </div>
+                        </div>
+
+                        <div class="campo-formulario flex items-center mx-auto">
+                            <div class="text-left">
+                                <x-input-label for="autenticacao_troco">
+                                    Troco:
+                                </x-input-label>
+                                <x-input-number type="number" step="0.01" id="autenticacao_troco" name="autenticacao_troco" class="w-[300px] h-9 text-sm" readonly required />
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Botões de ação -->
+                <div class="w-500 h-10 bg-[#9f9f9f] rounded-md flex items-center justify-around px-2">
+
+                    @if(empty($data_retirada))
                     <button type="submit" class="flex items-center justify-center gap-2 px-3 py-2">
                         <img src="{{ asset('images/Salvar.png') }}" alt="Salvar" class="w-4 h-4" />
                         <span class="text-sm font-bold text-[#474747]">Salvar</span>
                     </button>
-                 @endif
+                    @endif
 
-                    <button id="btn-voltar-protocolo" type="button"  class="flex items-center justify-center gap-2 px-3 py-2">
+                    <button id="btn-voltar-protocolo" type="button" class="flex items-center justify-center gap-2 px-3 py-2">
                         <img src="{{ asset('images/Voltar.png') }}" alt="Voltar" class="w-4 h-4" />
                         <span class="text-sm font-bold text-[#474747]">Voltar</span>
                     </button>
+                </div>
             </div>
+
         </div>
-        
-    </div>
     </form>
 </x-app-layout>
 
@@ -306,7 +299,7 @@
             });
         }
 
-        // Roda qnd carrega e ao trocar a forma de pagamento
+        // Roda quando carrega e ao trocar a forma de pagamento
         liberaCamposCheque();
         formaPagamento.addEventListener('change', liberaCamposCheque);
     });

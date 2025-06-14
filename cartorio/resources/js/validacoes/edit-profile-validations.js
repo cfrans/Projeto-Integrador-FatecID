@@ -1,5 +1,3 @@
-// resources/js/validacoes/shared-validations.js
-
 document.addEventListener('DOMContentLoaded', () => {
     const campos = {
         nome: document.getElementById('nome'),
