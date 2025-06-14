@@ -9,7 +9,6 @@ $dataCancelamento = Carbon::now()->addDays(30)->format('d/m/Y');
 <x-app-layout>
     <x-slot name="title">Novo Protocolo</x-slot>
 
-    {{-- Estilo temporario para ajudar a ver as divisoes --}}
     <style>
         .campo-formulario {
             border: 0px;
@@ -24,13 +23,12 @@ $dataCancelamento = Carbon::now()->addDays(30)->format('d/m/Y');
     </x-slot>
 
     <div class="max-w-[75%] mx-auto w-full px-4">
-        {{-- TODO: Criar o endpoint para o formulario --}}
         <form id="formulario" action="/protocolos" method="post">
             @csrf
 
             <div class="flex items-center gap-4 -mt-2 w-full mr-14">
-                <!-- Conjunto de botões -->
 
+                <!-- Conjunto de botões -->
                 <div class="w-30 h-10 bg-[#9f9f9f] rounded-md flex items-center justify-around px-2 ml-auto">
                     <button type="submit" class="w-10 h-10 flex items-center justify-center" title="Salvar Protocolo">
                         <img src="{{ asset('images/Salvar.png') }}" alt="Salvar" class="w-4 h-4 transition-transform duration-400 ease-in-out hover:scale-125" />
@@ -39,7 +37,6 @@ $dataCancelamento = Carbon::now()->addDays(30)->format('d/m/Y');
                     <button type="button" class="w-10 h-10 flex items-center justify-center" onclick="limparFormulario()" title="Limpar">
                         <img src="{{ asset('images/Limpar.png') }}" alt="Limpar" class="w-5 h-5 transition-transform duration-400 ease-in-out hover:scale-125" />
                     </button>
-
                 </div>
 
 
@@ -56,11 +53,8 @@ $dataCancelamento = Carbon::now()->addDays(30)->format('d/m/Y');
                 Dados do Protocolo
             </x-input-label>
 
-            {{-- DIV MENOR PARA O CONTEUDO DOS CAMPOS --}}
             <div class="flex justify-start w-[92%] h-20 mx-auto bg-white rounded-t-md ">
 
-
-                <!-- Primeira coluna (2/7) -->
                 <div class="campo-formulario flex items-center ml-6">
                     <div class="text-left">
                         <x-input-label for="id_grupo">Grupo</x-input-label>
@@ -93,8 +87,6 @@ $dataCancelamento = Carbon::now()->addDays(30)->format('d/m/Y');
                     </div>
                 </div>
 
-
-                <!-- Terceira coluna (2/7) -->
                 <div class="campo-formulario flex items-center">
                     <div class="text-left">
                         <x-input-label for="id_especie">
@@ -107,7 +99,6 @@ $dataCancelamento = Carbon::now()->addDays(30)->format('d/m/Y');
                     </div>
                 </div>
 
-                <!-- Quarta coluna (1/7) -->
                 <div class="campo-formulario flex items-center">
                     <div class="text-left">
                         <x-input-label for="numero_protocolo">
@@ -116,13 +107,9 @@ $dataCancelamento = Carbon::now()->addDays(30)->format('d/m/Y');
                         <div id="numero_protocolo" class="w-[200px] h-8 text-sm border border-gray-300 rounded px-2 flex items-center bg-gray-100">
                             {{ $protocolo->numero_protocolo ?? '' }}
                         </div>
-                        <!-- <x-text-input id="numero_protocolo" name="numero_protocolo" class="w-[200px] h-8 text-sm" required>
-                        {{-- TODO: Confirmar se esse é o numero do protocolo mesmo que vai ser gerado sozinho --}}
-                    </x-text-input> -->
                     </div>
                 </div>
 
-                <!-- Quinta coluna (1/7) -->
                 <div class="campo-formulario flex items-center">
                     <div class="text-left">
                         <x-input-label for="protocolo_data">
@@ -134,11 +121,9 @@ $dataCancelamento = Carbon::now()->addDays(30)->format('d/m/Y');
                     </div>
                 </div>
             </div>
-            <!--parte de cima-->
 
             <div class="flex justify-start w-[92%] h-20 mx-auto bg-white rounded-b-md ">
 
-                <!-- Primeira coluna (1/7) -->
                 <div class="campo-formulario flex items-center ml-6">
                     <div class="text-left">
                         <x-input-label for="numero_documento">
@@ -148,7 +133,6 @@ $dataCancelamento = Carbon::now()->addDays(30)->format('d/m/Y');
                     </div>
                 </div>
 
-                <!-- Segunda coluna (1/7) -->
                 <div class="campo-formulario flex items-center">
                     <div class="text-left">
                         <x-input-label for="data_documento">
@@ -170,7 +154,6 @@ $dataCancelamento = Carbon::now()->addDays(30)->format('d/m/Y');
                     </div>
                 </div>
 
-                <!-- Quarta coluna (1/7) -->
                 <div class="campo-formulario flex items-center">
                     <div class="text-left">
                         <x-input-label for="data_cancelamento">
@@ -179,41 +162,15 @@ $dataCancelamento = Carbon::now()->addDays(30)->format('d/m/Y');
                         <div type="text" id="data_cancelamento" name="data_cancelamento" class="w-[150px] h-8 text-sm bg-gray-100 border rounded px-2 py-1 flex items-center">
                             {{ $dataCancelamento }}
                         </div>
-                        <!-- <x-input-date type="date" id="data_cancelamento" name="data_cancelamento" class="w-[150px] h-8 text-sm" required /> -->
                     </div>
                 </div>
-                <!-- TODO: CAMPO NAO EDITAVEL -->
-
-                <!-- Quinta coluna (1/7) -->
-                <!-- <div class="campo-formulario flex items-center">
-                <div class="text-left">
-                    <x-input-label for="data_registro">
-                        Data de registro
-                    </x-input-label>
-                    <x-input-date type="date" id="data_registro" name="data_registro" class="w-[150px] h-8 text-sm" required>
-                    </x-input-date>
-                </div>
-            </div> -->
-
-                <!-- Sexta coluna (1/7) -->
-                <!-- <div class="campo-formulario flex items-center">
-                <div class="text-left">
-                    <x-input-label for="data_retirada">
-                        Data de Retirada
-                    </x-input-label>
-                    <x-input-date type="date" id="data_retirada" name="data_retirada" class="w-[150px] h-8 text-sm" required>
-                    </x-input-date>
-                </div>
-            </div> -->
             </div>
-            <!--acaba aqui-->
 
             <x-input-label for="protocolo_grupo" class="ml-20 mt-6">
                 Dados do Apresentante
             </x-input-label>
 
             <div class="flex justify-start w-[92%] h-20 mx-auto bg-white rounded-t-md">
-                <!-- Primeira coluna (1/7) -->
                 <div class="campo-formulario flex items-center ml-6">
                     <div class="text-left">
                         <x-input-label for="apresentante_documento">
@@ -228,8 +185,6 @@ $dataCancelamento = Carbon::now()->addDays(30)->format('d/m/Y');
                     </div>
                 </div>
 
-
-                <!-- Segunda coluna (1/7) -->
                 <div class="campo-formulario flex items-center">
                     <div class="text-left">
                         <x-input-label for="apresentante_numero_documento">
@@ -240,7 +195,6 @@ $dataCancelamento = Carbon::now()->addDays(30)->format('d/m/Y');
                     </div>
                 </div>
 
-                <!-- Terceira coluna (3/7) -->
                 <div class="campo-formulario flex items-center">
                     <div class="text-left">
                         <x-input-label for="apresentante_nome">
@@ -255,7 +209,6 @@ $dataCancelamento = Carbon::now()->addDays(30)->format('d/m/Y');
             <!-- segunda parte da tabela de apresentante -->
 
             <div class="flex justify-start w-[92%] h-20 mx-auto bg-white rounded-b-md">
-                <!-- Primeira coluna (1/7) -->
                 <div class="campo-formulario flex items-center ml-6">
                     <div class="text-left">
                         <x-input-label for="apresentante_tipo_contato">
@@ -270,8 +223,6 @@ $dataCancelamento = Carbon::now()->addDays(30)->format('d/m/Y');
                     </div>
                 </div>
 
-
-                <!-- Segunda coluna (1/7) -->
                 <div class="campo-formulario flex items-center">
                     <div class="text-left">
                         <x-input-label for="apresentante_numero_contato">
@@ -282,7 +233,6 @@ $dataCancelamento = Carbon::now()->addDays(30)->format('d/m/Y');
                     </div>
                 </div>
 
-                <!-- Terceira coluna (5/7) -->
                 <div class="campo-formulario flex items-center">
                     <div class="text-left">
                         <x-input-label for="apresentante_email">
@@ -301,7 +251,6 @@ $dataCancelamento = Carbon::now()->addDays(30)->format('d/m/Y');
             <div id="container-campos">
                 <div class="flex justify-start w-[92%] h-20 mx-auto bg-white rounded-md">
 
-                    <!-- Primeira coluna (1/7) -->
                     {{-- Tipo (filtrado por grupo) --}}
                     <div class="campo-formulario flex items-center ml-6">
                         <div class="text-left">
@@ -325,7 +274,6 @@ $dataCancelamento = Carbon::now()->addDays(30)->format('d/m/Y');
                         </div>
                     </div>
 
-                    <!-- Segunda coluna (3/7) -->
                     <div class="campo-formulario flex items-center">
                         <div class="text-left">
                             <x-input-label for="parte_nome">
@@ -382,10 +330,7 @@ $dataCancelamento = Carbon::now()->addDays(30)->format('d/m/Y');
                 }
             }
         }
-    </script>
 
-
-    <script>
         document.getElementById("parte_adicionar").addEventListener("click", function() {
             const container = document.getElementById("container-campos");
             const novaLinha = container.firstElementChild.cloneNode(true); // Clona a primeira linha
@@ -413,10 +358,7 @@ $dataCancelamento = Carbon::now()->addDays(30)->format('d/m/Y');
 
             container.appendChild(novaLinha); // Adiciona nova parte
         });
-    </script>
 
-
-    <script>
         document.addEventListener('DOMContentLoaded', function() {
             const form = document.getElementById('formulario');
 
@@ -482,11 +424,7 @@ $dataCancelamento = Carbon::now()->addDays(30)->format('d/m/Y');
                 }
             });
         });
-    </script>
 
-
-
-    <script>
         document.addEventListener('DOMContentLoaded', function() {
             const grupoSelect = document.getElementById('id_grupo');
             const naturezaSelect = document.getElementById('id_natureza');
@@ -506,9 +444,7 @@ $dataCancelamento = Carbon::now()->addDays(30)->format('d/m/Y');
                 filtrarNaturezas(this.value);
             });
         });
-    </script>
 
-    <script>
         document.addEventListener('DOMContentLoaded', function() {
             const grupoSelect = document.getElementById('id_grupo');
             const tipoSelect = document.getElementById('tipo_select');
@@ -531,6 +467,6 @@ $dataCancelamento = Carbon::now()->addDays(30)->format('d/m/Y');
     </script>
 
     </form>
-    {{-- @endsection --}}
+
     </div>
 </x-app-layout>

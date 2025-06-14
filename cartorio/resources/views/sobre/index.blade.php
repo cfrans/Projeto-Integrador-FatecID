@@ -10,7 +10,7 @@
     <div class="max-w-[75%] mx-auto w-full px-4">
 
         <section class="bg-white text-gray-800 px-6 py-4 rounded-md shadow-lg max-w-3xl mx-auto mt-4">
-            
+
             <h2 class="text-xl font-semibold text-gray-800 border-b-2 inline-block pb-1 mb-6" style="border-color: #b46a4a;">
                 O Projeto
             </h2>
@@ -48,7 +48,7 @@
             <div class="mt-8 pt-4 border-t border-gray-200 text-center">
                 <h3 class="text-lg font-semibold text-gray-800 mb-4">Acesse o Código-Fonte no GitHub</h3>
                 <a href="https://github.com/cfrans/Projeto-Integrador-FatecID" target="_blank" rel="noopener noreferrer"
-                   class="-mt-3 inline-flex  items-center px-6 py-3 bg-[#C27C5D] text-white font-bold rounded-lg shadow-md
+                    class="-mt-3 inline-flex  items-center px-6 py-3 bg-[#C27C5D] text-white font-bold rounded-lg shadow-md
                           hover:bg-[#D48F70]">
                     <img src="{{ asset('images/github.png') }}" alt="GitHub Logo" class="w-6 h-6 mr-3">
                     Repositório do Projeto
@@ -57,6 +57,6 @@
             </div>
 
         </section>
-        
+
     </div>
 </x-app-layout>

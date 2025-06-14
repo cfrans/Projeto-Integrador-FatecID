@@ -17,26 +17,6 @@
         @csrf
         @method('patch')
 
-        {{-- <!-- Foto -->
-        <div>
-            <x-input-label for="foto" :value="__('Foto')" />
-            <input
-                id="foto"
-                name="foto"
-                type="file"
-                accept="image/*"
-                class="mt-1 block w-full text-sm text-gray-500
-                    file:mr-4 file:py-2 file:px-4
-                    file:rounded-full file:border-0
-                    file:text-sm file:font-semibold
-                    file:bg-[#ede3de] file:text-[#9D6954]
-                    hover:file:bg-[#dcc6bc]
-                    "
-            />
-            <x-input-error class="mt-2" :messages="$errors->get('foto')" />
-        </div> --}}
-
-
         <div>
             <x-input-label for="nome" :value="__('Nome')" />
             <x-text-input id="nome" name="nome" type="text" class="mt-1 block w-full" :value="old('nome', $user->nome)" required autofocus autocomplete="nome" />
@@ -47,24 +27,6 @@
             <x-input-label for="email" :value="__('E-mail')" />
             <x-text-input id="email" name="email" type="email" class="mt-1 block w-full" :value="old('email', $user->email)" required autocomplete="username" />
             <x-input-error class="mt-2" :messages="$errors->get('email')" />
-
-            {{-- @if ($user instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && ! $user->hasVerifiedEmail())
-                <div>
-                    <p class="text-sm mt-2 text-gray-800 dark:text-gray-200">
-                        {{ __('Seu endereço não foi verificado.') }}
-
-                        <button form="send-verification" class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800">
-                            {{ __('Clique aqui para reenviar a verificação de e-mail.') }}
-                        </button>
-                    </p>
-
-                    @if (session('status') === 'verification-link-sent')
-                        <p class="mt-2 font-medium text-sm text-green-600 dark:text-green-400">
-                            {{ __('Um novo link de verificação foi enviado para o seu e-mail.') }}
-                        </p>
-                    @endif
-                </div>
-            @endif --}}
         </div>
 
         <!-- Telefone -->
@@ -78,8 +40,7 @@
                 :value="old('telefone', $user->telefone ?? '')"
                 required
                 autofocus
-                autocomplete="tel"
-            />
+                autocomplete="tel" />
             <x-input-error class="mt-2" :messages="$errors->get('telefone')" />
         </div>
 
@@ -93,38 +54,37 @@
                 class="mt-1 block w-full"
                 :value="old('endereco', $user->endereco ?? '')"
                 required
-                autocomplete="street-address"
-            />
+                autocomplete="street-address" />
             <x-input-error class="mt-2" :messages="$errors->get('endereco')" />
         </div>
 
-  <!-- Setor (Dropdown) -->
-@php
-    $setoresFixos = ['Registro', 'Recepção', 'Financeiro', 'TI'];
-    $setorAtual = old('setor', $user->setor ?? '');
-@endphp
+        <!-- Setor (Dropdown) -->
+        @php
+        $setoresFixos = ['Registro', 'Recepção', 'Financeiro', 'TI'];
+        $setorAtual = old('setor', $user->setor ?? '');
+        @endphp
 
-<div>
-    <x-input-label for="setor" :value="__('Setor')" />
-    <select id="setor" name="setor"
-        class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-        required>
-        
-        <option value="" disabled {{ $setorAtual === '' ? 'selected' : '' }}>Selecione um setor</option>
+        <div>
+            <x-input-label for="setor" :value="__('Setor')" />
+            <select id="setor" name="setor"
+                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                required>
 
-        {{-- Se for um valor fora da lista, exibe como opção adicional no topo --}}
-        @if ($setorAtual && !in_array($setorAtual, $setoresFixos))
-            <option value="{{ $setorAtual }}" selected>{{ $setorAtual }} (atual)</option>
-        @endif
+                <option value="" disabled {{ $setorAtual === '' ? 'selected' : '' }}>Selecione um setor</option>
 
-        {{-- Lista fixa --}}
-        @foreach ($setoresFixos as $setor)
-            <option value="{{ $setor }}" {{ $setorAtual === $setor ? 'selected' : '' }}>{{ $setor }}</option>
-        @endforeach
-    </select>
+                {{-- Se for um valor fora da lista, exibe como opção adicional no topo --}}
+                @if ($setorAtual && !in_array($setorAtual, $setoresFixos))
+                <option value="{{ $setorAtual }}" selected>{{ $setorAtual }} (atual)</option>
+                @endif
 
-    <x-input-error class="mt-2" :messages="$errors->get('setor')" />
-</div>
+                {{-- Lista fixa --}}
+                @foreach ($setoresFixos as $setor)
+                <option value="{{ $setor }}" {{ $setorAtual === $setor ? 'selected' : '' }}>{{ $setor }}</option>
+                @endforeach
+            </select>
+
+            <x-input-error class="mt-2" :messages="$errors->get('setor')" />
+        </div>
 
 
 
@@ -132,13 +92,12 @@
             <x-primary-button>{{ __('Salvar') }}</x-primary-button>
 
             @if (session('status') === 'profile-updated')
-                <p
-                    x-data="{ show: true }"
-                    x-show="show"
-                    x-transition
-                    x-init="setTimeout(() => show = false, 2000)"
-                    class="text-sm text-gray-600 dark:text-gray-400"
-                >{{ __('Salvo.') }}</p>
+            <p
+                x-data="{ show: true }"
+                x-show="show"
+                x-transition
+                x-init="setTimeout(() => show = false, 2000)"
+                class="text-sm text-gray-600 dark:text-gray-400">{{ __('Salvo.') }}</p>
             @endif
         </div>
     </form>

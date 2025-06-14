@@ -55,9 +55,6 @@ Route::middleware(['auth'])->group(function () {
     // Sobre
     Route::get('/sobre', fn() => view('sobre.index'))->name('sobre.index');
 
-    // Contato
-    Route::get('/contato', fn() => view('contato.index'))->name('contato.index');
-
     Route::get('/protocolos/buscar/{numero_protocolo}', [ProtocoloController::class, 'buscarPorNumero'])->name('protocolos.buscar');
     Route::post('/protocolos/{numero_protocolo}/atualizar-data-retirada', [ProtocoloController::class, 'atualizarDataRetirada'])->name('protocolos.atualizarDataRetirada');
     Route::post('/protocolos/{numero_protocolo}/atualizar-data-cancelamento', [ProtocoloController::class, 'atualizarDataCancelamento'])->name('protocolos.atualizarDataCancelamento');
@@ -72,20 +69,3 @@ Route::middleware(['auth'])->group(function () {
 });
 
 require __DIR__ . '/auth.php';
-
-// teste de conexao do banco, depois remover
-use Illuminate\Support\Facades\DB;
-
-Route::get('/testar-conexao-db', function () {
-    try {
-        DB::connection()->getPdo(); // Tenta obter a conexão PDO
-        return 'Conexão com o banco de dados OK!';
-    } catch (\Exception $e) {
-        return 'Erro na conexão com o banco de dados: ' . $e->getMessage();
-    }
-});
-
-Route::post('/log-js-error', function (\Illuminate\Http\Request $request) {
-    Log::error('[JS ERROR] ' . json_encode($request->all()));
-    return response()->json(['ok' => true]);
-});

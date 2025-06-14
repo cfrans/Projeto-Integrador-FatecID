@@ -1,9 +1,8 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const form = document.querySelector('form'); // Assumindo que é o único <form> da página
+    const form = document.querySelector('form');
 
-    // Certifique-se que estes IDs existam apenas na tela de autenticação
     const campoValorPrincipal = document.getElementById('valor');
-    const campoValorPrevio = document.getElementById('autenticacao_valor_previo'); 
+    const campoValorPrevio = document.getElementById('autenticacao_valor_previo');
     const campoValorPago = document.getElementById('autenticacao_valor_pago');
     const campoTroco = document.getElementById('autenticacao_troco');
 
@@ -25,18 +24,18 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // --- Aplicar máscaras nos campos de VALOR DO ANDAMENTO ---
-    // Seleciona todos os campos de valor que possuem o atributo data-moeda (tanto os pré-existentes quanto os do template)
-    document.querySelectorAll('[data-moeda]').forEach(function(campo) {
+    // Seleciona todos os campos de valor que possuem o atributo data-moeda
+    document.querySelectorAll('[data-moeda]').forEach(function (campo) {
         // Aplica a máscara inicial apenas se o campo não for readonly
         if (!campo.readOnly) {
             aplicarMascaraMoeda(campo);
-            campo.addEventListener('input', function() {
+            campo.addEventListener('input', function () {
                 aplicarMascaraMoeda(this);
             });
         }
     });
 
-    // --- Lógica de Autenticação (manter se ainda for usada em alguma página) ---
+    // --- Lógica de Autenticação ---
     // Atribui event listeners apenas se os campos de autenticação existirem
     if (campoValorPrincipal) { // Verifica se pelo menos o campo principal existe
         campoValorPrincipal.addEventListener('input', () => {
@@ -62,18 +61,17 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    // --- Envio do Formulário (ajustado para múltiplos campos de valor) ---
+    // --- Envio do Formulário ---
     form?.addEventListener('submit', function (e) {
         e.preventDefault();
 
         // Desformata TODOS os campos de valor com data-moeda antes de enviar
-        document.querySelectorAll('[data-moeda]').forEach(function(campo) {
+        document.querySelectorAll('[data-moeda]').forEach(function (campo) {
             if (!campo.readOnly) { // Desformata apenas campos editáveis
                 campo.value = desformatarMoeda(campo.value);
             }
         });
 
-        // Desformata os campos de autenticação específicos se eles existirem
         if (campoValorPrincipal) campoValorPrincipal.value = desformatarMoeda(campoValorPrincipal.value);
         if (campoValorPago) campoValorPago.value = desformatarMoeda(campoValorPago.value);
         if (campoTroco) campoTroco.value = desformatarMoeda(campoTroco.value);

@@ -7,7 +7,6 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            {{-- Div para a mensagem de login (mantém sua sombra original se tiver) --}}
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-6">
                 <div class="p-6 text-gray-900">
                     {{ __("Você está logado como") }} {{ auth()->user()->usuario }}
@@ -16,7 +15,6 @@
 
             <div class="bg-white overflow-hidden shadow-lg sm:rounded-lg rounded-xl">
                 <div class="p-6 text-gray-900">
-                    {{-- Título da Tabela --}}
                     <h2 class="font-semibold text-xl text-gray-800 leading-tight mb-4">
                         {{ __('Últimos 5 Protocolos Registrados') }}
                     </h2>
